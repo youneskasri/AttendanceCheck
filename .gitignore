@@ -1,0 +1,11 @@
+# ignore packages installed by npm
+node_modules
+
+# ignore temp files
+*~
+
+# our secret keys
+.env*
+credentials.js
+lib/crypto.js
+log
