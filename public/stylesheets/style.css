@@ -1,0 +1,12 @@
+.btn, .page-link {
+	border-radius: 0 !important;
+}
+
+
+#preview {
+  width: 100%;
+}
+
+.day {
+  width: 40px;
+}

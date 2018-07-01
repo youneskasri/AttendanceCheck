@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Attendance Check</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-light text-dark">
+    {{> navbar}}
+  
+     <div class="container-fluid mt-4">
+        <div class="row">
+          <div class="col-7">
+              <div class="container-fluid">
+                {{> scanner/cameras}}
+                {{> scanner/last-attendances}}
+              </div>
+          </div>
+
+          <div class="col-5">
+            <h3 class="bg-dark text-light mb-0 pb-2 pt-1  text-center">Last person checked</h3>
+            <div class="card">
+                {{> scanner/last-person-pictures}}
+              <div class="card-body bg-light">         
+                {{> scanner/last-person-info}}
+              </div>
+            </div>
+          </div>
+      </div> 
+
+
+      <div class="d-none">
+          <h2>Cameras</h2>
+        <ul id="cameras">
+          
+        </ul>
+
+        <h2>Résultats</h2>
+          <ul id="resultats">
+            
+          </ul>
+      </div>
+
+    
+    {{> scripts}}
+
+    <script type="text/javascript" src="javascripts/codereader.js"></script>
+    <script type="text/javascript" src="javascripts/facecamera.js"></script>
+
+    <script>
+      /* Enable Tooltips */
+      $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+
+          let currentDay = "#" + "vendredi";
+          $(currentDay).addClass("border-top").addClass("border-success");
+      });
+    </script>
+
+  </body>
+</html>
