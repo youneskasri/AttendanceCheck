@@ -1,0 +1,70 @@
+<html>
+	<head>
+			<style>	
+		.booth {
+			width: 400px;
+			background-color: #ccc;
+		}
+	</style>
+	</head>
+
+
+<body>
+	
+
+
+	<video id="video" width="400" height="300" muted>
+	</video>
+
+<canvas id="canvas" width="400" height="300">
+</canvas>
+
+<img id="photo" src="" alt="">
+
+<a href="#" id="capturePhoto">Take a pic</a>
+
+
+<p id="p">	
+</p>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+	(function(){
+
+		let video = document.getElementById('video'),
+			canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d'),
+			photo = document.getElementById('photo'),
+			vendorUrl = window.URL || window.webkitURL;
+
+		navigator.getMedia = navigator.getUserMedia|| navigator.webkitGetUserMedia
+			|| navigator.mozGetUserMedia
+			|| navigator.mozGetUserMedia;
+
+		navigator.getMedia({
+			video: true, 
+			audio: false
+		}, function(stream){
+			video.src = vendorUrl.createObjectURL(stream);
+			video.play();
+		}, function(error){
+			// Error
+		});
+
+
+		document.getElementById('capturePhoto')
+			.addEventListener('click', function(){
+				context.drawImage(video, 0, 0, 400, 300);
+
+
+				document.getElementById('p').innerHTML = canvas.toDataURL('image/png');
+				
+				photo.setAttribute('src', canvas.toDataURL('image/png'));
+			});
+
+	})();
+</script>
+
+</body>
+</html>

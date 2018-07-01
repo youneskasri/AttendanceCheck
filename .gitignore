@@ -4,6 +4,10 @@ node_modules
 # ignore temp files
 *~
 
+#ignore images
+public/images
+
+
 # our secret keys
 .env*
 credentials.js

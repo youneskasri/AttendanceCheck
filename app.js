@@ -2,7 +2,8 @@ const express = require('express'),
 	https = require('https'),
 	path = require('path'),
 	fs = require('fs'),
-	logger = require('morgan');
+	logger = require('morgan'),
+	createError = require('http-errors');
 
 const indexRouter = require('./routes/index'),
 	usersRouter = require('./routes/users');
@@ -17,11 +18,16 @@ app.engine('.hbs', handlebars({ defaultLayout: null, extname: '.hbs' }))
 	.set("view engine", "hbs")
 	.use(express.static(__dirname + "/public"));
 
+/* Favicon */
+const favicon = require('express-favicon');
+app.use(favicon(__dirname + '/public/favicon.png'));
+
 app.use(logger('dev'));
 
 // JSON Parser, need it for AJAX
-app.use(bodyParser.json())
-	.use(bodyParser.urlencoded({ extended: false }))
+const bodyParser = require("body-parser");
+app.use(bodyParser.json({limit:1024*1024*20}))
+	.use(bodyParser.urlencoded({ extended: false, limit:1024*1024*20 }))
 	.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -48,6 +54,7 @@ app.use(function(req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 	// render the error page
 	res.status(err.status || 500);
+	console.log(err);
 	res.render('error');
 });
 
@@ -62,6 +69,31 @@ if (require.main === module){
 }
 
 
+
+function startServer(){
+	/* HTTPS ceritificate */
+	let options = {
+	  key: fs.readFileSync('./key.pem'),
+	  cert: fs.readFileSync('./certificate.crt')
+	}
+	/* Listen + affiche liste des routes (sans middlawares) */
+	let server = https.createServer(options, app).listen(app.get("port"), function(){
+		console.log("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");
+		/*
+		*	Liste des routes ( sans middlewares )
+		*/
+		showRoutesInConsole();
+		/*
+		*	Show an OS notification message
+		*/
+		if (app.get("env") === "development"){
+			const notifier = require('node-notifier');
+			notifier.notify("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");	
+		}
+	});	
+}
+
+/** Not working, need to adjust */
 function showRoutesInConsole(){
 	app._router.stack.forEach(function(r){
 		if (r.route){
@@ -75,21 +107,3 @@ function showRoutesInConsole(){
 		}
 	});
 };
-
-function startServer(){
-	/* Listen + affiche liste des routes (sans middlawares) */
-	server = http.createServer(app).listen(app.get("port"), function(){
-		console.log("Express started in "+ app.get("env") +" mode on http://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");
-		/*
-		*	Liste des routes ( sans middlewares )
-		*/
-		showRoutesInConsole();
-		/*
-		*	Show an OS notification message
-		*/
-		if (app.get("env") === "development"){
-			const notifier = require('node-notifier');
-			notifier.notify("Express started in "+ app.get("env") +" mode on http://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");	
-		}
-	});	
-}
