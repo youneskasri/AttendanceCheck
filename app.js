@@ -1,62 +1,30 @@
 const express = require('express'),
 	https = require('https'),
-	path = require('path'),
-	fs = require('fs'),
-	logger = require('morgan'),
 	createError = require('http-errors');
 
 /* App settings */
-const app = express();
-app.set("port", process.env.PORT || 8443)
+const app = express()
+	.set("port", process.env.PORT || 8443)
+	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
-
-/* View engine */
-const handlebars = require("express-handlebars");
-app.engine('.hbs', handlebars({ 
-	defaultLayout: null, extname: '.hbs' ,
-	helpers: {cond: require("handlebars-cond").cond}
-})).set("view engine", "hbs")
-	.use(express.static(__dirname + "/public"));
 
 /* Favicon */
 const favicon = require('express-favicon');
 app.use(favicon(__dirname + '/public/favicon.png'));
+/* View engine */
 
-// JSON Parser
-const bodyParser = require("body-parser");
-app.use(bodyParser.json({limit:1024*1024*20}))
-	.use(bodyParser.urlencoded({ extended: false, limit:1024*1024*20 }))
-	.use(express.static(path.join(__dirname, 'public')));
+const middlewaresFor = require("./libs/middlewares");
+middlewaresFor(app).setUpHandlebars() // View engine
+	.setUpJsonParser() // JSON Parser
+	.setUpSession() // Session
+	.setUpLogger() // Logger
+	.setUpRouters(); // Routes
 
-// Session
-const session = require("express-session");
-const credentials = require("./credentials");
-app.use(session({
-	secret: credentials.cookieSecret,
-	/* to remove deprecation warning see :
-	* https://github.com/expressjs/session#options before launch */
-	resave: false,
-	saveUninitialized: true
-}));
-
-// TODO for Dev and Prod */
-app.use(logger('dev'));
-
-/** Error Handler For DEV env */
+// only use in development 
 if ( app.get("env") === "development"){
-	if (process.env.NODE_ENV === 'development') {
-		const errorHandler = require("errorhandler");
-		// only use in development 
-		app.use(errorHandler());
-	}
+	let errorHandler = require("errorhandler")
+	app.use(errorHandler());
 }
-
-/* Routes */
-const indexRouter = require('./routes/index'),
-	usersRouter = require('./routes/users');
-app.use('/', indexRouter)
-	.use('/users', usersRouter);
-
 
 // catch 404 and error handler
 app.use(function(req, res, next) {
@@ -71,7 +39,8 @@ app.use(function(req, res, next) {
 	res.render('error');
 });
 
-
+// Defining some functions 
+let {startServer, showRoutesInConsole} = require("./libs/utils")(app);
 // Running the Server
 if (require.main === module){
 	// application run directly => start app server
@@ -83,40 +52,4 @@ if (require.main === module){
 
 
 
-function startServer(){
-	/* HTTPS ceritificate */
-	let options = {
-	  key: fs.readFileSync('./key.pem'),
-	  cert: fs.readFileSync('./certificate.crt')
-	}
-	/* Listen + affiche liste des routes (sans middlawares) */
-	let server = https.createServer(options, app).listen(app.get("port"), function(){
-		console.log("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");
-		/*
-		*	Liste des routes ( sans middlewares )
-		*/
-		showRoutesInConsole();
-		/*
-		*	Show an OS notification message
-		*/
-		if (app.get("env") === "development"){
-			const notifier = require('node-notifier');
-			notifier.notify("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");	
-		}
-	});	
-}
 
-/** Not working, need to adjust */
-function showRoutesInConsole(){
-	app._router.stack.forEach(function(r){
-		if (r.route){
-			//console.log(r.route);
-			let path = r.route.path;
-			let m = r.route.methods;
-			let methods="";
-			if (m.get) methods += "GET ";
-			if (m.post) methods += "POST";
-			console.log(methods+"\t"+path);
-		}
-	});
-};
