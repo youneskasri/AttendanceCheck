@@ -5,31 +5,42 @@ const express = require('express'),
 	logger = require('morgan'),
 	createError = require('http-errors');
 
-const indexRouter = require('./routes/index'),
-	usersRouter = require('./routes/users');
-
+/* App settings */
 const app = express();
-	app.set("port", process.env.PORT || 8443)
+app.set("port", process.env.PORT || 8443)
 	.disable("x-powered-by");
 
 /* View engine */
 const handlebars = require("express-handlebars");
-app.engine('.hbs', handlebars({ defaultLayout: null, extname: '.hbs' }))
-	.set("view engine", "hbs")
+app.engine('.hbs', handlebars({ 
+	defaultLayout: null, extname: '.hbs' ,
+	helpers: {cond: require("handlebars-cond").cond}
+})).set("view engine", "hbs")
 	.use(express.static(__dirname + "/public"));
 
 /* Favicon */
 const favicon = require('express-favicon');
 app.use(favicon(__dirname + '/public/favicon.png'));
 
-app.use(logger('dev'));
-
-// JSON Parser, need it for AJAX
+// JSON Parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json({limit:1024*1024*20}))
 	.use(bodyParser.urlencoded({ extended: false, limit:1024*1024*20 }))
 	.use(express.static(path.join(__dirname, 'public')));
 
+// Session
+const session = require("express-session");
+const credentials = require("./credentials");
+app.use(session({
+	secret: credentials.cookieSecret,
+	/* to remove deprecation warning see :
+	* https://github.com/expressjs/session#options before launch */
+	resave: false,
+	saveUninitialized: true
+}));
+
+// TODO for Dev and Prod */
+app.use(logger('dev'));
 
 /** Error Handler For DEV env */
 if ( app.get("env") === "development"){
@@ -39,8 +50,10 @@ if ( app.get("env") === "development"){
 		app.use(errorHandler());
 	}
 }
-	
 
+/* Routes */
+const indexRouter = require('./routes/index'),
+	usersRouter = require('./routes/users');
 app.use('/', indexRouter)
 	.use('/users', usersRouter);
 

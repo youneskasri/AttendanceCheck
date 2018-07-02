@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Employees</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-light text-dark">
+    {{> navbar}}
+  
+     <!-- Content -->
+     <div class="container-fluid mt-4">
+          <div class="container-fluid pb-3">
+            <div class="row">
+              <div class="col-2 text-center">
+                <h6>New employee</h6>
+                <div>
+                  <a class="btn btn-warning border rounded"  href=""
+                    ><i class="fas fa-3x fa-plus"></i></a>
+                </div>
+              </div>
+              <div class="col-10">
+                <h3 class="pb-3">Search for employees</h3>
+                <form action="/employees/search" method="GET">
+                  <input name="q" type="text" class="form-control" placeholder="Filter by name" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row p-0 m-0">
+          {{#each employees}}
+            <div class="col-3 p-2">
+              <div class="media border p-1">
+                <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                  <h5>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h5>
+                  <p>{{phoneNumber}}</p>
+                </div>
+              </div> 
+            </div>         
+          {{/each}}
+        </div>        
+      </div> 
+
+    {{> scripts}}
+
+  </body>
+
+  {{#cond myCondition '===' true}}
+    <script>alert('TRUE')</script>
+  {{else}}
+    <script>alert('FALSE')</script>
+  {{/cond}}
+</html>
