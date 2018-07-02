@@ -1,16 +1,15 @@
 module.exports = function(app){
 
+	const express = require("express"),
+		path = require('path');
+
 	return middlewares = {
 		setUpHandlebars: ()=>{
-			const handlebars = require("express-handlebars"),
-				path = require('path'),
-				express = require("express");
-
+			const handlebars = require("express-handlebars");
 			app.engine('.hbs', handlebars({ 
 				defaultLayout: null, extname: '.hbs' ,
 				helpers: {cond: require("handlebars-cond").cond}
-			})).set("view engine", "hbs")
-				.use(express.static(__dirname + "/public"));
+			})).set("view engine", "hbs");
 			return middlewares;
 		},
 

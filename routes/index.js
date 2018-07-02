@@ -10,23 +10,28 @@ const SimpleTTS = require("simpletts");
 const tts = new SimpleTTS();
 
 /* GET home page. */
-router.get('/', scanner)
+router.use((req, res, next)=>{
+	if (!req.session.volume) req.session.volume = 'ON';
+	res.locals.volume = req.session.volume;
+	next();
+}).get('/', scanner)
 .get('/employees', allEmployees)
 .get('/employees/search', searchEmployees)
-.post('/attendance', createAttendance);
-//.post('/volume', setVolume)
+.post('/attendance', createAttendance)
+.post('/volume', setVolume);
 
 
 function setVolume(req, res, next){
 
-	console.log("volume ====> " +req.body.volume);
 	req.session.volume = req.body.volume;
+	console.log("volume = " + req.session.volume);
+	if (req.session.volume === 'ON') textToSpeech("Volume ON");
 	return res.send({success: true, volume: req.session.volume});
 }
 
 
 function scanner(req, res, next) {
-  textToSpeech("Welcome ! The application has started");
+  if (req.session.volume === 'ON') textToSpeech("Welcome ! The application has started");
   return res.render('scanner');
 }
 
@@ -42,7 +47,7 @@ function allEmployees(req, res, next){
 
 	res.locals.employees = employees;
 	res.locals.myCondition = true;
-	textToSpeech("List of employees");
+	if (req.session.volume === 'ON') textToSpeech("List of employees");
 	return res.render("employees");
 }
 

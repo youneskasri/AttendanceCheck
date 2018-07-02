@@ -8,10 +8,10 @@ const app = express()
 	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
 
-/* Favicon */
+/* Favicon and public folder */
 const favicon = require('express-favicon');
+app.use(express.static(__dirname + "/public"))
 app.use(favicon(__dirname + '/public/favicon.png'));
-/* View engine */
 
 const middlewaresFor = require("./libs/middlewares");
 middlewaresFor(app).setUpHandlebars() // View engine
