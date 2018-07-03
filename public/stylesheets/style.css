@@ -1,6 +1,7 @@
-.btn, .page-link {
+.btn, .page-link, .modal-content, .modal-header, .modal-body, .form-control, .input-group-text, .input-group-prepend{
 	border-radius: 0 !important;
 }
+
 
 
 #preview {
@@ -10,3 +11,4 @@
 .day {
   width: 40px;
 }
+

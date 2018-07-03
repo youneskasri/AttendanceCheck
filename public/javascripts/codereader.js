@@ -1,6 +1,3 @@
-/* Front */
-const test = true;
-
 let scannerOptions = {
 	video: document.getElementById('preview'),
 	captureImage: false,
@@ -14,9 +11,9 @@ scanner.addListener('scan', handleScan);
 function handleScan(content){
 
   let faceImage = takePicture(); /* fct from facecamera.js */
-  if (test) alert("will send : "+content);
+  if (TEST) alert("will send : "+content);
   $.post("/attendance", {content, faceImage}, function(data, status){
-      if (test) alert("Data: " + data.text + "\nStatus: " + status);
+      if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
       updateTodaysPicture(faceImage);
   });
 } 

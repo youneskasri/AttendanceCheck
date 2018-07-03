@@ -1,8 +1,10 @@
 const express = require('express'),
 	router = express.Router(),
 	fs = require("fs"),
-	webp=require('webp-converter');
+	webp=require('webp-converter'),
+	mongoose = require("mongoose");
 
+const Employee = require("../models/employee");
 /*
 * Text To Speech 
 */
@@ -18,8 +20,30 @@ router.use((req, res, next)=>{
 .get('/employees', allEmployees)
 .get('/employees/search', searchEmployees)
 .post('/attendance', createAttendance)
-.post('/volume', setVolume);
 
+.post('/volume', setVolume)
+.post('/employees', createEmployee);
+
+
+function createEmployee(req, res, next){
+
+	Employee.create({
+		CIN: req.body.CIN,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		birthDate: new Date(req.body.birthDate),
+		phoneNumber: req.body.phoneNumber
+	})
+	.then(savedEmployee => {
+		console.log('Saved in DB: '.green + savedEmployee._id);
+		res.send({success: true, employee: savedEmployee});
+	})
+	.catch(err => {
+		console.log(err.message.red);
+		if (err.code === 11000) return res.send({error: err});
+		fs.write('log/'+Date.now()+'.log', err);
+	}); 
+}
 
 function setVolume(req, res, next){
 
@@ -35,20 +59,15 @@ function scanner(req, res, next) {
   return res.render('scanner');
 }
 
-
-	/* Fake data */ 
-	let employees = require("../seeds/employees")(10);
-
 function allEmployees(req, res, next){
-	
-	/* Fake data */ 
-//	let employees = require("../seeds/employees")(10);
-//	employees.forEach(emp => console.log(emp));
 
-	res.locals.employees = employees;
-	res.locals.myCondition = true;
-	if (req.session.volume === 'ON') textToSpeech("List of employees");
-	return res.render("employees");
+	Employee.find({}).sort({ _id: -1})
+	.exec((err, employees)=>{
+		if (err) return console.log(err);
+		res.locals.employees = employees;
+		if (req.session.volume === 'ON') textToSpeech("List of employees");
+		return res.render("employees");
+	});
 }
 
 function searchEmployees(req, res, next){
@@ -58,14 +77,17 @@ function searchEmployees(req, res, next){
 
 	console.log('query = ' +q); 
 
-	let filteredEmployees = employees
-		.filter(emp => (emp.firstName + ' ' + emp.lastName + ' ' + emp.CIN)
-						.toLowerCase().includes(q.toLowerCase()));
+	Employee.find({}).sort({ _id: -1 })
+	.exec((err, employees)=>{
+		let filteredEmployees = employees
+			.filter(emp => (emp.firstName + ' ' + emp.lastName + ' ' + emp.CIN)
+							.toLowerCase().includes(q.toLowerCase()));
 
-	res.locals.employees = filteredEmployees;
+		res.locals.employees = filteredEmployees;
 
-	textToSpeech("List of all employees");
-	return res.render("employees");	
+		textToSpeech("Search results");
+		return res.render("employees");	
+	});
 }
 
 function createAttendance(req, res, next){
@@ -89,7 +111,7 @@ function textToSpeech(text, res){
       console.log("Ok");
       res.end(text);
   }).catch((err) => {
-      console.log(err);
+      console.log(err.message.yellow);
   });
 }
 

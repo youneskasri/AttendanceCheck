@@ -1,3 +1,5 @@
+
+
 $("a#volume").click(function(evt){
 	evt.preventDefault();
 	
@@ -9,7 +11,7 @@ $("a#volume").click(function(evt){
 	$.post("/volume", {volume}, (data)=>{
 		if (data.success == true){ 
 			icon.toggleClass("fa-volume-up fa-volume-off");
-			alert("set volume = "+data.volume)
+			if (TEST) alert("set volume = "+data.volume)
 		}
 	}); 
 });

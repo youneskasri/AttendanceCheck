@@ -1,0 +1,45 @@
+<h6>New employee</h6>
+<div>
+  <button class="btn btn-warning border rounded"  
+  href="#" data-toggle="modal" data-target="#newEmployee">
+  <i class="fas fa-3x fa-plus"></i></button>
+</div>
+
+<!-- New Employee Modal -->
+<div class="modal" id="newEmployee">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary">Register an Employee <span id="newEmployeeMessage" class="ml-2"></span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form id="newEmployee" action="/employees" method="POST">
+
+            <input class="form-control border-bottom-0" type="text" placeholder="CIN" name="CIN" required/> 
+           
+           <input class="form-control  border-bottom-0" type="text" placeholder="First name" name="firstName" required/>
+            <input class="form-control  border-bottom-0" type="text" placeholder="Last name" name="lastName" required> 
+     
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Birth date</span>
+            </div>
+            <input class="form-control" type="text" placeholder="Day" name="day"/>
+            <input class="form-control" type="text" placeholder="Month" name="month">
+            <input class="form-control" type="text" placeholder="Year" name="year">
+          </div>
+          
+          <button class="btn btn-secondary btn-block mt-4 w-50 mx-auto">Next</button>
+        </form>
+      </div>
+      
+      
+    </div>
+  </div>
+</div>

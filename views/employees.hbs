@@ -14,14 +14,10 @@
           <div class="container-fluid pb-3">
             <div class="row">
               <div class="col-2 text-center">
-                <h6>New employee</h6>
-                <div>
-                  <a class="btn btn-warning border rounded"  href=""
-                    ><i class="fas fa-3x fa-plus"></i></a>
-                </div>
+                {{> employees/new}}
               </div>
               <div class="col-10">
-                <h3 class="pb-3">Search for employees</h3>
+                <h3 class="pb-3">Search for Employees</h3>
                 <form action="/employees/search" method="GET">
                   <input name="q" type="text" class="form-control" placeholder="Filter by name" />
                 </form>
@@ -31,11 +27,11 @@
           <hr>
           <div class="row p-0 m-0">
           {{#each employees}}
-            <div class="col-3 p-2">
+            <div class="employee col-3 p-2">
               <div class="media border p-1">
                 <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
                 <div class="media-body">
-                  <h5>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h5>
+                  <h6>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h6>
                   <p>{{phoneNumber}}</p>
                 </div>
               </div> 
@@ -46,11 +42,62 @@
 
     {{> scripts}}
 
+    <script>
+      
+        $("form#newEmployee").submit((evt)=>{
+          evt.preventDefault();
+          let CIN = $("input[name='CIN']").val();
+          let firstName = $("input[name='firstName']").val();
+          let lastName = $("input[name='lastName']").val();
+          let birthDate = $("input[name='year']").val()+
+            '-'+$("input[name='month']").val()+
+            '-'+$("input[name='day']").val();
+
+          $.post("/employees", {CIN: CIN, firstName: firstName, lastName: lastName, birthDate: birthDate})
+          .done(handleServerResponse);
+
+        });
+      
+
+      function handleServerResponse(data){    
+        if (data.error) {
+          if (data.error.code === 11000){
+            showErrorMessage("CIN already used! ");
+            $("input[name='CIN']").val('');
+          }
+        } else if (data.success){
+            appendNewEmployee(data.employee);
+            cleanInputFields();
+            $("input[name='CIN']").focus();
+            showSuccessMessage("Saved! ");
+        }
+      }
+
+      function appendNewEmployee(emp){
+        let innerHtml = $("empployee")[0].html();
+        innerHtml.replace // !!!!! I NEED TO APPEND this emp f LEWEL 
+      }
+
+      function showSuccessMessage(msg){
+        $( "#newEmployeeMessage").removeClass("text-danger").addClass("text-success")
+                  .text(msg).show().fadeOut( 1500 );
+      }
+
+      function showErrorMessage(msg){
+        $( "#newEmployeeMessage").removeClass("text-success").addClass("text-danger small")
+          .text(msg).show().fadeOut( 2500 );
+      }
+
+      function cleanInputFields(){
+        $("input[name='CIN']").val('');
+        $("input[name='firstName']").val('');
+        $("input[name='lastName']").val('');
+        $("input[name='year']").val('');
+        $("input[name='month']").val('');
+        $("input[name='day']").val('');
+      }
+
+    </script>
   </body>
 
-  {{#cond myCondition '===' true}}
-    <script>alert('TRUE')</script>
-  {{else}}
-    <script>alert('FALSE')</script>
-  {{/cond}}
 </html>

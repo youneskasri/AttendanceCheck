@@ -1,6 +1,17 @@
 const express = require('express'),
 	https = require('https'),
-	createError = require('http-errors');
+	createError = require('http-errors'),
+	mongoose = require('mongoose');
+
+const colors = require('colors');
+
+/* connect database */
+let mongooseOpts = { keepAlive: 120 };
+mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
+	.then(() => console.log(`Database connected`))
+	.catch(err => console.log(`Database connection error: ${err.message}`));
+
+//require("./seeds").insertRandomEmployees(20); // Seeds
 
 /* App settings */
 const app = express()
