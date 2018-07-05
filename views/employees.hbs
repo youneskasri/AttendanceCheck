@@ -25,7 +25,7 @@
             </div>
           </div>
           <hr>
-          <div class="row p-0 m-0">
+          <div class="row p-0 m-0" id="listOfEmployees">
           {{#each employees}}
             <div class="employee col-3 p-2">
               <div class="media border p-1">
@@ -40,11 +40,26 @@
         </div>        
       </div> 
 
+      <!-- Will be used in Front End -->
+      <div class="d-none" id="emptyEmployee">
+        <div class="employee col-3 p-2">
+              <div class="media border p-1">
+                <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                  <h6><span id="fullName">firstName lastName</span> <span id="CIN" class="font-italic">CIN</span></h6>
+                  <p id="phoneNumber">phoneNumber</p>
+                </div>
+              </div> 
+          </div> 
+      </div>
+
     {{> scripts}}
 
     <script>
       
+      /* Ajax POST Request To Create a new Employee */
         $("form#newEmployee").submit((evt)=>{
+          
           evt.preventDefault();
           let CIN = $("input[name='CIN']").val();
           let firstName = $("input[name='firstName']").val();
@@ -55,10 +70,9 @@
 
           $.post("/employees", {CIN: CIN, firstName: firstName, lastName: lastName, birthDate: birthDate})
           .done(handleServerResponse);
-
         });
       
-
+      /* Handle Ajax Response To Add Newly created Employee */  
       function handleServerResponse(data){    
         if (data.error) {
           if (data.error.code === 11000){
@@ -66,6 +80,7 @@
             $("input[name='CIN']").val('');
           }
         } else if (data.success){
+            console.log("Received employee : " + data.employee);
             appendNewEmployee(data.employee);
             cleanInputFields();
             $("input[name='CIN']").focus();
@@ -74,17 +89,22 @@
       }
 
       function appendNewEmployee(emp){
-        let innerHtml = $("empployee")[0].html();
-        innerHtml.replace // !!!!! I NEED TO APPEND this emp f LEWEL 
+        
+        $("#fullName").text(emp.firstName + ' ' + emp.lastName);
+        $("#CIN").text(emp.CIN);
+        $("#phoneNumber").text(emp.phoneNumber);
+
+        let htmlEmp = $("#emptyEmployee").html();
+        $("#listOfEmployees").prepend(htmlEmp);
       }
 
       function showSuccessMessage(msg){
-        $( "#newEmployeeMessage").removeClass("text-danger").addClass("text-success")
+        $( "#newEmployeeMessage").removeClass("text-danger d-none").addClass("text-success")
                   .text(msg).show().fadeOut( 1500 );
       }
 
       function showErrorMessage(msg){
-        $( "#newEmployeeMessage").removeClass("text-success").addClass("text-danger small")
+        $( "#newEmployeeMessage").removeClass("text-success d-none").addClass("text-danger small")
           .text(msg).show().fadeOut( 2500 );
       }
 
