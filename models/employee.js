@@ -7,6 +7,7 @@ let employeeSchema = mongoose.Schema({
 	lastName: String,
 	birthDate: Date,
 	phoneNumber: String,
+	profileImage: { type: mongoose.Schema.Types.ObjectId, ref: 'File'  },
 	attendances: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attendance' }]
 });
 

@@ -1,0 +1,22 @@
+{{#if employee}}
+
+{{test}}
+{{#each employee}}
+	<h1>Employee Info</h1>
+	{{_id}}
+	<p class="text-dark"><b>Fname</b> {{firstName}}</p>
+	<p><b>Lname</b> {{lastName}}</p>
+	<p><b>Phone</b> {{phoneNumber}}</p>
+	<p><b>Image</b> 
+	{{#if hasImage}}
+		<img src="{{employee.profileImage}}" alt="">
+	{{else}}
+		<img width="100" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="">
+	{{/if}}
+{{/each}}
+
+</p>
+
+{{else}}
+undefuned
+{{/if}}

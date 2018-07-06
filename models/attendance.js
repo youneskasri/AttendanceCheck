@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 let attendanceSchema = mongoose.Schema({
 	date: Date,
-	image: { data: Buffer, contentType: String }
+	image: { type: mongoose.Schema.Types.ObjectId, ref: 'File'  }
 });
 
-let Employee = mongoose.model("Employee", employeeSchema);
+let Attendance = mongoose.model("Attendance", attendanceSchema);
 
-module.exports = Employee;
+module.exports = Attendance;

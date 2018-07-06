@@ -19,7 +19,7 @@
               <div class="col-10">
                 <h3 class="pb-3">Search for Employees</h3>
                 <form action="/employees/search" method="GET">
-                  <input name="q" type="text" class="form-control" placeholder="Filter by name" />
+                  <input name="q" type="text" class="form-control" placeholder="Filter by name or CIN" />
                 </form>
               </div>
             </div>
@@ -31,8 +31,10 @@
               <div class="media border p-1">
                 <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
                 <div class="media-body">
-                  <h6>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h6>
-                  <p>{{phoneNumber}}</p>
+                  <a href="/employees/{{_id}}" class="text-dark">
+                    <h6>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h6>
+                  </a>
+                    <p>{{phoneNumber}}</p>
                 </div>
               </div> 
             </div>         
@@ -58,19 +60,20 @@
     <script>
       
       /* Ajax POST Request To Create a new Employee */
-        $("form#newEmployee").submit((evt)=>{
-          
-          evt.preventDefault();
-          let CIN = $("input[name='CIN']").val();
-          let firstName = $("input[name='firstName']").val();
-          let lastName = $("input[name='lastName']").val();
-          let birthDate = $("input[name='year']").val()+
-            '-'+$("input[name='month']").val()+
-            '-'+$("input[name='day']").val();
+      $("form#newEmployee").submit((evt)=>{
+        
+        evt.preventDefault();
+        let CIN = $("input[name='CIN']").val();
+        let firstName = $("input[name='firstName']").val();
+        let lastName = $("input[name='lastName']").val();
+        let birthDate = $("input[name='year']").val()+
+          '-'+$("input[name='month']").val()+
+          '-'+$("input[name='day']").val();
+        let phoneNumber = $("input[name='phoneNumber']").val();
 
-          $.post("/employees", {CIN: CIN, firstName: firstName, lastName: lastName, birthDate: birthDate})
-          .done(handleServerResponse);
-        });
+        $.post("/employees", {CIN, firstName, lastName, birthDate, phoneNumber})
+        .done(handleServerResponse);
+      });
       
       /* Handle Ajax Response To Add Newly created Employee */  
       function handleServerResponse(data){    

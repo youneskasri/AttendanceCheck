@@ -17,6 +17,7 @@ router.use((req, res, next)=>{
 	res.locals.volume = req.session.volume;
 	next();
 }).get('/', scanner)
+.get('/employees/:id', showEmployee)
 .get('/employees', allEmployees)
 .get('/employees/search', searchEmployees)
 .post('/attendance', createAttendance)
@@ -24,6 +25,17 @@ router.use((req, res, next)=>{
 .post('/volume', setVolume)
 .post('/employees', createEmployee);
 
+
+function showEmployee(req, res, next){
+	Employee.find({_id: req.params.id})
+	.exec((err, employee)=>{
+		if (err) return console.log(err);
+		res.locals.employee = employee;
+		res.locals.test = "TEST"
+		console.log("Found ".green + employee);
+		return res.render("show-employee");
+	});
+}
 
 function createEmployee(req, res, next){
 
@@ -65,6 +77,7 @@ function allEmployees(req, res, next){
 	.exec((err, employees)=>{
 		if (err) return console.log(err);
 		res.locals.employees = employees;
+		console.log(employees);
 		if (req.session.volume === 'ON') textToSpeech("List of employees");
 		return res.render("employees");
 	});
