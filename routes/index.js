@@ -131,10 +131,14 @@ function scanner(req, res, next) {
 function allEmployees(req, res, next){
 
 	Employee.find({}).sort({ _id: -1})
+	.populate('profileImage')
 	.exec((err, employees)=>{
 		if (err) return console.log(err);
 		res.locals.employees = employees;
-		console.log(employees);
+		console.log("Found employees".green);
+		console.log(employees.map(emp => {
+			return { CIN: emp.CIN, firstName: emp.firstName, lastName: emp.lastName}
+		}));
 		if (req.session.volume === 'ON') textToSpeech("List of employees");
 		return res.render("employees");
 	});

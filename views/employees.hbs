@@ -29,7 +29,13 @@
           {{#each employees}}
             <div class="employee col-3 p-2">
               <div class="media border p-1">
-                <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
+                
+                {{#if profileImage.data}}
+                  <img src="{{profileImage.data}}" alt="{{lastName}}" class="mr-3 m-1" style="width:60px;">
+                {{else}}
+                  <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" class="mr-3 m-1" style="width:60px; height: 45px;">
+                {{/if}}
+
                 <div class="media-body">
                   <a href="/employees/{{_id}}" class="text-dark">
                     <h6>{{firstName}} {{lastName}} <span><i>{{CIN}}</i></span></h6>

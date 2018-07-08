@@ -7,7 +7,7 @@
 	<p class="text-dark"><b>Fname</b> {{firstName}}</p>
 	<p><b>Lname</b> {{lastName}}</p>
 	<p><b>Phone</b> {{phoneNumber}}</p>
-	<p><b>Image</b> 
+
 	
 	
 	{{#if profileImage.data}}
@@ -16,11 +16,14 @@
 		<img class="img-fluid" id="empPicture" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="{{lastName}}">
 	{{/if}}
 
-
-	<button id="takePicture" data-toggle="modal" data-target="#takePictureModal">Take Picture</button>
+	<div style="width: 400px">
+		<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
+		<i class="fas fa-camera-retro"></i>
+		Take Picture</button>
+	</div>
+	
 {{/each}}
 
-</p>
 
 {{else}}
 undefuned
