@@ -12,9 +12,10 @@ function handleScan(content){
 
   let faceImage = takePicture(); /* fct from facecamera.js */
   if (TEST) alert("will send : "+content);
-  $.post("/attendance", {content, faceImage}, function(data, status){
-      if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
-      updateTodaysPicture(faceImage);
+  $.post("/attendance", {content, faceImage}, function(result, status){
+      //if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
+      updateTodaysPicture(result.todaysImage);
+      setLastPersonChecked(result.employee);
   });
 } 
 
@@ -39,6 +40,13 @@ function updateTodaysPicture(imageURL){
   $("#todaysPicture").attr("src", imageURL);
 }
 
+function setLastPersonChecked(employee){
+  $("#oldPicture").attr("src", employee.profileImage.data);
+  $("#CIN").text(employee.CIN);
+  $("#fullName").text(employee.firstName + ' ' + employee.lastName);
+  $("#birthDate").text(employee.birthDate);
+  $("#attendanceDate").text(new Date());
+}
 
 
 

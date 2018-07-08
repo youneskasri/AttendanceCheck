@@ -2,6 +2,9 @@ module.exports = function(app) {
 
 	const fs = require("fs");
 	const https = require("https");
+	
+	const SimpleTTS = require("simpletts");
+	const tts = new SimpleTTS();
 
 	/* I used obj to avoid using this b/c js has no block scope */
 	return obj = {
@@ -42,7 +45,19 @@ module.exports = function(app) {
 					notifier.notify("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");	
 				}
 			});	
+		},
+
+		textToSpeech: (text, res) => {
+			tts.read({ text })
+			.then(() => {
+				  if (!res) return;
+			  console.log("Ok");
+			  res.end(text);
+			}).catch((err) => {
+			  console.log(err.message.yellow);
+			});
 		}
+
 
 	};
 }
