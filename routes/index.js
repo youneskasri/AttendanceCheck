@@ -5,6 +5,8 @@ const express = require('express'),
 	mongoose = require("mongoose");
 
 const Employee = require("../models/employee");
+const File = require("../models/file");
+
 /*
 * Text To Speech 
 */
@@ -17,22 +19,56 @@ router.use((req, res, next)=>{
 	res.locals.volume = req.session.volume;
 	next();
 }).get('/', scanner)
-.get('/employees/:id', showEmployee)
-.get('/employees', allEmployees)
-.get('/employees/search', searchEmployees)
+.post('/volume', setVolume)
 .post('/attendance', createAttendance)
 
-.post('/volume', setVolume)
+
+.get('/employees/:id', showEmployee)
+.post('/employees/:id/profileImage', setProfileImage)
+.get('/employees', allEmployees)
+.get('/employees/search', searchEmployees)
 .post('/employees', createEmployee);
+
+
+function setProfileImage(req, res, next){
+
+	console.log("setProfileImage");
+	let file = req.body.image;	
+	File.create({
+		creationDate: new Date(),
+		contentType: 'image/*',
+		data: file
+	})
+	.then(createdFile => {
+		Employee.findByIdAndUpdate({ _id: req.body.idEmployee}, {profileImage: createdFile._id}, {new: true})
+		.populate("profileImage")
+		.exec((err, employee) => {
+			if (err) return console.log(err);
+			console.log("emp with image".green + employee)
+			let image = employee.profileImage;
+			return res.send({ success: true, image });
+		});
+	})
+	.then(()=>{
+		File.find
+	})
+	.catch(err => {
+		console.log(err.message.red);
+		fs.write('./log/'+Date.now()+'.log', err);
+	});
+}
 
 
 function showEmployee(req, res, next){
 	Employee.find({_id: req.params.id})
+	.populate('profileImage')
 	.exec((err, employee)=>{
 		if (err) return console.log(err);
+		if (employee.profileImage)
+			employee.hasImage = true;
+
 		res.locals.employee = employee;
-		res.locals.test = "TEST"
-		console.log("Found ".green + employee);
+		console.log("Found ".green + employee.firstName);
 		return res.render("show-employee");
 	});
 }

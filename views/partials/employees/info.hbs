@@ -3,16 +3,21 @@
 {{test}}
 {{#each employee}}
 	<h1>Employee Info</h1>
-	{{_id}}
+	<input type="hidden" value="{{_id}}" name="idEmp"/>
 	<p class="text-dark"><b>Fname</b> {{firstName}}</p>
 	<p><b>Lname</b> {{lastName}}</p>
 	<p><b>Phone</b> {{phoneNumber}}</p>
 	<p><b>Image</b> 
-	{{#if hasImage}}
-		<img src="{{employee.profileImage}}" alt="">
+	
+	
+	{{#if profileImage.data}}
+		<img class="img-fluid" src="{{profileImage.data}}" alt="{{lastName}}" id="empPicture">
 	{{else}}
-		<img width="100" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="">
+		<img class="img-fluid" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="{{lastName}}">
 	{{/if}}
+
+
+	<button id="takePicture" data-toggle="modal" data-target="#takePictureModal">Take Picture</button>
 {{/each}}
 
 </p>

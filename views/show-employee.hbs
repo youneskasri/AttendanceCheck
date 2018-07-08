@@ -35,6 +35,50 @@
           $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    
+
+<div class="modal" id="takePictureModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+         <h3>Set a new profile iamge</h3>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <video id="faceVideo" width="100%" muted>Video stream not available.</video>
+        
+        <button id="savePicture" class="btn btn-dark">Save</button>
+  
+
+
+         <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
+            data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
+
+          <img src=""  width="200" id="todaysPicture" alt=""/>
+        
+        <script src="/javascripts/facecamera.js"></script>
+        <script>
+          $("#savePicture").click((evt)=>{
+            console.log('savePicture');
+            let image = takePicture();
+            let idEmployee = $("input[name='idEmp']").val();
+            let url = '/employees/'+  idEmployee +'/profileImage'; 
+            $.post(url, { image, idEmployee }).done(function(result){
+              console.log(result.image.data.toString());
+              result.success || true ? $("#empPicture").attr("src", result.image.data.toString())
+              : console.log(result);
+            });
+          });
+        </script>
+      </div>
+
+    </div>
+  </div>
+</div>
 
   </body>
 </html>
