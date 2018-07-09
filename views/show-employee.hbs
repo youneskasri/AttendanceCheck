@@ -43,7 +43,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-         <h3>Set a new profile iamge</h3>
+         <h3>Set a new profile image</h3>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -81,6 +81,30 @@
     </div>
   </div>
 </div>
+
+
+
+<script>
+  $(document).ready(()=>{
+    $("button.showAttendance").click(evt => {
+      evt.preventDefault();
+
+      let url = $(evt.target).find("span.url").text();
+      console.log(url);
+      $.get(url).done( function (data){
+        showAttendanceModal(data.attendance);
+      }); 
+     
+    });
+  });
+
+  function showAttendanceModal(attendance){
+    $("#attendanceDate").val(attendance.date);
+    $("#attendanceImage").attr("src",attendance.faceImage.data);
+
+    $("#showAttendanceModal").modal("show");
+  }
+</script>
 
   </body>
 </html>

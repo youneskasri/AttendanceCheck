@@ -7,7 +7,7 @@ const textToSpeech = require('../libs/utils')().textToSpeech;
 
 const Employee = require("../models/employee");
 const File = require("../models/file");
-
+const Attendance = require("../models/attendance");
 
 router.get('/', allEmployees)
 	.get('/search', searchEmployees)
@@ -73,9 +73,10 @@ function deleteOldImageIfExists(oldEmployee){
 	}	
 }
 
-function findEmployeeById(id, populateImage){
+function findEmployeeById(id, populateImage, populateAttendances){
 	let query = Employee.findById({ _id: id});
 	if (populateImage) query = query.populate('profileImage');
+	if (populateAttendances) query = query.populate('attendances');
 	return query.exec(); // promise
 }
 
@@ -88,15 +89,22 @@ function findEmployeeThenSendImage(res, id){
 }
 
 function showEmployee(req, res, next){
-	Employee.find({_id: req.params.id})
-	.populate('profileImage')
-	.exec((err, employee)=>{
-		if (err) return console.log(err);
-
+	findEmployeeById(req.params.id, true, true)
+	.then(employee => {
+		Attendance.find({CIN: employee.CIN})
+		.sort({_id: -1})//.populate('faceImage')
+		.exec()
+		.then(attendances => {
+			console.log(attendances[0].date);
+			employee.attendances = attendances;
+		})
+		.catch(printError);
+		
 		res.locals.employee = employee;
-		textToSpeech(employee[0].firstName + "'s profile");
+		textToSpeech(employee.firstName + "'s profile");
 		return res.render("show-employee");
-	});
+	})
+	.catch(printError);
 }
 
 function createEmployee(req, res, next){

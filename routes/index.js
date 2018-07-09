@@ -22,6 +22,7 @@ router.use((req, res, next)=>{
 	next();
 }).get('/', scanner)
 .post('/volume', setVolume)
+.get('/attendances/:id', showAttendance)
 .post('/attendance', createAttendance);
 
 
@@ -37,6 +38,14 @@ function setVolume(req, res, next){
 function scanner(req, res, next) {
   if (req.session.volume === 'ON') textToSpeech("Welcome ! The application has started");
   return res.render('scanner');
+}
+
+function showAttendance(req, res, next){
+	Attendance.findById(req.params.id)
+	.populate('faceImage').exec()
+	.then(attendance => {
+		res.send({ attendance });
+	}).catch(printError);
 }
 
 function createAttendance(req, res, next){
@@ -67,12 +76,14 @@ function createAttendance(req, res, next){
 		}).then(file => {
 			/* Register attendance */
 			Attendance.create({
+				CIN: employee.CIN,
 				date: new Date(),
 				faceImage: file._id
 			}).then(attendance => {
-				employee.attendances.push(attendance._id);
+/*				employee.attendances.push(attendance._id);
+				Employee.update(employee);*/
 				textToSpeech("Welcome " + employee.firstName);
-				return res.send({ employee, todaysImage: file.data})
+				return res.send({ attendance, employee, todaysImage: file.data})
 			}).catch(printError);
 		}).catch(printError);
 	}).catch(printError);

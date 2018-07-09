@@ -1,28 +1,27 @@
 {{#if employee}}
 
-{{test}}
-{{#each employee}}
 	<h1>Employee Info</h1>
-	<input type="hidden" value="{{_id}}" name="idEmp"/>
-	<p class="text-dark"><b>Fname</b> {{firstName}}</p>
-	<p><b>Lname</b> {{lastName}}</p>
-	<p><b>Phone</b> {{phoneNumber}}</p>
+	<input type="hidden" value="{{employee._id}}" name="idEmp"/>
+	<p class="text-dark"><b>Fname</b> {{employee.firstName}}</p>
+	<p><b>Lname</b> {{employee.lastName}}</p>
+	<p><b>Phone</b> {{employee.phoneNumber}}</p>
 
 	
-	
-	{{#if profileImage.data}}
-		<img class="img-fluid" src="{{profileImage.data}}" alt="{{lastName}}" id="empPicture">
+	<div class="w-50">
+	{{#if employee.profileImage.data}}
+		<img class="img-fluid" src="{{employee.profileImage.data}}" alt="{{employee.lastName}}" id="empPicture">
 	{{else}}
-		<img class="img-fluid" id="empPicture" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="{{lastName}}">
+		<img class="img-fluid" id="empPicture" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="{{employee.lastName}}">
 	{{/if}}
+	</div>
 
-	<div style="width: 400px">
+	<div style="width: 155px">
 		<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
 		<i class="fas fa-camera-retro"></i>
 		Take Picture</button>
 	</div>
 	
-{{/each}}
+
 
 
 {{else}}
