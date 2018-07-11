@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Cards</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-light text-dark">
+    {{> navbar}}
+  
+     <!-- Content -->
+     <div class="container-fluid mt-4">
+          <div class="container-fluid pb-3">
+            <div class="row">
+              <div class="col-10">
+                <h3 class="pb-3">Search for An Employee Card</h3>
+                <form action="/employees/cards/search" method="GET">
+                  <input name="q" type="text" class="form-control" placeholder="Filter by name or CIN" />
+                </form>
+              </div>
+              <div class="col-2 pt-3 pl-3 ">
+                  <button id="printPage" class="float-right btn btn-warning border text-dark"  
+                  href="#""><i class="fas fa-3x fa-print"></i></button>
+
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row p-0 m-0" id="listOfEmployees">
+          {{#each employees}}
+            <div class="employee col-lg-4 col-md-6 p-2">
+              <div class="media border p-1">
+ 
+                <span class="qrCode">
+                  {{ CIN }}
+                </span>
+                <div class="media-body w-75">
+<!--                   <a href="/employees/{{_id}}" class="text-dark"> -->
+                    <div><label class="font-weight-bold"> First name</label> {{firstName}}</div>
+                    <div><label class="font-weight-bold"> Last name</label> {{lastName}}</div>
+                    <div><label class="font-weight-bold"> CIN</label> {{CIN}}</div>
+                    <div><label class="font-weight-bold"> Phone</label> {{phoneNumber}}</div>
+ 
+                </div>
+                {{#if profileImage.data}}
+                  <img src="{{profileImage.data}}" alt="{{lastName}}" class="mr-3 m-1 w-25">
+                {{else}}
+                  <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" class="mr-3 m-1">
+                {{/if}} 
+              </div> 
+            </div>        
+          {{/each}}
+        </div>        
+      </div> 
+
+    {{> scripts}}
+    <script type="text/javascript" src="/javascripts/qrcode.js"></script>
+  </body>
+
+
+  <script>
+    document.querySelectorAll(".qrCode").forEach(span => {
+      let CIN = span.innerHTML.trim();
+      let qr = qrcode(1, 'L');
+      qr.addData(CIN);
+      qr.make();
+      span.innerHTML = qr.createImgTag(4);
+    });
+    
+    $("button#printPage").click(()=>{
+      window.print();
+    });
+
+  </script>
+
+</html>

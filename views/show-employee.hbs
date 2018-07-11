@@ -28,7 +28,7 @@
       </div> 
 
     {{> scripts}}
-
+  
     <script>
       /* Enable Tooltips */
       $(document).ready(function(){
@@ -85,6 +85,19 @@
 
 
 <script>
+
+  function printElementById(id) {
+    var e = document.getElementById(id);
+    var ifr = document.createElement('iframe');
+    ifr.style='height: 0px; width: 0px; position: absolute'
+    document.body.appendChild(ifr);
+
+    $(e).clone().appendTo(ifr.contentDocument.body);
+    ifr.contentWindow.print();
+
+    ifr.parentElement.removeChild(ifr);
+  }
+
   $(document).ready(()=>{
     $("button.showAttendance").click(evt => {
       evt.preventDefault();
@@ -96,6 +109,11 @@
       }); 
      
     });
+
+    $("button#printEmployeeCard").click(evt => {
+      printElementById('employeeCard');
+    });
+
   });
 
   function showAttendanceModal(attendance){
@@ -104,7 +122,10 @@
 
     $("#showAttendanceModal").modal("show");
   }
+
 </script>
+
+
 
   </body>
 </html>

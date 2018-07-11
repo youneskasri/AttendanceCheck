@@ -12,3 +12,8 @@
   width: 40px;
 }
 
+#employeeCard {
+	width: 400px;
+	height: 250px;
+	background-image:  url("/images/employee-card-bg.png") !important;
+}
