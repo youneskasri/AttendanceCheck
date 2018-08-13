@@ -9,14 +9,19 @@
             <th>Attendance date</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {{#each lastAttendances}}
-          <tr>
-            <td>{{ CIN }}</td>
-            <td>{{ employee.firstName }} {{ employee.lastName}}</td>
-            <td>{{ date }}</td>
+          <tr class="attendanceRow">
+            <td class="CIN">{{ CIN }}</td>
+            <td class="fullName">{{ employee.firstName }} {{ employee.lastName}}</td>
+            <td class="date">{{ date }}</td>
           </tr>
           {{/each}}
+         <tr class="attendanceRow">
+            <td class="CIN"></td>
+            <td class="fullName"></td>
+            <td class="date"></td>
+          </tr>
         </tbody>
       </table>
       <!-- Center-aligned -->
@@ -26,3 +31,4 @@
 
   </div>
 </div>
+

@@ -1,11 +1,15 @@
 {{#if employee}}
   <div id="lastPersonChecked">
-  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">{{employee.firstName}} {{employee.lastName}}</a></h4>
-  <p class="card-text"><span id="CIN">{{ employee.CIN }}</span> Né(e) le <span id="birthDate" class="text-dark">{{ employee.birthDate }}</span></p>
+  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">{{employee.firstName}} {{employee.lastName}}
+   <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary">{{ employee.CIN }}</span></small>
+  </a></h4>
+  <h5>
+    
+  </h5>
   {{#if lastPersonChecked }}                 
-      <h5 class="text-secondary" id="attendanceDate">{{ lastPersonChecked.date }}<i class="far fa-calendar-check text-success"></i></h5>
+      <h5 class="text-secondary" id="attendanceDate"><span class="text-dark">Présent le </span> {{ lastPersonChecked.date }}<i class="far fa-calendar-check text-success"></i></h5>
   {{/if}}
-  <p class="card-text">Présence cette semaine</p>
+  <p class="card-text">Présence cette semaine TODO</p>
   <div class="container-fluid">
     <div class="row text-center">
       <div id="lundi" class="day">Lu

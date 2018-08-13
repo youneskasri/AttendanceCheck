@@ -22,28 +22,14 @@ function handleScan(content){
       } else {
         updateTodaysPicture(result.todaysImage);
         setLastPersonChecked(result.employee);
+        appendAttendanceToTable(result.attendance, result.employee);
       }
   }).fail(result => {
-    console.log(err);
+    console.log(result);
     alert("jQuery Error");
   });
 } 
 
-
-Instascan.Camera.getCameras()
-  .then(function (cameras) {
-    /* Liste des caméras */
-    cameras.map( (cam) => {
-      let camName = cam && cam.name ? cam.name : 'Activate the Web Cam in your Browser then <a href=""> Refresh the page </a>';
-      document.getElementById("cameras").innerHTML += '<li>'+ camName +'</li>';
-    });
-    /* Utiliser une camera */
-    if (cameras.length > 0) 
-      scanner.start(cameras[0]);
-    else 
-      console.error('No cameras found.');
-  })
-  .catch( (e) => console.error(e) );
 
 
 function updateTodaysPicture(imageURL){
@@ -65,8 +51,33 @@ function setLastPersonChecked(employee){
   $("#attendanceDate").text(new Date());
 }
 
-//$("#lastPersonChecked").hide(); // NO NEED FOR THAT B/C i'll load him from DB 
+function appendAttendanceToTable( attendance, employee){
+  
+  let $lastRow = $("tr.attendanceRow:nth-child(3)");
+  $lastRow.remove();
 
+  let $newRow = $(".attendanceRow:first-child").clone();
+    $newRow.find(".CIN").text(employee.CIN);
+    $newRow.find(".fullName").text(employee.firstName+' '+employee.lastName);
+    $newRow.find(".date").text(attendance.date);
+
+  $("table tbody").prepend($newRow);
+}
+
+Instascan.Camera.getCameras()
+  .then(function (cameras) {
+    /* Liste des caméras */
+    cameras.map( (cam) => {
+      let camName = cam && cam.name ? cam.name : 'Activate the Web Cam in your Browser then <a href=""> Refresh the page </a>';
+      document.getElementById("cameras").innerHTML += '<li>'+ camName +'</li>';
+    });
+    /* Utiliser une camera */
+    if (cameras.length > 0) 
+      scanner.start(cameras[0]);
+    else 
+      console.error('No cameras found.');
+  })
+  .catch( (e) => console.error(e) );
 
 
 
