@@ -57,9 +57,12 @@ function appendAttendanceToTable( attendance, employee){
   $lastRow.remove();
 
   let $newRow = $(".attendanceRow:first-child").clone();
-    $newRow.find(".CIN").text(employee.CIN);
-    $newRow.find(".fullName").text(employee.firstName+' '+employee.lastName);
-    $newRow.find(".date").text(attendance.date);
+    $newRow.find("a.CIN").text(employee.CIN)
+      .attr("href", "/employees/"+employee._id);
+    $newRow.find("a.fullName").text(employee.firstName+' '+employee.lastName)
+      .attr("href", "/employees/"+employee._id);
+    $newRow.find("a.date").text(attendance.date)
+      .attr("href", "/employees/"+employee._id);
 
   $("table tbody").prepend($newRow);
 }

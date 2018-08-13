@@ -6,21 +6,29 @@
           <tr>
             <th>CIN</th>
             <th>Full name</th>
-            <th>Attendance date</th>
+            <th>Attendance date</th>       
           </tr>
         </thead>
         <tbody >
           {{#each lastAttendances}}
           <tr class="attendanceRow">
-            <td class="CIN">{{ CIN }}</td>
-            <td class="fullName">{{ employee.firstName }} {{ employee.lastName}}</td>
-            <td class="date">{{ date }}</td>
+              <td class="CIN">
+                <a href="/employees/{{employee._id}}" class="CIN text-secondary">
+                {{ CIN }}
+                </a>
+              </td>
+              <td>
+                <a href="/employees/{{employee._id}}" class="fullName text-secondary">
+                  {{ employee.firstName }} {{ employee.lastName}}
+                </a>
+              </td>
+              <td><a href="/employees/{{employee._id}}" class="date text-secondary">{{ date }}</a></td>  
           </tr>
           {{/each}}
          <tr class="attendanceRow">
-            <td class="CIN"></td>
-            <td class="fullName"></td>
-            <td class="date"></td>
+            <td><a href="" class="CIN text-secondary"></a></td>
+            <td><a href="" class="fullName text-secondary"></a></td>
+            <td><a href="" class="date text-secondary"></a></td>
           </tr>
         </tbody>
       </table>
