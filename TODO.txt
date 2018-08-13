@@ -1,0 +1,66 @@
+- Handle Errors for Ajax Calls (200), and Ajax Error (POST, GET, .. => .fail() )
+
+- Chof fl Backend, o passé # error: {stack, message}
+
+- When jbed data dial Employee li t scanna : Last Person Checked
+	===> <Link> vers son profil
+
+
+
+- Load last attendances and Last person checked from Database : route = "/"
+	[] FILL last person checked data
+	[] Fill 3 last attendances person name data
+
+Test Picture => 
+	MAJ Last Attendances
+
+
+History of attendances :
+
+Last Week
+Mardi :
+-
+-
+-
+-
+-
+
+Lundi :
+-
+-
+-
+-
+-
+
+Search attendance by Date
+-
+-
+-
+-
+-
+-
+-
+-
+
+
+
+## TEST A AUTOMATISER #
+
+all employees
+search employees
+create emp
+show emp
+take picture
+
+all cards
+search cards
+
+index :
+	with no data => Last Person Checked = John Doe
+	
+test picture => new attendance 
+	=> verifier que tzadet f 3 last attendances 
+	& last person checked
+	& the users profile
+
+

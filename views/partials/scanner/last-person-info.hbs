@@ -1,36 +1,81 @@
-<h4 class="card-title" id="fullName">John Doe</h4>
-<p class="card-text"><span id="CIN">AD213583</span> Né(e) le <span id="birthDate" class="text-dark">25/10/1996</span></p>                 
-<h5 class="text-secondary" id="attendanceDate">Lundi 24 juillet 2018 à 18:56 <i class="far fa-calendar-check text-success"></i></h5>
-<p class="card-text">Présence cette semaine</p>
-<div class="container-fluid">
-  <div class="row text-center">
-    <div id="lundi" class="day">Lu
-      <br>
-      <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
-    </div>
-    <div id="mardi" class="day">Ma
-      <br>
-      <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
-    </div>
-    <div id="mercredi" class="day">Mer
-      <br>
-      <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
-    </div>
-    <div id="jeudi" class="day">Je
-      <br>
-      <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
-    </div>
-    <div id="vendredi" class="day">Ve
-      <br>
-      <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
-    </div>
-    <div id="samedi" class="day">Sa
-      <br>
-      <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
-    </div>
-    <div id="dimanche" class="day">Di
-      <br>
-      <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+{{#if employee}}
+  <div id="lastPersonChecked">
+  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">{{employee.firstName}} {{employee.lastName}}</a></h4>
+  <p class="card-text"><span id="CIN">{{ employee.CIN }}</span> Né(e) le <span id="birthDate" class="text-dark">{{ employee.birthDate }}</span></p>
+  {{#if lastPersonChecked }}                 
+      <h5 class="text-secondary" id="attendanceDate">{{ lastPersonChecked.date }}<i class="far fa-calendar-check text-success"></i></h5>
+  {{/if}}
+  <p class="card-text">Présence cette semaine</p>
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div id="lundi" class="day">Lu
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="mardi" class="day">Ma
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="mercredi" class="day">Mer
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="jeudi" class="day">Je
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="vendredi" class="day">Ve
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="samedi" class="day">Sa
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="dimanche" class="day">Di
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
     </div>
   </div>
-</div>
+  </div>
+{{else}}
+  <div id="lastPersonChecked">
+  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">John Doe</a></h4>
+  <p class="card-text"><span id="CIN">AD213583</span> Né(e) le <span id="birthDate" class="text-dark">25/10/1996</span></p>                 
+  <h5 class="text-secondary" id="attendanceDate">Lundi 24 juillet 2018 à 18:56 <i class="far fa-calendar-check text-success"></i></h5>
+  <p class="card-text">Présence cette semaine</p>
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div id="lundi" class="day">Lu
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="mardi" class="day">Ma
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="mercredi" class="day">Mer
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="jeudi" class="day">Je
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="vendredi" class="day">Ve
+        <br>
+        <span class="border text-success font-weight-bold pl-1 pr-1">P</span>
+      </div>
+      <div id="samedi" class="day">Sa
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+      <div id="dimanche" class="day">Di
+        <br>
+        <span class="border text-light font-weight-bold pl-1 pr-1">A</span>
+      </div>
+    </div>
+  </div>
+  </div>
+{{/if }}

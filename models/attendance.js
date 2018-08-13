@@ -8,4 +8,13 @@ let attendanceSchema = mongoose.Schema({
 
 let Attendance = mongoose.model("Attendance", attendanceSchema);
 
+
+Attendance.findLastAttendances = (n) => {
+	return Attendance.find({}).sort({date: -1}).limit(n).exec();
+}
+
+Attendance.findLastAttendance = () => {
+	return Attendance.findOne().sort({date: -1}).populate('faceImage').exec()
+}
+
 module.exports = Attendance;

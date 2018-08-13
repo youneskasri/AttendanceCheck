@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
 	.then(() => console.log(`Database connected`))
 	.catch(err => console.log(`Database connection error: ${err.message}`));
 
-//require("./seeds").insertRandomEmployees(10); // Seeds
+require("./seeds").insertRandomEmployees(10); // Seeds
 
 /* App settings */
 const app = express()

@@ -24,6 +24,9 @@
               </div>
             </div>
           </div>
+          {{#if query }}
+              <h5 class="text-center">Search result for : <span class="text-success">{{ query }}</span></h5>
+          {{/if}}
           <hr>
           <div class="row p-0 m-0" id="listOfEmployees">
           {{#each employees}}
@@ -52,9 +55,11 @@
       <div class="d-none" id="emptyEmployee">
         <div class="employee col-3 p-2">
               <div class="media border p-1">
-                <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
+                <img id="img" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
                 <div class="media-body">
+                  <a id="link" href="/employees/_id" class="text-dark">
                   <h6><span id="fullName">firstName lastName</span> <span id="CIN" class="font-italic">CIN</span></h6>
+                  </a>
                   <p id="phoneNumber">phoneNumber</p>
                 </div>
               </div> 
@@ -63,70 +68,8 @@
 
     {{> scripts}}
     
-    <script>
-      
-      /* Ajax POST Request To Create a new Employee */
-      $("form#newEmployee").submit((evt)=>{
-        
-        evt.preventDefault();
-        let CIN = $("input[name='CIN']").val();
-        let firstName = $("input[name='firstName']").val();
-        let lastName = $("input[name='lastName']").val();
-        let birthDate = $("input[name='year']").val()+
-          '-'+$("input[name='month']").val()+
-          '-'+$("input[name='day']").val();
-        let phoneNumber = $("input[name='phoneNumber']").val();
-
-        $.post("/employees", {CIN, firstName, lastName, birthDate, phoneNumber})
-        .done(handleServerResponse);
-      });
-      
-      /* Handle Ajax Response To Add Newly created Employee */  
-      function handleServerResponse(data){    
-        if (data.error) {
-          if (data.error.code === 11000){
-            showErrorMessage("CIN already used! ");
-            $("input[name='CIN']").val('');
-          }
-        } else if (data.success){
-            console.log("Received employee : " + data.employee);
-            appendNewEmployee(data.employee);
-            cleanInputFields();
-            $("input[name='CIN']").focus();
-            showSuccessMessage("Saved! ");
-        }
-      }
-
-      function appendNewEmployee(emp){
-        
-        $("#fullName").text(emp.firstName + ' ' + emp.lastName);
-        $("#CIN").text(emp.CIN);
-        $("#phoneNumber").text(emp.phoneNumber);
-
-        let htmlEmp = $("#emptyEmployee").html();
-        $("#listOfEmployees").prepend(htmlEmp);
-      }
-
-      function showSuccessMessage(msg){
-        $( "#newEmployeeMessage").removeClass("text-danger d-none").addClass("text-success")
-                  .text(msg).show().fadeOut( 1500 );
-      }
-
-      function showErrorMessage(msg){
-        $( "#newEmployeeMessage").removeClass("text-success d-none").addClass("text-danger small")
-          .text(msg).show().fadeOut( 2500 );
-      }
-
-      function cleanInputFields(){
-        $("input[name='CIN']").val('');
-        $("input[name='firstName']").val('');
-        $("input[name='lastName']").val('');
-        $("input[name='year']").val('');
-        $("input[name='month']").val('');
-        $("input[name='day']").val('');
-      }
-
-    </script>
+    <!-- Script :  NEW Employee -->
+    <script src="/javascripts/create-new-employee.js"></script>
   </body>
 
 </html>

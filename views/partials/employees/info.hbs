@@ -2,10 +2,10 @@
 
 	<h1>Employee Info</h1>
 	<input type="hidden" value="{{employee._id}}" name="idEmp"/>
-	<p class="text-dark"><b>Fname</b> {{employee.firstName}}</p>
-	<p><b>Lname</b> {{employee.lastName}}</p>
+	<p class="text-dark"><b>First name</b> {{employee.firstName}}</p>
+	<p><b>Last name</b> {{employee.lastName}}</p>
 	<p><b>Phone</b> {{employee.phoneNumber}}</p>
-
+	<p><b>Birth Date</b> {{employee.birthDate}}</p>
 	
 	<div class="w-50">
 	{{#if employee.profileImage.data}}

@@ -1,15 +1,40 @@
 <div class="container-fluid p-0 bg-light">
   <div class="row pt-2">
-    <div class="col-6">
-      <!-- Hidden -->
-      <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
-      data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
-      <h6 class="text-center">Today's picture</h6>
-      <img id="todaysPicture" class="w-100" data-toggle="tooltip" title="Today's picture"  data-placement="bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image">
-    </div>
-    <div class="col-6">
-      <h6 class="text-center"><span class="text-secondary">Compared to</span>  Old picture</h6>
-      <img id="oldPicture" class="card-img-top" data-toggle="tooltip" title="Old picture"  data-placement="bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image">
-    </div>
+
+    {{#if lastPersonChecked}}
+      <div class="col-6">
+        <!-- Hidden -->
+        <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
+        data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
+        <h6 class="text-center">Today's picture</h6>
+        <img id="todaysPicture" class="w-100" data-toggle="tooltip" title="Today's picture"  data-placement="bottom" 
+        src="{{ lastPersonChecked.faceImage.data }}" alt="Card image">
+      </div>
+      <div class="col-6">
+        <h6 class="text-center"><span class="text-secondary">Compared to</span> Old picture</h6>
+        {{#if employee.profileImage }}
+          <img id="oldPicture" class="card-img-top" data-toggle="tooltip" title="Old picture"  data-placement="bottom" 
+          src="{{ employee.profileImage.data }}" alt="Card image"/>
+        {{else}}
+          <img id="oldPicture" class="card-img-top" data-toggle="tooltip" title="Old picture"  data-placement="bottom" 
+          src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Card image"/>
+        {{/if}}
+      </div>
+    {{else}}
+      <div class="col-6">
+        <!-- Hidden -->
+        <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
+        data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
+        <h6 class="text-center">Today's picture</h6>
+        <img id="todaysPicture" class="w-100" data-toggle="tooltip" title="Today's picture"  data-placement="bottom" 
+        src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Card image">
+      </div>
+      <div class="col-6">
+        <h6 class="text-center"><span class="text-secondary">Compared to</span>  Old picture</h6>
+        <img id="oldPicture" class="card-img-top" data-toggle="tooltip" title="Old picture"  data-placement="bottom" 
+        src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Card image">
+      </div>      
+    {{/if }}
+
   </div>
 </div>

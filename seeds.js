@@ -1,6 +1,8 @@
 const faker = require("faker"),
 	mongoose = require("mongoose"),
-	Employee = require("./models/employee");
+	Employee = require("./models/employee"),
+	Attendance = require("./models/attendance"),
+	File = require("./models/file");
 
 
 function RandomEmployee(){
@@ -31,6 +33,15 @@ function getSomeRandomEmployees(number){
 
 module.exports = obj = {
 	insertRandomEmployees: (number)=>{
+		/* Remove All attendances */
+		Attendance.remove({}).exec()
+		.then(() => console.log("Removed all attendances"))
+		.catch(console.log);
+
+		File.remove({}).exec()
+		.then(() => console.log("Removed all Files"))
+		.catch(console.log);
+
 		/* Remove All Employees */
 	    Employee.remove({}, function(err){
 	        if(err) return console.log(err);
@@ -43,6 +54,17 @@ module.exports = obj = {
 		                console.log("Added an employee");
 		            });
 	         	});
+	        let younesKasri = {
+	        	CIN: "AD213583",
+	        	firstName: "Younes",
+	        	lastName: "Kasri",
+	        	birthDate: "1996-10-25",
+	        	phoneNumber: "+212 661264450"
+	        };
+            Employee.create(younesKasri, function(err, campground){
+                if(err) return console.log(err);
+                console.log("Added an employee");
+            });
 		    return obj;
 	    })
 	}

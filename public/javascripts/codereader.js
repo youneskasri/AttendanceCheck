@@ -12,10 +12,20 @@ function handleScan(content){
 
   let faceImage = takePicture(); /* fct from facecamera.js */
   if (TEST) alert("will send : "+content);
-  $.post("/attendance", {content, faceImage}, function(result, status){
+  $.post("/attendance", {content, faceImage})
+  .done(result => {
       //if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
-      updateTodaysPicture(result.todaysImage);
-      setLastPersonChecked(result.employee);
+      console.log("Result", result);
+      if (result.error){
+        console.log(result.error.stack);
+        alert(result.error.message);
+      } else {
+        updateTodaysPicture(result.todaysImage);
+        setLastPersonChecked(result.employee);
+      }
+  }).fail(result => {
+    console.log(err);
+    alert("jQuery Error");
   });
 } 
 
@@ -41,12 +51,21 @@ function updateTodaysPicture(imageURL){
 }
 
 function setLastPersonChecked(employee){
-  $("#oldPicture").attr("src", employee.profileImage.data);
+
+  //$("#lastPersonChecked").show();
+
+  if (employee.profileImage)
+    $("#oldPicture").attr("src", employee.profileImage.data);
+  
   $("#CIN").text(employee.CIN);
-  $("#fullName").text(employee.firstName + ' ' + employee.lastName);
+  $("#fullName").text(employee.firstName + ' ' + employee.lastName)
+    .attr("href", "/employees/" + employee._id);
+
   $("#birthDate").text(employee.birthDate);
   $("#attendanceDate").text(new Date());
 }
+
+//$("#lastPersonChecked").hide(); // NO NEED FOR THAT B/C i'll load him from DB 
 
 
 

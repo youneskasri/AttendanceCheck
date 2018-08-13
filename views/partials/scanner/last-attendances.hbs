@@ -4,36 +4,24 @@
     <table class="table table-hover mb-0">
         <thead>
           <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>CIN</th>
+            <th>Full name</th>
+            <th>Attendance date</th>
           </tr>
         </thead>
         <tbody>
+          {{#each lastAttendances}}
           <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
+            <td>{{ CIN }}</td>
+            <td>{{ employee.firstName }} {{ employee.lastName}}</td>
+            <td>{{ date }}</td>
           </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
       <!-- Center-aligned -->
       <ul class="pagination justify-content-center mt-2" style="margin:20px 0; border-radius: 0;">
-          <li class="page-item"><a class="page-link text-white bg-dark" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link text-white bg-dark" href="#">1</a></li>
-          <li class="page-item"><a class="page-link text-white bg-dark" href="#">2</a></li>
-          <li class="page-item"><a class="page-link text-white bg-dark" href="#">3</a></li>
-          <li class="page-item"><a class="page-link text-white bg-dark" href="#">Next</a></li>
+          <a href="/attendances" class="btn btn-block w-50 btn-dark">Show all</a>
       </ul>
 
   </div>

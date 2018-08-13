@@ -60,22 +60,10 @@
 
           <img src=""  width="200" id="todaysPicture" alt=""/>
         
+        <!-- Scripts pr : Set New Profile Image -->
         <script src="/javascripts/facecamera.js"></script>
-        <script>
-          
-          $("#savePicture").click((evt)=>{
+        <script src="/javascripts/set-profile-image.js"></script>
 
-            console.log('savePicture');
-            let image = takePicture();
-            let idEmployee = $("input[name='idEmp']").val();
-            let url = '/employees/'+  idEmployee +'/profileImage'; 
-            $.post(url, { image, idEmployee }).done(function(result){
-              console.log(result.image.data.toString());
-              result.success || true ? $("#empPicture").attr("src", result.image.data.toString())
-              : console.log(result);
-            });
-          });
-        </script>
       </div>
 
     </div>
@@ -84,48 +72,28 @@
 
 
 
-<script>
+  
+  <!-- Script: Show Attendance Modal -->
+  <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
 
-  function printElementById(id) {
-    var e = document.getElementById(id);
-    var ifr = document.createElement('iframe');
-    ifr.style='height: 0px; width: 0px; position: absolute'
-    document.body.appendChild(ifr);
+  <!-- Script: Print Employee Card @Deprecated -->
+  <script>
+    function printElementById(id) {
+      var e = document.getElementById(id);
+      var ifr = document.createElement('iframe');
+      ifr.style='height: 0px; width: 0px; position: absolute'
+      document.body.appendChild(ifr);
 
-    $(e).clone().appendTo(ifr.contentDocument.body);
-    ifr.contentWindow.print();
+      $(e).clone().appendTo(ifr.contentDocument.body);
+      ifr.contentWindow.print();
 
-    ifr.parentElement.removeChild(ifr);
-  }
+      ifr.parentElement.removeChild(ifr);
+    }
 
-  $(document).ready(()=>{
-    $("button.showAttendance").click(evt => {
-      evt.preventDefault();
-
-      let url = $(evt.target).find("span.url").text();
-      console.log(url);
-      $.get(url).done( function (data){
-        showAttendanceModal(data.attendance);
-      }); 
-     
-    });
-
-    $("button#printEmployeeCard").click(evt => {
-      printElementById('employeeCard');
-    });
-
-  });
-
-  function showAttendanceModal(attendance){
-    $("#attendanceDate").val(attendance.date);
-    $("#attendanceImage").attr("src",attendance.faceImage.data);
-
-    $("#showAttendanceModal").modal("show");
-  }
-
-</script>
-
-
+      $("button#printEmployeeCard").click(evt => {
+        printElementById('employeeCard');
+      });
+  </script>
 
   </body>
 </html>

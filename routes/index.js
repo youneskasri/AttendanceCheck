@@ -1,31 +1,32 @@
 const express = require('express'),
 	router = express.Router(),
-	fs = require("fs"),
-	webp=require('webp-converter'),
 	mongoose = require("mongoose");
 
 const Employee = require("../models/employee");
-const File = require("../models/file");
 const Attendance = require("../models/attendance");
+
+const attendanceService = require("../services/attendance-service");
 
 /*
 * Text To Speech 
 */
 const textToSpeech = require('../libs/utils')().textToSpeech;
 
-console.log(textToSpeech);
 
 /* GET home page. */
-router.use((req, res, next)=>{
+router.use(setVolumeOnByDefault)
+.get('/', indexQrScanner)
+.post('/volume', setVolume)
+.get('/attendances/:id', attendanceService.showAttendance)
+.post('/attendance', attendanceService.createAttendance);
+
+
+function setVolumeOnByDefault(req, res, next) {
 	if (!req.session.volume) req.session.volume = 'ON';
 	res.locals.volume = req.session.volume;
 	next();
-}).get('/', scanner)
-.post('/volume', setVolume)
-.get('/attendances/:id', showAttendance)
-.post('/attendance', createAttendance);
-
-
+}
+/* @SetVolume AJAX */
 function setVolume(req, res, next){
 
 	req.session.volume = req.body.volume;
@@ -35,61 +36,49 @@ function setVolume(req, res, next){
 }
 
 
-function scanner(req, res, next) {
-  if (req.session.volume === 'ON') textToSpeech("Welcome ! The application has started");
-  return res.render('scanner');
-}
-
-function showAttendance(req, res, next){
-	Attendance.findById(req.params.id)
-	.populate('faceImage').exec()
-	.then(attendance => {
-		res.send({ attendance });
-	}).catch(printError);
-}
-
-function createAttendance(req, res, next){
-	let text = req.body.content.replace("http://www.",''),
-		//imageWebP = req.body.image,
-		faceImagePNG = req.body.faceImage,
-		imageURL = 'public/images/myImage.png'; 
-
-/*	fs.writeFile(imageURL, faceImagePNG,
-	  	function playSoundAndSendResponse(){
-			imageURL = imageURL.replace("public/",'');
-			if (req.session.volume === true)  textToSpeech(text);
-			return res.send({ text, imageURL });
-		});
+/* @Index 
+* - Charge les (3) dernièrs passages
+* -- Pour chacun des passages, lui ajoute nom et prénom de l'employé
+* - Charge le derniers passage avec l'image
+* -- Lui ajoute l'employé avec son image de profil
 */
-	let CIN = 'AD2135830';
+function indexQrScanner(req, res, next) {
+  if (req.session.volume === 'ON') textToSpeech("Welcome ! The application has started");
 
-	/* Search if employee exists */
-	Employee.findOne({CIN: CIN})
-	.populate('profileImage').exec()
-	.then(employee => {
-		console.log(employee.CIN.green)
-		/* Save image file */
-		File.create({
-			creationDate: new Date(),
-			contentType: 'image/png',
-			data: faceImagePNG
-		}).then(file => {
-			/* Register attendance */
-			Attendance.create({
-				CIN: employee.CIN,
-				date: new Date(),
-				faceImage: file._id
-			}).then(attendance => {
-/*				employee.attendances.push(attendance._id);
-				Employee.update(employee);*/
-				textToSpeech("Welcome " + employee.firstName);
-				return res.send({ attendance, employee, todaysImage: file.data})
-			}).catch(printError);
-		}).catch(printError);
-	}).catch(printError);
+  Attendance.findLastAttendances(3)
+  	.then(lastAttendances => {
+      /* For each attendance, add employees fname and lastname */
+      let promises = lastAttendances.map(att =>{
+        return Employee.findOne({CIN: att.CIN}).select('firstName lastName').exec();
+      });
+      /* Quand j'ai trouvé les employees, assign them to their attendances */
+      Promise.all(promises).then(employeesNames => {          
+          let attendances = lastAttendances
+          .map((attendance, i) => {
+            attendance.employee = employeesNames[i];
+            return attendance;
+          });
+
+          res.locals.lastAttendances = attendances;
+          console.log("last attendances ", attendances);
+      }).catch(next);
+  	})
+  	.then(Attendance.findLastAttendance)
+  	.then(lastPersonChecked => {
+  		if (!lastPersonChecked) {
+  			console.log("Mazal ma tsejel 7ta attendance");
+  			return res.render('scanner');
+  		}
+  		Employee.findAndPopulateImageByCIN(lastPersonChecked.CIN)
+  		.then(employee => {
+  			res.locals.lastPersonChecked = lastPersonChecked;
+  			res.locals.employee = employee;
+  			console.log("Last Person Checkec . employee = ");
+  			return res.render('scanner');
+  		})
+  		.catch(next);
+  	})
+ 	.catch(next);
 }
-
-function printError(err) { console.log("Error".green); console.log(err); }
-
 
 module.exports = router;
