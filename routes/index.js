@@ -1,6 +1,5 @@
 const express = require('express'),
-	router = express.Router(),
-	mongoose = require("mongoose");
+	router = express.Router();
 
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
@@ -55,7 +54,7 @@ function indexQrScanner(req, res, next) {
       Promise.all(promises).then(employeesNames => {          
           let attendances = lastAttendances
           .map((attendance, i) => {
-            attendance.employee = employeesNames[i];
+			attendance.employee = employeesNames[i];
             return attendance;
           });
 
@@ -69,14 +68,10 @@ function indexQrScanner(req, res, next) {
   			console.log("Mazal ma tsejel 7ta attendance");
   			return res.render('scanner');
   		}
-  		Employee.findAndPopulateImageByCIN(lastPersonChecked.CIN)
+  		return Employee.findAndPopulateImageByCIN(lastPersonChecked.CIN)
   		.then(employee => {
-  			res.locals.lastPersonChecked = lastPersonChecked;
-  			res.locals.employee = employee;
-  			console.log("Last Person Checkec . employee = ");
-  			return res.render('scanner');
-  		})
-  		.catch(next);
+  			return res.render('scanner', { lastPersonChecked, employee });
+  		});
   	})
  	.catch(next);
 }

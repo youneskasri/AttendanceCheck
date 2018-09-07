@@ -14,7 +14,7 @@ Attendance.findLastAttendances = (n) => {
 }
 
 Attendance.findLastAttendance = () => {
-	return Attendance.findOne().sort({date: -1}).populate('faceImage').exec()
+	return Attendance.findOne().sort({date: -1}).populate('faceImage').exec();
 }
 
 Attendance.findByCIN = (CIN) => {

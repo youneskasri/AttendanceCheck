@@ -1,11 +1,11 @@
 - Handle Errors for Ajax Calls (200), and Ajax Error (POST, GET, .. => .fail() )
-
+# Actuellement dert Alert => Need to change it with a model o qlq chose comme ça
 - Chof fl Backend, o passé # error: {stack, message}
 
 - When jbed data dial Employee li t scanna : Last Person Checked
 	===> <Link> vers son profil
 
-
+Format Dates with Moment --
 
 - Load last attendances and Last person checked from Database : route = "/"
 	[] FILL last person checked data

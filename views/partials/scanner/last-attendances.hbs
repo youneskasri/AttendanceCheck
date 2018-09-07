@@ -22,7 +22,7 @@
                   {{ employee.firstName }} {{ employee.lastName}}
                 </a>
               </td>
-              <td><a href="/employees/{{employee._id}}" class="date text-secondary">{{ date }}</a></td>  
+              <td><a href="/employees/{{employee._id}}" class="date text-secondary">{{dateFormat date "DD/MM/YYYY à HH:mm"}}</a></td>  
           </tr>
           {{/each}}
          <tr class="attendanceRow">

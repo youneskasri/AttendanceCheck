@@ -2,7 +2,7 @@
 
 	
 	{{#each employee.attendances}}
-		<li>{{date}} - 
+		<li>{{dateFormat date "DD/MM/YYYY à HH:mm"}} - 
 			<button class="showAttendance">See <span class="d-none url">/attendances/{{ _id }}</span></button>
 			<!-- <img width="150" src="{{faceImage.data}}" alt=""/> -->
 		</li>	

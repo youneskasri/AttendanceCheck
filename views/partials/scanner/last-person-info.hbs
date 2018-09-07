@@ -1,13 +1,13 @@
 {{#if employee}}
   <div id="lastPersonChecked">
-  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">{{employee.firstName}} {{employee.lastName}}
+  <h4 class="card-title"><a href="#" class="text-secondary"><span id="fullName">{{employee.firstName}} {{employee.lastName}}</span>
    <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary">{{ employee.CIN }}</span></small>
   </a></h4>
   <h5>
     
   </h5>
   {{#if lastPersonChecked }}                 
-      <h5 class="text-secondary" id="attendanceDate"><span class="text-dark">Présent le </span> {{ lastPersonChecked.date }}<i class="far fa-calendar-check text-success"></i></h5>
+      <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">{{dateFormat lastPersonChecked.date "DD/MM/YYYY à HH:mm"}} </span></h5>
   {{/if}}
   <p class="card-text">Présence cette semaine TODO</p>
   <div class="container-fluid">
@@ -44,11 +44,13 @@
   </div>
   </div>
 {{else}}
-  <div id="lastPersonChecked">
-  <h4 class="card-title"><a href="#" id="fullName" class="text-secondary">John Doe</a></h4>
-  <p class="card-text"><span id="CIN">AD213583</span> Né(e) le <span id="birthDate" class="text-dark">25/10/1996</span></p>                 
-  <h5 class="text-secondary" id="attendanceDate">Lundi 24 juillet 2018 à 18:56 <i class="far fa-calendar-check text-success"></i></h5>
-  <p class="card-text">Présence cette semaine</p>
+  <div id="lastPersonChecked" class="d-none">
+  <h4 class="card-title"><a href="#" class="text-secondary"><span id="fullName"></span>
+   <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary" id="CIN"></span></small>
+  </a></h4>
+  <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">...</span><i class="far fa-calendar-check text-success"></i></h5>
+
+  <p class="card-text">Présence cette semaine TODO</p>
   <div class="container-fluid">
     <div class="row text-center">
       <div id="lundi" class="day">Lu

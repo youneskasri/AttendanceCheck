@@ -8,7 +8,10 @@ module.exports = function(app){
 			const handlebars = require("express-handlebars");
 			app.engine('.hbs', handlebars({ 
 				defaultLayout: null, extname: '.hbs' ,
-				helpers: {cond: require("handlebars-cond").cond}
+				helpers: {
+					cond: require("handlebars-cond").cond,
+					dateFormat: require('handlebars-dateformat')
+				}
 			})).set("view engine", "hbs");
 			return middlewares;
 		},

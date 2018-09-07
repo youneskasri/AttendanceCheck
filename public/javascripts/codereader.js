@@ -1,3 +1,5 @@
+const DATE_FORMAT = 'DD/MM/YYYY à HH:mm';
+
 let scannerOptions = {
 	video: document.getElementById('preview'),
 	captureImage: false,
@@ -20,8 +22,9 @@ function handleScan(content){
         console.log(result.error.stack);
         alert(result.error.message);
       } else {
+        result.attendance.date = moment(result.attendance.date).format(DATE_FORMAT);
         updateTodaysPicture(result.todaysImage);
-        setLastPersonChecked(result.employee);
+        setLastPersonChecked(result.attendance, result.employee);
         appendAttendanceToTable(result.attendance, result.employee);
       }
   }).fail(result => {
@@ -36,9 +39,9 @@ function updateTodaysPicture(imageURL){
   $("#todaysPicture").attr("src", imageURL);
 }
 
-function setLastPersonChecked(employee){
+function setLastPersonChecked(attendance, employee){
 
-  //$("#lastPersonChecked").show();
+  $("#lastPersonChecked").removeClass("d-none");
 
   if (employee.profileImage)
     $("#oldPicture").attr("src", employee.profileImage.data);
@@ -48,7 +51,7 @@ function setLastPersonChecked(employee){
     .attr("href", "/employees/" + employee._id);
 
   $("#birthDate").text(employee.birthDate);
-  $("#attendanceDate").text(new Date());
+  $("#attendanceDate").text(attendance.date);
 }
 
 function appendAttendanceToTable( attendance, employee){
@@ -81,6 +84,4 @@ Instascan.Camera.getCameras()
       console.error('No cameras found.');
   })
   .catch( (e) => console.error(e) );
-
-
 
