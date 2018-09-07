@@ -78,9 +78,11 @@ Instascan.Camera.getCameras()
       document.getElementById("cameras").innerHTML += '<li>'+ camName +'</li>';
     });
     /* Utiliser une camera */
-    if (cameras.length > 0) 
+    if (cameras.length > 1) 
+      scanner.start(cameras[1]);
+    else if (cameras.length > 0) 
       scanner.start(cameras[0]);
-    else 
+    else
       console.error('No cameras found.');
   })
   .catch( (e) => console.error(e) );
