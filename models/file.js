@@ -8,4 +8,12 @@ let FileSchema = mongoose.Schema({
 
 let File = mongoose.model("File", FileSchema);
 
+File.saveImageFile = (imagePNG) => {
+	return File.create({
+		creationDate: new Date(),
+		contentType: 'image/png',
+		data: imagePNG
+	});
+}
+
 module.exports = File;

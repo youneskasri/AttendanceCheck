@@ -25,6 +25,12 @@ module.exports = function(app) {
 		},
 
 		startServer: ()=>{
+			/* Test With Http */
+			let port = app.get("port")
+			if (port != 8443 && port != 443) {
+				console.log("Using HTTP");
+				return app.listen(port);
+			}
 			/* HTTPS certificate */
 			let options = {
 			  key: fs.readFileSync('./key.pem'),
@@ -50,14 +56,20 @@ module.exports = function(app) {
 		textToSpeech: (text, res) => {
 			tts.read({ text })
 			.then(() => {
-				  if (!res) return;
-			  console.log("Ok");
-			  res.end(text);
+				if (!res) return;
+			  	console.log("Ok");
+			  	res.end(text);
 			}).catch((err) => {
-			  console.log(err.message.yellow);
+				console.log(err.message.yellow);
 			});
-		}
+		},
 
+		playSoundIfVolumeOn: (req, text) => {
+			if (req.session.volume === 'ON') {
+				tts.read({ text })
+				.catch(err => console.log(err.message.yellow));
+			}
+		}
 
 	};
 }

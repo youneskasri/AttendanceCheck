@@ -17,4 +17,10 @@ Attendance.findLastAttendance = () => {
 	return Attendance.findOne().sort({date: -1}).populate('faceImage').exec()
 }
 
+Attendance.findByCIN = (CIN) => {
+	return Attendance.find({CIN: CIN})
+		.sort({_id: -1})
+		.exec();
+}
+
 module.exports = Attendance;

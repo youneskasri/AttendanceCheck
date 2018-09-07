@@ -1,5 +1,4 @@
 const express = require('express'),
-	https = require('https'),
 	createError = require('http-errors'),
 	mongoose = require('mongoose');
 
@@ -15,7 +14,7 @@ require("./seeds").insertRandomEmployees(10); // Seeds
 
 /* App settings */
 const app = express()
-	.set("port", process.env.PORT || 8443)
+	.set("port", process.env.PORT || 4000 || 8443) /* No need for HTTPS */
 	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
 

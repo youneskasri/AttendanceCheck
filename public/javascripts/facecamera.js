@@ -7,18 +7,13 @@ let width = 400; //$("todaysPictureCanvas").width();
 let height = 300; //$("todaysPictureCanvas").height();
 
 function turnOnTheWebCam(){
-  /* Demander l'accès à la CAM */
-  navigator.getMedia = navigator.getUserMedia|| navigator.webkitGetUserMedia
-    || navigator.mozGetUserMedia
-    || navigator.mozGetUserMedia;
-
-  navigator.getMedia({
+  navigator.mediaDevices.getUserMedia({
     video: true, 
     audio: false
-  }, function(stream){
-    video.src = vendorUrl.createObjectURL(stream);
+  }).then(function(stream){
+    video.srcObject = stream;
     video.play();
-  }, function(error){
+  }).catch(function(error){
     console.log("#Error getMedia 67 : " + error);
   });
 }
