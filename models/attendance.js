@@ -23,4 +23,17 @@ Attendance.findByCIN = (CIN) => {
 		.exec();
 }
 
+Attendance.findByCinAndPopulateImage = (CIN) => {
+	return Attendance.find({CIN: CIN})
+		.sort({_id: -1})
+		.populate('faceImage')
+		.exec();
+}
+
+Attendance.currentMonthAttendancesWithImages = (CIN) => {
+	let date = new Date();
+	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).populate('faceImage').exec();
+}
+
 module.exports = Attendance;

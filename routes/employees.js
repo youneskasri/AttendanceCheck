@@ -10,6 +10,7 @@ router.get('/cards', cardService.allCards)
 
 router.get('/', employeeService.allEmployees)
 	.get('/search', employeeService.searchEmployees)
+	.get('/:id/calendar', employeeService.getCalendar)
 	.get('/:id', employeeService.showEmployee)
 	.post('/:id/profileImage', employeeService.setProfileImage)
 	.post('/', employeeService.createEmployee);
