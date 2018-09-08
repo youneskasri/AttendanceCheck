@@ -8,12 +8,15 @@ $("a#volume").click(function(evt){
 	/* if hasClass VolumeUp turn to VolumeOff */
 	let volume = icon.hasClass("fa-volume-up") ? 'OFF': 'ON';
 
-	$.post("/volume", {volume}, (data)=>{
+	$.post("/volume", {volume})
+	.done( (data)=>{
 		if (data.success == true){ 
 			icon.toggleClass("fa-volume-up fa-volume-off");
-			if (TEST) alert("set volume = "+data.volume)
 		}
-	}); 
+	})
+	.fail((jqXHR, textStatus, errorMessage) => {
+		showErrorModal(errorMessage, textStatus, jqXHR);
+	});
 });
 
 

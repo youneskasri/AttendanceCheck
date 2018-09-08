@@ -27,9 +27,8 @@ function handleScan(content){
         setLastPersonChecked(result.attendance, result.employee);
         appendAttendanceToTable(result.attendance, result.employee);
       }
-  }).fail(result => {
-    console.log(result);
-    alert("jQuery Error");
+  }).fail((jqXHR, textStatus, errorMessage) => {
+    showErrorModal(errorMessage, textStatus, jqXHR);
   });
 } 
 
@@ -82,8 +81,9 @@ Instascan.Camera.getCameras()
       scanner.start(cameras[1]);
     else if (cameras.length > 0) 
       scanner.start(cameras[0]);
-    else
-      console.error('No cameras found.');
+    else {
+      showErrorModal('No Camera Found');
+    }
   })
-  .catch( (e) => console.error(e) );
+  .catch(err => showErrorModal(err.message));
 

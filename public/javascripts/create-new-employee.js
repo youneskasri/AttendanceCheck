@@ -10,10 +10,11 @@
           let birthDate = getInputValue("birthDate");
           let phoneNumber = getInputValue("phoneNumber");
           
-          alert(birthDate)
           $.post("/employees", {CIN, firstName, lastName, birthDate, phoneNumber})
             .done(handleServerResponse)
-            .fail(handleError);
+            .fail((jqXHR, textStatus, errorMessage) => {
+              showErrorModal(errorMessage, textStatus, jqXHR);
+            });
       });
  
 

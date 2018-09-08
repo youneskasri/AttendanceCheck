@@ -1,5 +1,6 @@
 
   $(document).ready(()=>{
+
     $("button.showAttendance").click(evt => {
       evt.preventDefault();
 
@@ -12,17 +13,17 @@
           } else 
             showAttendanceModal(data.attendance)
         })
-        .fail(handleError);
+        .fail((jqXHR, textStatus, errorMessage) => {
+          showErrorModal(errorMessage, textStatus, jqXHR);
+        });
     });
   });
 
-  function handleError(err) {
-    alert(err.message);
-    console.log(err);
-  } 
 
   function showAttendanceModal(attendance){
-    $("#attendanceDate").val(attendance.date);
+    const DATE_FORMAT = 'DD/MM/YYYY à HH:mm:s';
+    let date = moment(attendance.date).format(DATE_FORMAT);
+    $("#attendanceDate").text(date);
     $("#attendanceImage").attr("src",attendance.faceImage.data);
 
     $("#showAttendanceModal").modal("show");

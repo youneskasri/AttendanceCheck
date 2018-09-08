@@ -15,5 +15,14 @@
 #employeeCard {
 	width: 400px;
 	height: 250px;
-	background-image:  url("/images/employee-card-bg.png") !important;
+	background:  white !important;
+}
+
+td > li {
+	list-style-type: none;
+}
+
+
+.bg-lightGrey {
+	background-color: #d3d3d3 !important; 
 }

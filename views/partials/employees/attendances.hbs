@@ -1,20 +1,32 @@
 <h1>Last attendances</h1>
 
-	
+	<table class="table table-striped table-sm table-success">
+    <tbody>
 	{{#each employee.attendances}}
-		<li>{{dateFormat date "DD/MM/YYYY à HH:mm"}} - 
-			<button class="showAttendance">See <span class="d-none url">/attendances/{{ _id }}</span></button>
+  <tr class="p-0">
+    <td>
+		<li class="attendance"><span class="date">{{dateFormat date "DD/MM/YYYY à HH:mm"}}</span>  
+			
+      <!-- J'ai laissé celle-ci d-none hit j'ai besoin du $(selecteur) pour l'URL -->
+      <button class="d-none showAttendance border-warning">See <span class="d-none url">/attendances/{{ _id }}</span></button>
 			<!-- <img width="150" src="{{faceImage.data}}" alt=""/> -->
-		</li>	
-	{{/each}} 
+		</li>
+    </td>
+    <td class=" ">
+      	<button class="showAttendance border-warning btn btn-block btn-sm btn-warning">See <span class="d-none url">/attendances/{{ _id }}</span></button>
+    </td>
+  </tr>
+	{{/each}}
+    </tbody>
+  </table> 
 	
 <div class="modal" id="showAttendanceModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-         <h3 id="attendanceDate">Attendance</h3>
+      <div class="modal-header  bg-warning text-dark">
+         <h3><span id="attendanceDate"></span></h3>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 

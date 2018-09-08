@@ -6,7 +6,8 @@
           <tr>
             <th>CIN</th>
             <th>Full name</th>
-            <th>Attendance date</th>       
+            <th>Attendance date</th>
+            <th></th>       
           </tr>
         </thead>
         <tbody >
@@ -23,12 +24,14 @@
                 </a>
               </td>
               <td><a href="/employees/{{employee._id}}" class="date text-secondary">{{dateFormat date "DD/MM/YYYY à HH:mm"}}</a></td>  
+              <td class="p-0 pt-2"><a href="/employees/{{employee._id}}" class="link btn btn-sm btn-dark">Show</a></td>
           </tr>
           {{/each}}
          <tr class="attendanceRow">
             <td><a href="" class="CIN text-secondary"></a></td>
             <td><a href="" class="fullName text-secondary"></a></td>
             <td><a href="" class="date text-secondary"></a></td>
+            <td><a href="" class="link text-warning"></a></td>
           </tr>
         </tbody>
       </table>

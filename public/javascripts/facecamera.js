@@ -14,7 +14,7 @@ function turnOnTheWebCam(){
     video.srcObject = stream;
     video.play();
   }).catch(function(error){
-    console.log("#Error getMedia 67 : " + error);
+    showErrorModal("#Error turnOnTheWebCam - FaceCamera : " + error);
   });
 }
 
