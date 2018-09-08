@@ -1,0 +1,38 @@
+<div class="container-fluid">
+	
+	<h1>Last attendance</h1>
+	<div>
+	<hr>
+		
+		
+	<div class="row">
+		<div class="col-6">
+			<h5>Date <span class="text-secondary" id="lastAttendanceDate"></span></h5>
+			
+			<img id="lastAttendanceImage" class="img-fluid" src=""/>
+		</div>
+		<div class="col-6" id="employeeCard">
+		  <span id="qrCode"></span>
+		  <div class="card-body pt-1">
+		  	<div><span class="font-weight-bold">CIN</span> <span class="">{{employee.CIN}}</span></div>
+		    <div><span class="font-weight-bold">First name</span> {{employee.firstName}}</div>
+		    <div><span class="font-weight-bold">Last name</span> {{employee.lastName}}</div>
+		  </div>
+		</div>
+
+		<button id="printEmployeeCard" class="btn btn-success btn-block">Print Card</button>
+	</div>
+
+</div>
+
+
+<script type="text/javascript" src="/javascripts/qrcode.js"></script>
+<script>
+	var typeNumber = 1;
+	var errorCorrectionLevel = 'L';
+	var qr = qrcode(typeNumber, errorCorrectionLevel);
+	qr.addData("{{employee.CIN}}");
+	qr.make();
+	document.getElementById('qrCode').innerHTML = qr.createImgTag(4);
+</script>
+
