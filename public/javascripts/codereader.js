@@ -3,7 +3,8 @@ const DATE_FORMAT = 'DD/MM/YYYY à HH:mm';
 let scannerOptions = {
 	video: document.getElementById('preview'),
 	captureImage: false,
-	backgroundScan: false
+	backgroundScan: false,
+  refractoryPeriod: 200
 };
 
 let scanner = new Instascan.Scanner(scannerOptions);
@@ -27,9 +28,7 @@ function handleScan(content){
         setLastPersonChecked(result.attendance, result.employee);
         appendAttendanceToTable(result.attendance, result.employee);
       }
-  }).fail((jqXHR, textStatus, errorMessage) => {
-    showErrorModal(errorMessage, textStatus, jqXHR);
-  });
+  }).fail(showErrorModalJquery);
 } 
 
 
@@ -46,8 +45,8 @@ function setLastPersonChecked(attendance, employee){
     $("#oldPicture").attr("src", employee.profileImage.data);
   
   $("#CIN").text(employee.CIN);
-  $("#fullName").text(employee.firstName + ' ' + employee.lastName)
-    .attr("href", "/employees/" + employee._id);
+  $("#fullName").text(employee.firstName + ' ' + employee.lastName);
+  $("#hrefLastPerson").attr("href", "/employees/" + employee._id);
 
   $("#birthDate").text(employee.birthDate);
   $("#attendanceDate").text(attendance.date);

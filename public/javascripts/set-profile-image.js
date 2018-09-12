@@ -13,8 +13,6 @@
               result.success || true ? $("#empPicture").attr("src", result.image.data.toString())
               : console.log(result);
             })
-            .fail((jqXHR, textStatus, errorMessage) => {
-              showErrorModal(errorMessage, textStatus, jqXHR);
-            });
+            .fail(showErrorModalJquery);
           });
         

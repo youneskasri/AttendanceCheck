@@ -110,13 +110,7 @@
   <!-- Script: Show Attendance Modal -->
   <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
 
-  <script>
-    	/* Enable Zabuto Calendar */
-      $("#my-calendar").zabuto_calendar({language: "fr"});
-      let basePath = window.location.pathname;
-      /* Fetch Calendar Data*/
-      $("#my-calendar").zabuto_calendar( { ajax: { url: `${basePath}/calendar`, modal: true } } );
-  </script>
+  <script type="text/javascript" src="/javascripts/zabuto-calendar.js"></script>
   
   <!-- Script: Print Employee Card @Deprecated -->
   <script>

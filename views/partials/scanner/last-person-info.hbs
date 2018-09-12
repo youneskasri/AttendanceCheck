@@ -1,6 +1,6 @@
 {{#if employee}}
   <div id="lastPersonChecked">
-  <h4 class="card-title"><a href="#" class="text-secondary"><span id="fullName">{{employee.firstName}} {{employee.lastName}}</span>
+  <h4 class="card-title"><a href="/employees/{{employee._id}}" id="hrefLastPerson" class="text-secondary"><span id="fullName">{{employee.firstName}} {{employee.lastName}}</span>
    <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary">{{ employee.CIN }}</span></small>
   </a></h4>
   <h5>
@@ -45,10 +45,10 @@
   </div>
 {{else}}
   <div id="lastPersonChecked" class="d-none">
-  <h4 class="card-title"><a href="#" class="text-secondary"><span id="fullName"></span>
+  <h4 class="card-title"><a href="#" id="hrefLastPerson" class="text-secondary"><span id="fullName"></span>
    <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary" id="CIN"></span></small>
   </a></h4>
-  <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">...</span><i class="far fa-calendar-check text-success"></i></h5>
+  <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">...</span></i></h5>
 
   <p class="card-text">Présence cette semaine TODO</p>
   <div class="container-fluid">

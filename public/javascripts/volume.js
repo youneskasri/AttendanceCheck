@@ -14,9 +14,7 @@ $("a#volume").click(function(evt){
 			icon.toggleClass("fa-volume-up fa-volume-off");
 		}
 	})
-	.fail((jqXHR, textStatus, errorMessage) => {
-		showErrorModal(errorMessage, textStatus, jqXHR);
-	});
+	.fail(showErrorModalJquery);
 });
 
 

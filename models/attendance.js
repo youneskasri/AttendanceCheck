@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 let attendanceSchema = mongoose.Schema({
 	CIN: String,
@@ -30,10 +31,29 @@ Attendance.findByCinAndPopulateImage = (CIN) => {
 		.exec();
 }
 
+Attendance.currentMonthAttendances = (CIN) => {
+	let date = new Date();
+	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).exec();
+}
+
 Attendance.currentMonthAttendancesWithImages = (CIN) => {
 	let date = new Date();
 	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
 	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).populate('faceImage').exec();
+}
+
+
+/* @NotWorking
+* Je pense abandonner cette fonctionnalité
+*/
+Attendance.findAttendanceEventByCinAndDate = (CIN, eventDate) => {
+	let startDate = moment(eventDate).toDate();
+	let endDate = moment(eventDate).add(8, 'hours').toDate();
+	/* The Last One in this 1 hours Period */
+	return Attendance.find({ CIN, date: {$gte: startDate, $lt: endDate} })
+		.sort({ _id: -1 }).limit(1)
+		.populate('faceImage').exec();
 }
 
 module.exports = Attendance;

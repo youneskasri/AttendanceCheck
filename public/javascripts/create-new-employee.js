@@ -12,9 +12,7 @@
           
           $.post("/employees", {CIN, firstName, lastName, birthDate, phoneNumber})
             .done(handleServerResponse)
-            .fail((jqXHR, textStatus, errorMessage) => {
-              showErrorModal(errorMessage, textStatus, jqXHR);
-            });
+            .fail(showErrorModalJquery);
       });
  
 

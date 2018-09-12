@@ -26,3 +26,19 @@ td > li {
 .bg-lightGrey {
 	background-color: #d3d3d3 !important; 
 }
+
+#empPicture {
+	max-width: 250px;
+}
+
+div.zabuto_calendar .badge-event,
+div.zabuto_calendar div.legend span.badge-event {
+  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%) !important;
+  color: #fff;
+  text-shadow: none;
+}
+
+div.zabuto_calendar .table tr td.event div.day,
+div.zabuto_calendar ul.legend li.event {
+  background-color: #AEEEFF !important;
+}

@@ -31,6 +31,10 @@
 		$('#errorModal').modal('show');
 	}
 
+	function showErrorModalJquery(jqXHR, textStatus, errorMessage) {
+      showErrorModal(errorMessage, textStatus, jqXHR);
+    }
+
 </script>
 
 <script type="text/javascript" src="/javascripts/volume.js"></script>

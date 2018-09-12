@@ -7,7 +7,7 @@
 	<p><b>Phone</b> {{employee.phoneNumber}}</p>
 	<p><b>Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
 	
-	<div class="w-50">
+	<div>
 	{{#if employee.profileImage.data}}
 		<img class="img-fluid" src="{{employee.profileImage.data}}" alt="{{employee.lastName}}" id="empPicture">
 	{{else}}
@@ -15,7 +15,7 @@
 	{{/if}}
 	</div>
 
-	<div style="width: 155px">
+	<div style="width: 250px">
 		<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
 		<i class="fas fa-camera-retro"></i>
 		Take Picture</button>

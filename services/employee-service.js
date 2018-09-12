@@ -120,34 +120,22 @@ function deleteOldImageIfExists(oldEmployee){
 module.exports.getCalendar = (req, res) => {
 
 	const idEmployee = req.params.id;
-	currentMonthAttendancesWithImages(idEmployee)
+	currentMonthAttendances(idEmployee)
 		.then(formatAttendancesForCalendar)
 		.then(calendarData => res.send({ calendarData }))
 		.catch(handleAjaxError(res));
 }
 
 
-function currentMonthAttendancesWithImages(idEmployee) {
+function currentMonthAttendances(idEmployee) {
 
-	return Employee.findById(idEmployee).exec()
-		.then(employee => employee.CIN)
-		.then(CIN => Attendance.currentMonthAttendancesWithImages(CIN));
+	return getEmployeeCIN(idEmployee)
+		.then(CIN => Attendance.currentMonthAttendances(CIN));
 }
 
-
-/* @Depreacted
-* I improved this for better performance,
-* by making a query at DB level to filter by last month
-* before Populating Images
-* @See Attendance.currentMonthAttendancesWithImages(CIN)
-*/
-function filterAttendancesByLastMonth(attendances){
-	let currentMonth = new Date().getMonth();
-	return attendances.filter(attendance => {
-		let attendanceMonth = attendance.date.getMonth(); 
-		console.log(attendanceMonth, currentMonth);
-		return attendanceMonth == currentMonth;
-	});
+function getEmployeeCIN(idEmployee) {
+	return Employee.findById(idEmployee).exec()
+		.then(employee => employee.CIN);
 }
 
 function formatAttendancesForCalendar(attendances) {
@@ -155,28 +143,13 @@ function formatAttendancesForCalendar(attendances) {
 	return attendances.map(formatAttendanceForCalendar);
 }
 
-/*
-* TODO A revoir
-* Il ne faut pas nsefat toutes les images du mois d'un coup,
-* il est préferable n'gad fl front end :
-* On click 3la l'element du Cal => Ajax attendance/:id/calendar
-* => then Afficher MyCustomModal
-*/
 function formatAttendanceForCalendar(attendance) {
-	let date = attendance.date;
+	let date = moment(attendance.date).format('YYYY-MM-DD');
 	let badge = true;
-	let title = 'Attended ' + moment(date).format('DD/MM/YYYY at HH:mm:s');
-	let body = `<img src="${attendance.faceImage}" />`;
-	let footer = '';
+	let title = 'Attended ' + moment(attendance.date).format('DD/MM/YYYY at HH:mm:s');
+	let body = attendance._id;	let footer = '';
 	let classname = "bg-success";
 	
 	return {date, badge, title, body, footer, classname};
 }
-
-/* Front End TODOOO */
-// $("#my-calendar").zabuto_calendar( { action: function() { myDateFunction(this.id); } } );
-/* function myDateFunction(id) {
-    var date = $("#" + id).data("date");
-    var hasEvent = $("#" + id).data("hasEvent");
-} */
 
