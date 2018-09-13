@@ -1,0 +1,23 @@
+<div id="overlay">
+    <div class="spinner"></div>
+</div>
+
+<script type="text/javascript">
+    let overlay = document.getElementById("overlay");
+    window.addEventListener('load', fadeOutEffect(overlay));
+        //overlay.style.display='none';
+
+    function fadeOutEffect(fadeTarget) {
+        let fadeEffect = setInterval(function () {
+            if (!fadeTarget.style.opacity) {
+                fadeTarget.style.opacity = 1;
+            }
+            if (fadeTarget.style.opacity > 0) {
+                fadeTarget.style.opacity -= 0.1;
+            } else {
+                clearInterval(fadeEffect);
+                fadeTarget.style.display='none';
+            }
+        }, 50);
+    }
+</script>
