@@ -8,13 +8,15 @@ const { handleAjaxError, handleError, printError } = require("../libs/errors");
 
 const moment = require("moment");
 
+const NB_LAST_ATTENDANCES = 30;
+
 /* @Index */
 module.exports.allEmployees = (req, res, next) => {
 
 	let startTime = new Date();
 	Employee.findAllAndPopulateImage()
 	.then(employees =>{		
-		printEmployees(employees);
+		// printEmployees(employees);
 		playSoundIfVolumeOn(req, "List of employees");
 		console.log("Treatment time : " + (new Date() - startTime));
 		return res.render("employees", { employees });
@@ -36,22 +38,28 @@ module.exports.searchEmployees = (req, res, next) => {
 	}).catch(handleError(next));
 }
 
-/* @Show - A Refactorer */
+/* @Show */
 module.exports.showEmployee = (req, res, next) => {
-	Employee.findByIdAndPopulateImageAndAttendances(req.params.id)
-	.then(employee => {
-		/*
-		* A Revoir, banli non nécessaire had findByCIN
-		* Wa9ila bach t3alej chi truc to not load old images or something ???
-		*/
-		return Attendance.findByCIN(employee.CIN)
-		.then(attendances => {
-			console.log(attendances);
-			employee.attendances = attendances;		
-			playSoundIfVolumeOn(req, employee.firstName + "'s profile")
-			return res.render("show-employee", { employee });
-		}); // Async Kaboom Error is handled in the last catch block
-	}).catch(handleError(next));
+	Employee.findByIdAndPopulateImage(req.params.id)
+	.then(addLastAttendancesToEmployee)
+	.then(playShowEmployeeSound(req))
+	.then(employee => res.render("show-employee", { employee }))
+	.catch(handleError(next));
+}
+
+function addLastAttendancesToEmployee(employee) {
+
+	return Attendance.findLastAttendancesByCIN(NB_LAST_ATTENDANCES, employee.CIN)
+	.then(attendances => {
+		employee.attendances = attendances;
+		return employee;
+	});
+}
+
+function playShowEmployeeSound(req) {
+	return (employee) => { 
+		playSoundIfVolumeOn(req, employee.firstName + "'s profile"); return employee; 
+	};
 }
 
 /* @Create AJAX */

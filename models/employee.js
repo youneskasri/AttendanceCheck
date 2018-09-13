@@ -29,6 +29,7 @@ Employee.findByIdAndPopulateImage = (id) => {
 	return query.exec(); // promise
 }
 
+
 Employee.findByIdAndPopulateImageAndAttendances = (id) => {
 	let query = Employee.findById({ _id: id});
 	query.populate('profileImage');

@@ -24,6 +24,10 @@ Attendance.findByCIN = (CIN) => {
 		.exec();
 }
 
+Attendance.findLastAttendancesByCIN = (n, CIN) => {
+	return Attendance.find({ CIN }).sort({date: -1}).limit(n).exec();
+}
+
 Attendance.findByCinAndPopulateImage = (CIN) => {
 	return Attendance.find({CIN: CIN})
 		.sort({_id: -1})
@@ -37,6 +41,7 @@ Attendance.currentMonthAttendances = (CIN) => {
 	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).exec();
 }
 
+/* @Unused */
 Attendance.currentMonthAttendancesWithImages = (CIN) => {
 	let date = new Date();
 	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
