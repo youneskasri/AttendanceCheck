@@ -8,7 +8,7 @@ module.exports.allCards = (req, res, next) => {
 	
 	Employee.findAllAndPopulateImage()
 	.then(employees =>{
-		printEmployees(employees);
+		//printEmployees(employees);
 		playSoundIfVolumeOn(req, "Employees cards");
 		return res.render("cards", { employees });
 	}).catch(next);

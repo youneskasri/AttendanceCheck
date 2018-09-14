@@ -37,11 +37,15 @@ module.exports = function(app){
 		},
 
 		setUpRouters: ()=>{
-			const indexRouter = require('../routes/index'),
-				usersRouter = require('../routes/users'),
-				employeesRouter = require('../routes/employees');
+			const indexRouter = require('../routes/indexRouter'),
+				usersRouter = require('../routes/usersRouter'),
+				employeesRouter = require('../routes/employeesRouter'),
+				cardsRouter = require('../routes/cardsRouter'),
+				attendancesRouter = require('../routes/attendancesRouter');
 			app.use('/', indexRouter)
+				.use('/attendances', attendancesRouter)
 				.use('/users', usersRouter)
+				.use('/cards', cardsRouter)
 				.use('/employees', employeesRouter);
 			return middlewares;
 		},

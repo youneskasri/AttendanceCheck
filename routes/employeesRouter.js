@@ -1,12 +1,7 @@
 const express = require('express'),
 	router = express.Router();
 
-const employeeService = require("../services/employee-service");
-const cardService = require("../services/card-service");
-
-/* Before employees route to NOT confuse with /:id */
-router.get('/cards', cardService.allCards)
-	.get('/cards/search', cardService.searchCards);
+const employeeService = require("../services/employeeService");
 
 router.get('/', employeeService.allEmployees)
 	.get('/search', employeeService.searchEmployees)

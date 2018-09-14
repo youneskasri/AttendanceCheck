@@ -15,7 +15,7 @@ function handleScan(content){
 
   let faceImage = takePicture(); /* fct from facecamera.js */
   if (TEST) alert("will send : "+content);
-  $.post("/attendance", {content, faceImage})
+  $.post("/attendances", {content, faceImage})
   .done(result => {
       //if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
       console.log("Result", result);

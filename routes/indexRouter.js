@@ -4,7 +4,6 @@ const express = require('express'),
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
 
-const attendanceService = require("../services/attendance-service");
 
 /*
 * Text To Speech 
@@ -15,9 +14,7 @@ const textToSpeech = require('../libs/utils')().textToSpeech;
 /* GET home page. */
 router.use(setVolumeOnByDefault)
 .get('/', indexQrScanner)
-.post('/volume', setVolume)
-.get('/attendances/:id', attendanceService.showAttendance)
-.post('/attendance', attendanceService.createAttendance);
+.post('/volume', setVolume);
 
 
 function setVolumeOnByDefault(req, res, next) {
@@ -25,6 +22,7 @@ function setVolumeOnByDefault(req, res, next) {
 	res.locals.volume = req.session.volume;
 	next();
 }
+
 /* @SetVolume AJAX */
 function setVolume(req, res, next){
 

@@ -156,7 +156,7 @@ function formatAttendanceForCalendar(attendance) {
 	let badge = true;
 	let title = 'Attended ' + moment(attendance.date).format('DD/MM/YYYY at HH:mm:s');
 	let body = attendance._id;	let footer = '';
-	let classname = "bg-success";
+	let classname = 'table-success';
 	
 	return {date, badge, title, body, footer, classname};
 }
