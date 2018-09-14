@@ -20,8 +20,7 @@ function handleScan(content){
       //if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
       console.log("Result", result);
       if (result.error){
-        console.log(result.error.stack);
-        alert(result.error.message);
+        alertError(result.error);
       } else {
         result.attendance.date = moment(result.attendance.date).format(DATE_FORMAT);
         updateTodaysPicture(result.todaysImage);

@@ -1,10 +1,9 @@
-
       
       /* Ajax POST Request To Create a new Employee */
       $("form#newEmployee").submit((evt)=>{
         
           evt.preventDefault();
-          let CIN = getInputValue("CIN"); // A TESTER
+          let CIN = getInputValue("CIN");
           let firstName = getInputValue("firstName");
           let lastName = getInputValue("lastName");
           let birthDate = getInputValue("birthDate");
@@ -15,8 +14,6 @@
             .fail(showErrorModalJquery);
       });
  
-
-      /* A TESTER */
       function getInputValue(inputName) {
         let selector = `input[name='${inputName}']`;
         return $(selector).val();
@@ -29,7 +26,7 @@
             showErrorMessage("CIN already used! ");
             $("input[name='CIN']").val('');
           } else {
-            handleError(data.error);
+            showErrorMessage(data.error.message || "Error while processing, See Logs");
           }
         } else if (data.success){
             console.log("Received employee : " + data.employee);
@@ -39,12 +36,6 @@
             showSuccessMessage("Saved! ");
         }
       }
-
-      function handleError(err) {
-        showErrorMessage(err.message);
-        console.log(err);
-        alert(err.message);
-      } 
 
       function appendNewEmployee(emp){
         
@@ -67,7 +58,7 @@
 
       function showErrorMessage(msg){
         $( "#newEmployeeMessage").removeClass("text-success d-none").addClass("text-danger small")
-          .text(msg).show().fadeOut( 2500 );
+          .text(msg).show().fadeOut( 3000 );
       }
 
       function cleanInputFields(){

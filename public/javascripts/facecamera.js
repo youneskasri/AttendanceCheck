@@ -13,7 +13,7 @@ function turnOnTheWebCam(){
   }).then(function(stream){
     video.srcObject = stream;
     video.play();
-  }).catch(function(error){
+  }).catch(function(error){ /* TODO Tester Affichage de error */
     showErrorModal("#Error turnOnTheWebCam - FaceCamera : " + error);
   });
 }
@@ -24,8 +24,6 @@ function takePicture(){
   context.drawImage(video, 0, 0, width, height);
   return canvas.toDataURL('image/png');
 }
-
-
 
 $("#testPicture").click(function(){
   handleScan("TEST");

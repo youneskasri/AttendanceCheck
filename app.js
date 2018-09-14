@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
 
 /* App settings */
 const app = express()
-	.set("port", process.env.PORT || 4000 || 8443) /* No need for HTTPS */
+	.set("port", process.env.PORT || 4000 || 8443)
 	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
 
@@ -23,14 +23,14 @@ const favicon = require('express-favicon');
 app.use(express.static(__dirname + "/public"))
 app.use(favicon(__dirname + '/public/favicon.png'));
 
-const middlewaresFor = require("./libs/middlewares");
-middlewaresFor(app).setUpHandlebars() // View engine
+const linkMiddlewaresTo = require("./libs/middlewares");
+linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpJsonParser() // JSON Parser
 	.setUpSession() // Session
 	.setUpLogger() // Logger
 	.setUpRouters(); // Routes
 
-// only use in development 
+// use in dev only, sends the full error stack to errorPage
 if ( app.get("env") === "development"){
 	let errorHandler = require("errorhandler")
 	app.use(errorHandler());
@@ -46,7 +46,7 @@ app.use(function(req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	console.log(err);
-	res.render('error');
+	res.render('errorPage');
 });
 
 // Defining some functions 

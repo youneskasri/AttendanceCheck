@@ -9,7 +9,7 @@
       $.get(url)
         .done(data => {
           if (data.error) {
-            handleError(data.error);
+            alertError(data.error);
           } else 
             showAttendanceModal(data.attendance)
         })

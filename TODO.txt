@@ -1,7 +1,3 @@
-- When jbed data dial Employee li t scanna : Last Person Checked
-	===> <Link> vers son profil
-
-
 - Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla...
 - f Afficher Employee nzid last Attendance instead of Card
 

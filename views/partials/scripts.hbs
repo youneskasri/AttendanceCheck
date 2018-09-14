@@ -2,19 +2,20 @@
 <script type="text/javascript" src="/javascripts/vendor/instascan.min.js"></script>
 <script type="text/javascript" src="/javascripts/vendor/moment.min.js"></script>
  	
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="/javascripts/vendor/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/vendor/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="/javascripts/vendor/zabuto_calendar.min.js"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script type="text/javascript" src="/javascripts/vendor/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascripts/vendor/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/javascripts/vendor/zabuto_calendar.min.js"></script>
 
 <script>
 	let TEST = false;
 
 	$(document).ready(function(){
+
 		/* Enable Tooltips */
 	  	$('[data-toggle="tooltip"]').tooltip();
 		/* Enable Popovers */
-	    $('[data-toggle="popover"]').popover(); 
+	    $('[data-toggle="popover"]').popover();
 	});
 
 	function showErrorModal(errorMessage, textStatus, jqXHR) {
@@ -33,6 +34,17 @@
 	function showErrorModalJquery(jqXHR, textStatus, errorMessage) {
       showErrorModal(errorMessage, textStatus, jqXHR);
     }
+
+	function alertError(error) {
+		$("#errorMessage").text(error.message);
+		console.log(error);
+		$(".alert.alert-danger").removeClass("d-none");
+	}
+
+	$(".alert>button.close").click(closeAlertError);
+	function closeAlertError() {
+		$(".alert.alert-danger").addClass("d-none");
+	}
 
 </script>
 

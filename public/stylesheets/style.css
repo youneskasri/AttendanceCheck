@@ -42,3 +42,7 @@ div.zabuto_calendar .table tr td.event div.day,
 div.zabuto_calendar ul.legend li.event {
   background-color: #AEEEFF !important;
 }
+
+.alert.alert-danger {
+	z-index: 2000;
+}

@@ -5,7 +5,7 @@ const File = require("../models/file");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 const { handleAjaxError } = require("../libs/errors");
 
-/* AJAX */
+/* @Show AJAX */
 module.exports.showAttendance = (req, res) => {
 	Attendance.findById(req.params.id)
 	.populate('faceImage').exec()
@@ -14,7 +14,7 @@ module.exports.showAttendance = (req, res) => {
 	}).catch(handleAjaxError(res));
 }
 
-/* AJAX */
+/* @Create AJAX */
 module.exports.createAttendance = (req, res) => {
 	let text = req.body.content.replace("http://www.",''),
 		faceImagePNG = req.body.faceImage,

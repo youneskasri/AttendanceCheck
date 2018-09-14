@@ -2,19 +2,16 @@ $(document).ready(findLastAttendance);
 
 function findLastAttendance() {
     let $lastAttendance = $("li.attendance").first();
-console.log($lastAttendance);
     let url = $lastAttendance.find("span.url").text();
-console.log(url);
-$.get(url)
-        .done(data => {
-            if (data.error) {
-                handleError(data.error);
-            } else 
-                setLastAttendance(data.attendance)
-        })
-        .fail((jqXHR, textStatus, errorMessage) => {
-            showErrorModal(errorMessage, textStatus, jqXHR);
-        });
+
+    $.get(url)
+    .done(data => {
+        if (data.error) 
+            alertError(data.error);
+        else 
+            setLastAttendance(data.attendance)
+    })
+    .fail(showErrorModalJquery);
 }
 
 function setLastAttendance(attendance) {
