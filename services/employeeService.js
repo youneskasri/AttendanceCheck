@@ -5,6 +5,7 @@ const Attendance = require("../models/attendance");
 const { filterEmployeesByKeyword, printEmployees } = Employee;
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 const { handleAjaxError, handleError, printError } = require("../libs/errors");
+const winston = require("../config/winston");
 
 const moment = require("moment");
 
@@ -18,7 +19,8 @@ module.exports.allEmployees = (req, res, next) => {
 	.then(employees =>{		
 		// printEmployees(employees);
 		playSoundIfVolumeOn(req, "List of employees");
-		console.log("Treatment time : " + (new Date() - startTime));
+		winston.info("Treatment time : " + (new Date() - startTime));
+		return res.send({ employees });
 		return res.render("employees", { employees });
 	}).catch(handleError(next));
 }
@@ -67,7 +69,7 @@ module.exports.createEmployee = (req, res) => {
 
 	validateInputsAndSaveEmployee(req.body)
 	.then(savedEmployee => {
-		console.log('Saved in DB: '.green + savedEmployee._id);
+		winston.info('Saved in DB: '.green + savedEmployee._id);
 		res.send({success: true, employee: savedEmployee});
 	})
 	.catch(sendErrorAjax(res)); 
@@ -93,7 +95,7 @@ function sendErrorAjax(res) {
 /* @ProfileImage AJAX */
 module.exports.setProfileImage = (req, res) => {
 
-	console.log("setProfileImage");
+	winston.info("setProfileImage");
 	let imageFile = req.body.image;	
 	let idEmployee = req.body.idEmployee;
 	File.saveImageFile(imageFile)
@@ -104,7 +106,7 @@ module.exports.setProfileImage = (req, res) => {
 
 function updateProfileImage(idEmployee) {
 	return createdFile => {
-		console.log(idEmployee);
+		winston.info(idEmployee);
 		return Employee.findByIdAndUpdate({ _id: idEmployee }, { profileImage: createdFile._id }, { new: false })
 			.exec()
 			.then(deleteOldImageIfExists) /* Error is handled well in the last catch block */
@@ -119,7 +121,7 @@ function deleteOldImageIfExists(oldEmployee){
 		return File.findByIdAndRemove({_id: oldEmployee.profileImage})
 		.exec()	/* Error is Handled well in the last CATCH Block (y) */
 	} else {
-		console.log("No previous image file");
+		winston.info("No previous image file");
 	}	
 }
 

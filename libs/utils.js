@@ -5,6 +5,7 @@ module.exports = function(app) {
 	
 	const SimpleTTS = require("simpletts");
 	const tts = new SimpleTTS();
+	const winston = require('../config/winston');
 
 	/* I used obj to avoid using this b/c js has no block scope */
 	return obj = {
@@ -28,7 +29,7 @@ module.exports = function(app) {
 			/* Test With Http */
 			let port = app.get("port")
 			if (port != 8443 && port != 443) {
-				console.log("Using HTTP");
+				winston.info("Using HTTP");
 				return app.listen(port);
 			}
 			/* HTTPS certificate */
@@ -38,11 +39,11 @@ module.exports = function(app) {
 			}
 			/* Listen + affiche liste des routes (sans middlawares) */
 			let server = https.createServer(options, app).listen(app.get("port"), function(){
-				console.log("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");
+				winston.info("Express started in "+ app.get("env") +" mode on https://localhost:"+app.get("port")+"; Press Crtl-C to terminate. ");
 				/*
 				*	Liste des routes ( sans middlewares )
 				*/
-				obj.showRoutesInConsole();
+				//obj.showRoutesInConsole(); // NOt working
 				/*
 				*	Show an OS notification message
 				*/
@@ -57,17 +58,14 @@ module.exports = function(app) {
 			tts.read({ text })
 			.then(() => {
 				if (!res) return;
-			  	console.log("Ok");
 			  	res.end(text);
-			}).catch((err) => {
-				console.log(err.message.yellow);
-			});
+			}).catch(err => winston.warn(err.message.yellow));
 		},
 
 		playSoundIfVolumeOn: (req, text) => {
 			if (req.session.volume === 'ON') {
 				tts.read({ text })
-				.catch(err => console.log(err.message.yellow));
+				.catch(err => winston.warn(err.message.yellow));
 			}
 		}
 	

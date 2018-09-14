@@ -21,17 +21,18 @@ module.exports = {
 }
 
 function printError(err) {
-	console.log("Error".green);	
-	saveErrorStackToFile(err.stack);
-	console.log("Error message : ".green + err.message);
+	//winston.warn("Error".green);	
+	//saveErrorStackToFile(err.stack);
+	winston.warn("Error message : ".green + err.message);
 }
 
+/* @Deprecated, to be removed, replaced by Winston */
 function saveErrorStackToFile(stackTrace) {
 	const FORMAT = 'YY-MM-DD-HH-mm-s'
 	fs.writeFile("catched-error-"+ (moment().format(FORMAT)) +".txt", stackTrace, (err) => {  
 		// throws an error, you could also catch it here
 		if (err) {
-			console.log(err);
+			winston.error(err);
 		}
 	});
 }

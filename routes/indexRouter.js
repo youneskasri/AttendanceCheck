@@ -3,7 +3,7 @@ const express = require('express'),
 
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
-
+const winston = require("../config/winston");
 
 /*
 * Text To Speech 
@@ -27,7 +27,7 @@ function setVolumeOnByDefault(req, res, next) {
 function setVolume(req, res, next){
 
 	req.session.volume = req.body.volume;
-	console.log("volume = " + req.session.volume);
+	winston.info("volume = " + req.session.volume);
 	if (req.session.volume === 'ON') textToSpeech("Volume ON");
 	return res.send({success: true, volume: req.session.volume});
 }
@@ -56,14 +56,13 @@ function indexQrScanner(req, res, next) {
             return attendance;
           });
 
-          res.locals.lastAttendances = attendances;
-          console.log("last attendances ", attendances);
+        res.locals.lastAttendances = attendances;
       }).catch(next);
   	})
   	.then(Attendance.findLastAttendance)
   	.then(lastPersonChecked => {
   		if (!lastPersonChecked) {
-  			console.log("Mazal ma tsejel 7ta attendance");
+  			winston.info("Mazal ma tsejel 7ta attendance");
   			return res.render('scanner');
   		}
   		return Employee.findAndPopulateImageByCIN(lastPersonChecked.CIN)

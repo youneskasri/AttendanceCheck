@@ -4,6 +4,7 @@ const File = require("../models/file");
 
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 const { handleAjaxError } = require("../libs/errors");
+const winston = require("../config/winston");
 
 /* @Show AJAX */
 module.exports.showAttendance = (req, res) => {
@@ -25,7 +26,7 @@ module.exports.createAttendance = (req, res) => {
 	Employee.findAndPopulateImageByCIN(CIN)
 		.then(employee => {
 			if (!employee) throw new Error("Employee not found");
-			console.log(employee.CIN.green);
+			winston.info(employee.CIN.green);
 			return File.saveImageFile(faceImagePNG) /* Save image file */
 			.then(registerAttendanceAndSendResponse(employee, req, res));
 		})

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const winston = require("../config/winston");
 
 let employeeSchema = mongoose.Schema({
 	CIN: { type: String, unique: true },
@@ -44,8 +45,8 @@ Employee.filterEmployeesByKeyword = function (q) {
 }
 
 Employee.printEmployees = function (employees) {
-	console.log("Found employees".green);
-	console.log(employees.map(emp => {
+	winston.info("Found employees".green);
+	winston.info(employees.map(emp => {
 		return { CIN: emp.CIN, firstName: emp.firstName, 
 			lastName: emp.lastName, birthDate: emp.birthDate };
 	}));

@@ -3,12 +3,13 @@ const express = require('express'),
 	mongoose = require('mongoose');
 
 const colors = require('colors');
+const winston = require("./config/winston");
 
 /* connect database */
 let mongooseOpts = { keepAlive: 120 };
 mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
-	.then(() => console.log(`Database connected`))
-	.catch(err => console.log(`Database connection error: ${err.message}`));
+	.then(() => winston.info(`Database connected`))
+	.catch(err => winston.error(`Database connection error: ${err.message}`));
 
 //require("./seeds").insertRandomEmployees(10); // Seeds
 
@@ -18,6 +19,7 @@ const app = express()
 	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
 
+	
 /* Favicon and public folder */
 const favicon = require('express-favicon');
 app.use(express.static(__dirname + "/public"))
@@ -27,8 +29,11 @@ const linkMiddlewaresTo = require("./libs/middlewares");
 linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpJsonParser() // JSON Parser
 	.setUpSession() // Session
-	.setUpLogger() // Logger
+	.setUpLoggers() // Loggers
 	.setUpRouters(); // Routes
+
+
+app.enable('view cache');
 
 // use in dev only, sends the full error stack to errorPage
 if ( app.get("env") === "development"){
@@ -45,12 +50,12 @@ app.use(function(req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 	// render the error page
 	res.status(err.status || 500);
-	console.log(err);
+	winston.error(err);
 	res.render('errorPage');
 });
 
 // Defining some functions 
-let {startServer, showRoutesInConsole} = require("./libs/utils")(app);
+let {startServer} = require("./libs/utils")(app);
 // Running the Server
 if (require.main === module){
 	// application run directly => start app server

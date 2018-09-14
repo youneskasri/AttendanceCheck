@@ -6,12 +6,11 @@ module.exports = function(app){
 	return middlewares = {
 		setUpHandlebars: ()=>{
 			const handlebars = require("express-handlebars");
+			const cond = require("handlebars-cond").cond;
+			const dateFormat = require("handlebars-dateformat");
 			app.engine('.hbs', handlebars({ 
 				defaultLayout: null, extname: '.hbs' ,
-				helpers: {
-					cond: require("handlebars-cond").cond,
-					dateFormat: require('handlebars-dateformat')
-				}
+				helpers: { cond, dateFormat	}
 			})).set("view engine", "hbs");
 			return middlewares;
 		},
@@ -50,9 +49,14 @@ module.exports = function(app){
 			return middlewares;
 		},
 
-		setUpLogger: ()=>{
-			const logger = require('morgan')
-			app.use(logger('dev'));
+		setUpLoggers: ()=>{
+			const winston = require('../config/winston');
+			const morgan = require('morgan');
+			if ( app.get("env") === "development"){
+				app.use(morgan('dev'));
+			} else {
+				app.use(morgan('combined', { stream: winston.stream }));
+			}			
 			return middlewares;
 		}
 

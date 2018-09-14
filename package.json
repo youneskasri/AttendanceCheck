@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "body-parser": "^1.18.3",
     "debug": "~2.6.9",
     "errorhandler": "^1.5.0",
@@ -22,7 +23,8 @@
     "qrcode-generator": "^1.4.0",
     "say": "^0.15.0",
     "simpletts": "^2.3.0",
-    "webp-converter": "^2.1.6"
+    "webp-converter": "^2.1.6",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
