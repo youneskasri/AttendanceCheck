@@ -1,6 +1,7 @@
 const Employee = require("../models/employee");
 const { filterEmployeesByKeyword, printEmployees } = Employee;
 
+const { handleError } = require("../libs/errors");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index */
@@ -11,7 +12,7 @@ module.exports.allCards = (req, res, next) => {
 		//printEmployees(employees);
 		playSoundIfVolumeOn(req, "Employees cards");
 		return res.render("cards", { employees });
-	}).catch(next);
+	}).catch(handleError(next));
 }
 
 /* @Search */
@@ -24,6 +25,6 @@ module.exports.searchCards = (req, res, next) => {
 	.then(employees => {
 		playSoundIfVolumeOn(req, " Search results");
 		return res.render("cards", { employees, query : q});	
-	}).catch(next);
+	}).catch(handleError(next));
 }
 

@@ -17,8 +17,7 @@ module.exports.showAttendance = (req, res) => {
 /* @Create AJAX */
 module.exports.createAttendance = (req, res) => {
 	let text = req.body.content.replace("http://www.",''),
-		faceImagePNG = req.body.faceImage,
-		imageURL = 'public/images/myImage.png'; 
+		faceImagePNG = req.body.faceImage;
 
 	let CIN = 'AD213583';
 

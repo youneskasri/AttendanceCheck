@@ -1,4 +1,5 @@
 const fs = require("fs");
+const moment = require("moment");
 
 module.exports = {
 
@@ -26,7 +27,8 @@ function printError(err) {
 }
 
 function saveErrorStackToFile(stackTrace) {
-	fs.writeFile("catched-error-"+ (new Date().getTime()) +".txt", stackTrace, (err) => {  
+	const FORMAT = 'YY-MM-DD-HH-mm-s'
+	fs.writeFile("catched-error-"+ (moment().format(FORMAT)) +".txt", stackTrace, (err) => {  
 		// throws an error, you could also catch it here
 		if (err) {
 			console.log(err);
