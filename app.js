@@ -32,9 +32,6 @@ linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpLoggers() // Loggers
 	.setUpRouters(); // Routes
 
-
-app.enable('view cache');
-
 // use in dev only, sends the full error stack to errorPage
 if ( app.get("env") === "development"){
 	let errorHandler = require("errorhandler")

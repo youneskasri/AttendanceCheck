@@ -5,13 +5,17 @@ module.exports = function(app){
 
 	return middlewares = {
 		setUpHandlebars: ()=>{
-			const handlebars = require("express-handlebars");
+			//const handlebars = require("express-handlebars");
+			const exphbs = require("exphbs");
 			const cond = require("handlebars-cond").cond;
 			const dateFormat = require("handlebars-dateformat");
-			app.engine('.hbs', handlebars({ 
-				defaultLayout: null, extname: '.hbs' ,
-				helpers: { cond, dateFormat	}
-			})).set("view engine", "hbs");
+
+			let handlebars = exphbs.handlebars;
+			handlebars.registerHelper('cond', cond);
+			handlebars.registerHelper('dateFormat', dateFormat);
+
+			app.engine('hbs', exphbs);
+			app.set('view engine', 'hbs');
 			return middlewares;
 		},
 

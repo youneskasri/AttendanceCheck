@@ -20,7 +20,6 @@ module.exports.allEmployees = (req, res, next) => {
 		// printEmployees(employees);
 		playSoundIfVolumeOn(req, "List of employees");
 		winston.info("Treatment time : " + (new Date() - startTime));
-		return res.send({ employees });
 		return res.render("employees", { employees });
 	}).catch(handleError(next));
 }
