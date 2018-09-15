@@ -13,6 +13,19 @@ Attendance.findAllSortByIdDesc = () => {
 	return Attendance.find({}).sort({ _id: -1 }).exec()
 }
 
+Attendance.pagination = (page, limit) => {
+	let pageOptions = {
+		page: page || 0,
+		limit: limit || 10
+	}
+	
+	return Attendance.find()
+	.sort({ _id: -1 })
+	.skip(pageOptions.page*pageOptions.limit)
+	.limit(pageOptions.limit)
+	.exec();
+}
+
 Attendance.findLastAttendances = (n) => {
 	return Attendance.find({}).sort({date: -1}).limit(n).exec();
 }

@@ -13,40 +13,42 @@
     
     <!-- Content -->
     <div class="container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>CIN</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Show</th>
+          </tr>
+        </thead>
+        <tbody>
         {{#each attendances}}
-          <table class="table table-hover">
-            <thead>
               <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
+                <td>{{ CIN }}</td>
+                <td>{{ ./employee.firstName }}</td>
+                <td>{{ ./employee.lastName }}</td>                
+                <td>{{dateFormat date "DD/MM/YYYY"}}</td>
+                <td>{{dateFormat date "HH:mm:ss"}}</td>
+                <td>
+                  <button class="showAttendance border-warning">See 
+                    <span class="d-none url">/attendances/{{ _id }}</span>
+                  </button>
+                </td>
               <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-              </tr>
-              <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-              </tr>
-              <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-              </tr>
-            </tbody>
-          </table>
         {{/each}}
+        </tbody>
+      </table>        
     </div> 
 
     {{> scripts}}
   
+  {{> showAttendanceModal }}
   <!-- Script: Show Attendance Modal -->
   <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
+
 
   </body>
 </html>

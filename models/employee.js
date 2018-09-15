@@ -14,6 +14,10 @@ let employeeSchema = mongoose.Schema({
 
 let Employee = mongoose.model("Employee", employeeSchema);
 
+Employee.findByCIN = (CIN) => {
+	return Employee.findOne({CIN: CIN}).exec();
+}
+
 Employee.findAndPopulateImageByCIN = (CIN) => {
 	return Employee.findOne({CIN: CIN}).populate('profileImage').exec();
 }

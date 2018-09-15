@@ -5,13 +5,15 @@
       evt.preventDefault();
 
       let url = $(evt.target).find("span.url").text();
-      console.log(url);
       $.get(url)
         .done(data => {
           if (data.error) {
             alertError(data.error);
-          } else 
-            showAttendanceModal(data.attendance)
+          } else  {
+            console.log(data.attendance.CIN, "ddd0");
+            showAttendanceModal(data.attendance);
+          }
+            
         })
         .fail(showErrorModalJquery);
     });
@@ -23,7 +25,9 @@
     let date = moment(attendance.date).format(DATE_FORMAT);
     $("#attendanceDate").text(date);
     $("#attendanceImage").attr("src",attendance.faceImage.data);
-
+    $("#attendanceCIN").text(attendance.CIN);
+    $("#attendanceFirstName").text(attendance.firstName);
+    $("#attendanceLastName").text(attendance.lastName);
     $("#showAttendanceModal").modal("show");
   }
 
