@@ -9,6 +9,12 @@ module.exports = function(app) {
 
 	/* I used obj to avoid using this b/c js has no block scope */
 	return obj = {
+		addToLocalsPromise: (res, name) => {
+			return (objectToAdd) => {
+				res.locals[name] = objectToAdd;
+				return objectToAdd;
+			}
+		},
 
 		/** Not working, need to adjust */
 		showRoutesInConsole: ()=>{

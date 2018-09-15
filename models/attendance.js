@@ -9,6 +9,9 @@ let attendanceSchema = mongoose.Schema({
 
 let Attendance = mongoose.model("Attendance", attendanceSchema);
 
+Attendance.findAllSortByIdDesc = () => {
+	return Attendance.find({}).sort({ _id: -1 }).exec()
+}
 
 Attendance.findLastAttendances = (n) => {
 	return Attendance.find({}).sort({date: -1}).limit(n).exec();
@@ -49,8 +52,7 @@ Attendance.currentMonthAttendancesWithImages = (CIN) => {
 }
 
 
-/* @NotWorking
-* Je pense abandonner cette fonctionnalité
+/* A VERIFIER _ TODO
 */
 Attendance.findAttendanceEventByCinAndDate = (CIN, eventDate) => {
 	let startDate = moment(eventDate).toDate();

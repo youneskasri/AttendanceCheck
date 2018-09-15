@@ -1,14 +1,14 @@
 <div class="container-fluid p-0 bg-light">
   <div class="row pt-2">
 
-    {{#if lastPersonChecked}}
+    {{#if lastAttendance}}
       <div class="col-6">
         <!-- Hidden -->
         <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
         data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
         <h6 class="text-center">Today's picture</h6>
         <img id="todaysPicture" class="w-100" data-toggle="tooltip" title="Today's picture"  data-placement="bottom" 
-        src="{{ lastPersonChecked.faceImage.data }}" alt="Card image">
+        src="{{ lastAttendance.faceImage.data }}" alt="Card image">
       </div>
       <div class="col-6">
         <h6 class="text-center"><span class="text-secondary">Compared to</span> Old picture</h6>

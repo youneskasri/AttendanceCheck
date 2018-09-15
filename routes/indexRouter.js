@@ -3,18 +3,17 @@ const express = require('express'),
 
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
+
 const winston = require("../config/winston");
 
-/*
-* Text To Speech 
-*/
-const textToSpeech = require('../libs/utils')().textToSpeech;
+const { addToLocalsPromise, textToSpeech } = require('../libs/utils')();
+const { handleError } = require("../libs/errors");
 
 
 /* GET home page. */
 router.use(setVolumeOnByDefault)
-.get('/', indexQrScanner)
-.post('/volume', setVolume);
+.post('/volume', setVolume)
+.get('/', indexQrScanner);
 
 
 function setVolumeOnByDefault(req, res, next) {
@@ -23,8 +22,11 @@ function setVolumeOnByDefault(req, res, next) {
 	next();
 }
 
+/**
+ * TODO Handling AJAX Error 
+ */
 /* @SetVolume AJAX */
-function setVolume(req, res, next){
+function setVolume(req, res){
 
 	req.session.volume = req.body.volume;
 	winston.info("volume = " + req.session.volume);
@@ -43,34 +45,43 @@ function indexQrScanner(req, res, next) {
   if (req.session.volume === 'ON') textToSpeech("Welcome ! The application has started");
 
   Attendance.findLastAttendances(3)
-  	.then(lastAttendances => {
-      /* For each attendance, add employees fname and lastname */
-      let promises = lastAttendances.map(att =>{
-        return Employee.findOne({CIN: att.CIN}).select('firstName lastName').exec();
-      });
-      /* Quand j'ai trouvé les employees, assign them to their attendances */
-      Promise.all(promises).then(employeesNames => {          
-          let attendances = lastAttendances
-          .map((attendance, i) => {
-			attendance.employee = employeesNames[i];
-            return attendance;
-          });
-
-        res.locals.lastAttendances = attendances;
-      }).catch(next);
-  	})
+ 	.then(addEmployeeInfoToAttendancesPromiseAll)
+	.then(addToLocalsPromise(res, 'lastAttendances'))  
   	.then(Attendance.findLastAttendance)
-  	.then(lastPersonChecked => {
-  		if (!lastPersonChecked) {
-  			winston.info("Mazal ma tsejel 7ta attendance");
-  			return res.render('scanner');
-  		}
-  		return Employee.findAndPopulateImageByCIN(lastPersonChecked.CIN)
-  		.then(employee => {
-  			return res.render('scanner', { lastPersonChecked, employee });
-  		});
-  	})
- 	.catch(next);
+	.then(addToLocalsPromise(res, 'lastAttendance'))
+	.then(findAttendedEmployeeWithImage)
+	.then(addToLocalsPromise(res, 'employee'))
+	.then(() => res.render("scanner"))
+	.catch(handleError(next));
+}
+
+function addEmployeeInfoToAttendancesPromiseAll(attendances) {
+	/* For each attendance, add employees fname and lastname */
+	let promises = getEachAttendedEmployeePromise(attendances);
+	
+	/* Quand j'ai trouvé les employees, assign them to their attendances */
+	return Promise.all(promises).then(employeesNames => {
+		return attendancesWithEmployee(attendances, employeesNames);
+	});
+}
+
+/* @returns an Array of Promises */
+function getEachAttendedEmployeePromise(attendances) {
+	return attendances.map(att => {
+		return Employee.findOne({ CIN: att.CIN }).select('firstName lastName').exec();
+	});
+}
+
+function attendancesWithEmployee(lastAttendances, employeesNames) {
+	return lastAttendances.map((attendance, i) => {
+		attendance.employee = employeesNames[i];
+		return attendance;
+	});
+}
+
+function findAttendedEmployeeWithImage(lastAttendance) {
+	if (!lastAttendance) return;
+	return Employee.findAndPopulateImageByCIN(lastAttendance.CIN);
 }
 
 module.exports = router;

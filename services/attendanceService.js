@@ -6,6 +6,13 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 const { handleAjaxError } = require("../libs/errors");
 const winston = require("../config/winston");
 
+/* @Index */
+module.exports.allAttendances = (req, res, next) => {
+	Attendance.findAllSortByIdDesc()
+	.then(attendances => res.render("attendances", { attendances }))
+	.catch(handleError(next));
+}
+
 /* @Show AJAX */
 module.exports.showAttendance = (req, res) => {
 	Attendance.findById(req.params.id)

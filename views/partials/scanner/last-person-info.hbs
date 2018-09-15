@@ -6,8 +6,8 @@
   <h5>
     
   </h5>
-  {{#if lastPersonChecked }}                 
-      <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">{{dateFormat lastPersonChecked.date "DD/MM/YYYY à HH:mm"}} </span></h5>
+  {{#if lastAttendance }}                 
+      <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">{{dateFormat lastAttendance.date "DD/MM/YYYY à HH:mm"}} </span></h5>
   {{/if}}
   <p class="card-text">Présence cette semaine TODO</p>
   <div class="container-fluid">
@@ -44,6 +44,7 @@
   </div>
   </div>
 {{else}}
+  <!-- Not displayed but I need it for jQuery (New Attendance) -->
   <div id="lastPersonChecked" class="d-none">
   <h4 class="card-title"><a href="#" id="hrefLastPerson" class="text-secondary"><span id="fullName"></span>
    <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary" id="CIN"></span></small>
