@@ -3,7 +3,7 @@ const Attendance = require("../models/attendance");
 const File = require("../models/file");
 
 const { playSoundIfVolumeOn } = require('../libs/utils')();
-const { handleAjaxError } = require("../libs/errors");
+const { handleAjaxError, handleError } = require("../libs/errors");
 const winston = require("../config/winston");
 
 /* @Index */
