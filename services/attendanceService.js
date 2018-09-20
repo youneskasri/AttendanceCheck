@@ -22,14 +22,7 @@ module.exports.showAttendance = (req, res) => {
 	Attendance.findById(req.params.id)
 	.populate('faceImage').exec()
 	.then(linkEmployeeToAttendance)
-	.then(attendance => {
-		let attendanceWithEmployeeData = {
-			CIN: attendance.employee.CIN,
-			firstName: attendance.employee.firstName,
-			lastName: attendance.employee.lastName,
-			faceImage: attendance.faceImage,
-			date: attendance.date
-		};
+	.then(attendanceWithEmployeeData => {
 		res.send({ attendance: attendanceWithEmployeeData });
 	}).catch(handleAjaxError(res));
 }
@@ -37,8 +30,14 @@ module.exports.showAttendance = (req, res) => {
 function linkEmployeeToAttendance(attendance) {
 	return Employee.findByCIN(attendance.CIN)
 	.then(employee => {
-		attendance.employee = employee;
-		return attendance;
+		let attendanceWithEmployeeData = {
+			CIN: employee.CIN,
+			firstName: employee.firstName,
+			lastName: employee.lastName,
+			faceImage: attendance.faceImage,
+			date: attendance.date
+		};
+		return attendanceWithEmployeeData;
 	});
 }
 
@@ -79,3 +78,49 @@ function registerAttendance(employee, imageId) {
 	});
 }
 
+/* @Search */
+module.exports.searchAndFilterAttendances = (req, res, next ) => {
+
+	let { page, limit } = req.query;
+
+	Attendance.pagination(page, limit)
+	.then(addEmployeeInfoToAttendancesPromiseAll)
+	.then(filterAttendances(req))
+	.then(attendances => res.render("attendances", { attendances }))
+	.catch(handleError(next));
+}
+
+function filterAttendances(req) {
+	return attendances => {
+		let { CIN, firstName, lastName, date } = req.query;
+		let filteredAttendances = attendances.filter(ByCIN(CIN))
+			.filter(ByFirstName(firstName))
+			.filter(ByLastName(lastName))
+			.filter(ByDate(date));
+		return filteredAttendances;
+	};
+}
+
+function ByCIN(CIN) {
+	if (!CIN) return _ => true; /* SKIP¨*/
+	return element => element.CIN.toUpperCase().includes(CIN.toUpperCase());
+}
+
+function ByFirstName(firstName) {
+	if (!firstName) return _ => true; /* SKIP¨*/
+	return element => element.employee.firstName.toUpperCase().includes(firstName.toUpperCase());
+}
+
+function ByLastName(lastName) {
+	if (!lastName) return _ => true; /* SKIP¨*/
+	return element => element.employee.lastName.toUpperCase().includes(lastName.toUpperCase());
+}
+
+const moment = require("moment");
+function ByDate(date) {
+	if (!date) return _ => true; /* SKIP¨*/
+	return element => {
+		let elementDate = moment(element.date).format('DD/MM/YYYY');
+		return elementDate.includes(date);
+	};
+}

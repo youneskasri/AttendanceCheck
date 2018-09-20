@@ -4,7 +4,8 @@ const express = require('express'),
 
 const attendanceService = require("../services/attendanceService");
 
-router.get('/:id', attendanceService.showAttendance)
+router.get('/search', attendanceService.searchAndFilterAttendances)
+	.get('/:id', attendanceService.showAttendance)
 	.get('/', attendanceService.allAttendances)
 	.post('/', attendanceService.createAttendance);
 

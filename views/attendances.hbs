@@ -13,7 +13,17 @@
     
     <!-- Content -->
     <div class="container">
-      <table class="table table-striped mt-4">
+      <form method="GET" action="/attendances/search" class="inline-form mt-5 pt-1 pb-4">
+        <div class="input-group">   
+          <label class="form-control bg-light">Search Attendance</label>         		
+          <input type="text" name="CIN" placeholder="CIN" class="form-control"/>
+          <input type="text" name="firstName" placeholder="First name" class="form-control"/>
+          <input type="text" name="lastName" placeholder="Last name" class="form-control"/>
+          <input type="text" name="date" placeholder="DD/MM/YYYY" class="form-control"/>
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
+      </form>
+      <table class="table table-striped mt-3">
         <thead>
           <tr>
             <th>CIN</th>
