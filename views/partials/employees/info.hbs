@@ -1,29 +1,37 @@
 {{#if employee}}
-
-	<h1>Employee Info</h1>
-	<input type="hidden" value="{{employee._id}}" name="idEmp"/>
-	<p class="text-dark"><b>First name</b> {{employee.firstName}}</p>
-	<p><b>Last name</b> {{employee.lastName}}</p>
-	<p><b>Phone</b> {{employee.phoneNumber}}</p>
-	<p><b>Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
-	
-	<div>
-	{{#if employee.profileImage.data}}
-		<img class="img-fluid" src="{{employee.profileImage.data}}" alt="{{employee.lastName}}" id="empPicture">
-	{{else}}
-		<img class="img-fluid" id="empPicture" src="/images/img_avatar3.png" alt="{{employee.lastName}}">
-	{{/if}}
+<div class="col-5 ml-0 pl-2 mt-2">
+<div class="card">
+	<div class="card-header">
+		<h2>Employee Info</h2>
 	</div>
+	<div class="card-body">
+		<input type="hidden" value="{{employee._id}}" name="idEmp"/>
+		<p class="text-dark"><b>First name</b> {{employee.firstName}}</p>
+		<p><b>Last name</b> {{employee.lastName}}</p>
+		<p><b>Phone</b> {{employee.phoneNumber}}</p>
+		<p><b>Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
+		
+		<div>
+		{{#if employee.profileImage.data}}
+			<img class="img-fluid" src="{{employee.profileImage.data}}" alt="{{employee.lastName}}" id="empPicture">
+		{{else}}
+			<img class="img-fluid" id="empPicture" src="/images/img_avatar3.png" alt="{{employee.lastName}}">
+		{{/if}}
+		</div>
 
-	<div style="width: 250px">
-		<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
-		<i class="fas fa-camera-retro"></i>
-		Take Picture</button>
+		<div style="width: 250px">
+			<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
+			<i class="fas fa-camera-retro"></i>
+			Take Picture</button>
+		</div>
 	</div>
+</div>
 	
-
+	
 
 
 {{else}}
 undefuned
 {{/if}}
+
+</div>

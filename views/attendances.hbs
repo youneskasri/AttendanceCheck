@@ -13,7 +13,7 @@
     
     <!-- Content -->
     <div class="container">
-      <table class="table table-hover">
+      <table class="table table-striped mt-4">
         <thead>
           <tr>
             <th>CIN</th>
@@ -21,7 +21,7 @@
             <th>Lastname</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Show</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
                 <td>{{dateFormat date "DD/MM/YYYY"}}</td>
                 <td>{{dateFormat date "HH:mm:ss"}}</td>
                 <td>
-                  <button class="showAttendance border-warning">See 
+                  <button class="showAttendance btn-sm btn-warning">See 
                     <span class="d-none url">/attendances/{{ _id }}</span>
                   </button>
                 </td>

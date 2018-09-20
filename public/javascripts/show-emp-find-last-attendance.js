@@ -1,7 +1,7 @@
 $(document).ready(findLastAttendance);
 
 function findLastAttendance() {
-    let $lastAttendance = $("li.attendance").first();
+    let $lastAttendance = $("tr.attendance").first();
     let url = $lastAttendance.find("span.url").text();
 
     $.get(url)
