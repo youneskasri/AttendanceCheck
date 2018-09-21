@@ -52,15 +52,19 @@ Attendance.findByCinAndPopulateImage = (CIN) => {
 }
 
 Attendance.currentMonthAttendances = (CIN) => {
-	let date = new Date();
-	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	let firstOfMonth = getFirstOfThisMonth();
 	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).exec();
 }
 
-/* @Unused */
-Attendance.currentMonthAttendancesWithImages = (CIN) => {
+function getFirstOfThisMonth() {
 	let date = new Date();
 	let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	return firstOfMonth;
+}
+
+
+Attendance.currentMonthAttendancesWithImages = (CIN) => {
+	let firstOfMonth = getFirstOfThisMonth();
 	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).populate('faceImage').exec();
 }
 
@@ -77,3 +81,4 @@ Attendance.findAttendanceEventByCinAndDate = (CIN, eventDate) => {
 }
 
 module.exports = Attendance;
+

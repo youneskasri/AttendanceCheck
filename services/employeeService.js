@@ -3,8 +3,10 @@ const File = require("../models/file");
 const Attendance = require("../models/attendance");
 
 const { filterEmployeesByKeyword, printEmployees } = Employee;
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { playSoundIfVolumeOn, addToLocalsPromise } = require('../libs/utils')();
 const { handleAjaxError, handleError, printError } = require("../libs/errors");
+const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService");
+
 const winston = require("../config/winston");
 
 const moment = require("moment");
@@ -162,3 +164,18 @@ function formatAttendanceForCalendar(attendance) {
 	return {date, badge, title, body, footer, classname};
 }
 
+module.exports.generateAttendancesReport = (req, res, next) => {
+	const idEmployee = req.params.id;
+	Employee.findByIdAndPopulateImage(idEmployee)
+		.then(addToLocalsPromise(res, 'employee'))
+		.then(___ => currentMonthAttendancesWithImages(idEmployee))
+		.then(addToLocalsPromise(res, 'attendances'))
+		.then(___ => res.render("attendances-report"))
+		.catch(handleError(next));
+}
+
+function currentMonthAttendancesWithImages(idEmployee) {
+
+	return getEmployeeCIN(idEmployee)
+		.then(CIN => Attendance.currentMonthAttendancesWithImages(CIN));
+}

@@ -64,3 +64,111 @@
 {"message":"Using HTTP","level":"info"}
 {"message":"Database connected","level":"info"}
 {"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connection error: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Treatment time : 21","level":"info"}
+{"message":"Treatment time : 21","level":"info"}
+{"message":"Treatment time : 22","level":"info"}
+{"message":"Treatment time : 20","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Treatment time : 15","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"setProfileImage","level":"info"}
+{"message":"5b984cb727205faef0a94e5e","level":"info"}
+{"message":"Treatment time : 114","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Treatment time : 88","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Treatment time : 40","level":"info"}
+{"message":"Treatment time : 30","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Treatment time : 41","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Treatment time : 39","level":"info"}
+{"message":"Treatment time : 39","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Treatment time : 34","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"setProfileImage","level":"info"}
+{"message":"5b984cb727205faef0a94e5e","level":"info"}
+{"message":"Treatment time : 35","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Treatment time : 1081","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Treatment time : 48","level":"info"}
+{"message":"Treatment time : 35","level":"info"}
+{"message":"Treatment time : 46","level":"info"}
+{"message":"\u001b[32mError message : \u001b[39mCast to ObjectId failed for value \"search\" at path \"_id\" for model \"Attendance\"","level":"warn"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"\u001b[32mError message : \u001b[39mCannot read property 'toUpperCase' of undefined","level":"warn"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Treatment time : 1084","level":"info"}
+{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
+{"message":"Not Found","level":"error"}
+{"message":"setProfileImage","level":"info"}
+{"message":"5b984cb727205faef0a94e5e","level":"info"}
+{"message":"setProfileImage","level":"info"}
+{"message":"5b984cb727205faef0a94e5e","level":"info"}
+{"message":"Not Found","level":"error"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Using HTTP","level":"info"}
+{"message":"Database connected","level":"info"}
+{"message":"Not Found","level":"error"}
+{"message":"Treatment time : 52","level":"info"}
+{"message":"Treatment time : 56","level":"info"}
+{"message":"Treatment time : 36","level":"info"}
+{"message":"Treatment time : 37","level":"info"}
+{"message":"Treatment time : 37","level":"info"}
+{"message":"Treatment time : 33","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}
+{"message":"Treatment time : 35","level":"info"}
+{"message":"Treatment time : 39","level":"info"}
+{"message":"Treatment time : 38","level":"info"}
+{"message":"\u001b[33mAlready reading a text\u001b[39m","level":"warn"}

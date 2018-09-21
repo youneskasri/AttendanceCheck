@@ -7,31 +7,8 @@
 
 History of attendances :
 
-Last Week
-Mardi :
--
--
--
--
--
 
-Lundi :
--
--
--
--
--
-
-Search attendance by Date
--
--
--
--
--
--
--
--
-
+Search attendance by Date | CIN  | FirstName LastName
 
 
 ## TEST A AUTOMATISER #

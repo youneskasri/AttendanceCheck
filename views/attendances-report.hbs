@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Attendances Report</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-lightGrey text-dark">
+    {{> loadingSpinner}}
+    {{> navbar}}
+    {{> errorHandlers}}
+    
+     <!-- Content -->
+     <div class="container-fluid bg-lightGrey">
+        <div class="row">
+          <div class="col-5 pt-4">
+              <div class="container fixed-top pt-5 mt-3 ml-3 pl-0" style="z-index: 0"> 
+              {{#if employee}}
+              <div class="col-5 ml-0 pl-2 mt-2">
+              <div class="card">
+                <div class="card-header bg-dark text-light">
+                  <h2>Employee Info</h2>
+                </div>
+                <div class="card-body">
+                  <input type="hidden" value="{{employee._id}}" name="idEmp"/>
+                  <p class="text-dark"><b>First name</b> {{employee.firstName}}</p>
+                  <p><b>Last name</b> {{employee.lastName}}</p>
+                  <p><b>Phone</b> {{employee.phoneNumber}}</p>
+                  <p><b>Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
+                  
+                  <div>
+                  {{#if employee.profileImage.data}}
+                    <img class="img-fluid " src="{{employee.profileImage.data}}" alt="{{employee.lastName}}" id="empPicture">
+                  {{else}}
+                    <img class="img-fluid " id="empPicture" src="/images/img_avatar3.png" alt="{{employee.lastName}}">
+                  {{/if}}
+                  </div>
+                </div>
+              </div>
+                
+                
+
+
+              {{else}}
+              undefuned
+              {{/if}}
+
+              </div>
+
+              </div>
+          </div>
+
+          <div class="col-7 mt-4">
+              <div class="container-fluid">
+                 <div class="row text-center text-lg-left">
+                  {{#each attendances}}
+                    <div class="col-md-4 col-xs-6">
+                      <div  class="d-block mb-4 h-100">
+                        <img class="img-thumbnail img-fluid" src="{{faceImage.data}}" alt="{{dateFormat date 'HH:MM:SS'}}">
+                      </div>
+                    </div>
+                  {{/each}}
+                 </div>                              
+              </div>
+          </div>
+     </div> 
+
+    {{> scripts}}
+  </body>
+</html>

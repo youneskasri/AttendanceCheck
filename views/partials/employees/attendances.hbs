@@ -1,7 +1,9 @@
 <h1>Last attendances</h1>
-
+<form action="/employees/{{ employee._id }}/report">
+    <button class="btn btn-warning float-right">Generate attendances Report</button>
+</form>
   <table class="table table-sm  text-center table-striped mt-4">
-        <thead>
+        <thead class="table-dark">
           <tr>
             <th>Date</th>
             <th>Time</th>
