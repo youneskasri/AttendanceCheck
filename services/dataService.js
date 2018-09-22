@@ -3,6 +3,10 @@ const { handleError } = require("../libs/errors");
 const Employee = require("../models/employee");
 const exportFromJSON = require("export-from-json");
 
+/*
+* Exporte toute les attendances de chaque employee 
+*/
+
 /* @Route /export/:format (csv, xsl, json ..) */
 module.exports.exportDataToFormat = (req, res, next) => {
 	
