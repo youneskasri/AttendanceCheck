@@ -33,7 +33,7 @@ td > li {
 
 div.zabuto_calendar .badge-event,
 div.zabuto_calendar div.legend span.badge-event {
-  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%) !important;
+  background: linear-gradient(141deg, #333 0%, #119911 51%, #333 75%) !important;
   color: #fff;
   text-shadow: none;
 }

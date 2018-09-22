@@ -9,7 +9,10 @@ const winston = require("./config/winston");
 let mongooseOpts = { keepAlive: 120 };
 mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
 	.then(() => winston.info(`Database connected`))
-	.catch(err => winston.error(`Database connection error: ${err.message}`));
+	.catch(err => { 
+		let message = `Database connection error: ${err.message}`;
+		winston.error(message);	console.log(message); process.exit(1);
+	});
 
 //require("./seeds").insertRandomEmployees(10); // Seeds
 

@@ -1,15 +1,10 @@
+History of attendances : # Mazal Ndir Pagination
+
 - Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla...
-- f Afficher Employee nzid last Attendance instead of Card
 
 # Delete, Update Employee ? Should I make it only for an Admin Account ? Need for Auth & Authorization ?
 
 # Mnin nChof Attendance List dial un Employee : Marquer NOT OK | (OK a voir) => ze3ma pénalité
-
-History of attendances :
-
-
-Search attendance by Date | CIN  | FirstName LastName
-
 
 ## TEST A AUTOMATISER #
 
@@ -21,6 +16,7 @@ take picture
 
 all cards
 search cards
+Search attendance by Date | CIN  | FirstName LastName
 
 index :
 	with no data => Last Person Checked = John Doe
