@@ -6,11 +6,13 @@ const winston = require("../config/winston");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 const scannerService = require("../services/scannerService");
+const dataService = require("../services/dataService");
 
 /* GET home page. */
 router.use(setVolumeOnByDefault)
-.post('/volume', setVolume)
-.get('/', scannerService.indexQrScanner);
+	.post('/volume', setVolume)
+	.get('/export/:format', dataService.exportDataToFormat)
+	.get('/', scannerService.indexQrScanner);
 
 
 function setVolumeOnByDefault(req, res, next) {
@@ -30,5 +32,6 @@ function setVolume(req, res){
 	playSoundIfVolumeOn(req, "VOLUME ON");
 	return res.send({success: true, volume: req.session.volume});
 }
+
 
 module.exports = router;

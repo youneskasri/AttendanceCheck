@@ -53,7 +53,7 @@ Attendance.findByCinAndPopulateImage = (CIN) => {
 
 Attendance.currentMonthAttendances = (CIN) => {
 	let firstOfMonth = getFirstOfThisMonth();
-	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).exec();
+	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).sort({ _id: -1}).exec();
 }
 
 function getFirstOfThisMonth() {
@@ -65,7 +65,7 @@ function getFirstOfThisMonth() {
 
 Attendance.currentMonthAttendancesWithImages = (CIN) => {
 	let firstOfMonth = getFirstOfThisMonth();
-	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).populate('faceImage').exec();
+	return Attendance.find({ CIN, date: {$gte: firstOfMonth} }).populate('faceImage').sort({ _id: -1}).exec();
 }
 
 

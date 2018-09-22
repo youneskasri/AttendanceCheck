@@ -64,10 +64,20 @@ function registerAttendanceAndSendResponse(employee, req, res) {
 	return file => {
 		return registerAttendance(employee, file._id) /* Register attendance */
 			.then(attendance => {
-				playSoundIfVolumeOn(req, "Welcome " + employee.firstName);
-				return res.send({ attendance, employee, todaysImage: file.data });
+				pushAttendanceToEmployeeAttendances(employee, attendance)
+				.then(() => {
+					playSoundIfVolumeOn(req, "Welcome " + employee.firstName);
+					return res.send({ attendance, employee, todaysImage: file.data });
+				}).catch(handleAjaxError(res));
 			}); // Error is handled well in the last catch block (y) (y)
 	};
+}
+
+function pushAttendanceToEmployeeAttendances(employee, attendance) {
+	let idAttendances = employee.attendances.slice();
+	idAttendances.push(attendance._id);
+	return Employee
+		.findByIdAndUpdate({ _id: employee._id }, { attendances: idAttendances }, { new: false });
 }
 
 function registerAttendance(employee, imageId) {

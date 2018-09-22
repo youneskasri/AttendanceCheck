@@ -20,7 +20,10 @@
               <div class="col-5 ml-0 pl-2 mt-2">
               <div class="card">
                 <div class="card-header bg-dark text-light">
-                  <h2>Employee Info</h2>
+                  <h2>
+                    Employee Info
+                    <a href="/employees/{{employee._id}}" class="float-right btn btn-success text-light"><i class="fas fa-arrow-left"></i> Return</a>
+                  </h2>
                 </div>
                 <div class="card-body">
                   <input type="hidden" value="{{employee._id}}" name="idEmp"/>
