@@ -58,10 +58,12 @@
               <div class="container-fluid">
                  <div class="row text-center text-lg-left">
                   {{#each attendances}}
-                    <div class="col-md-4 col-xs-6">
-                      <div  class="d-block mb-4 h-100">
-                        <img class="img-thumbnail img-fluid" src="{{faceImage.data}}" alt="{{dateFormat date 'HH:MM:SS'}}">
-                      </div>
+                    <div class="col-md-4 col-xs-6 mb-3">
+                    
+                        <a  class="d-block h-100" href="#" data-toggle="tooltip" title="{{dateFormat date 'DD/MM/YYYY HH:mm:ss'}}">
+                        <img class="img-thumbnail img-fluid" src="{{faceImage.data}}">
+                        </a>
+
                     </div>
                   {{/each}}
                  </div>                              

@@ -2,7 +2,7 @@ const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
 const File = require("../models/file");
 
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { playSoundIfVolumeOn, addToLocalsPromise } = require('../libs/utils')();
 const { handleAjaxError, handleError } = require("../libs/errors");
 const winston = require("../config/winston");
 
@@ -11,10 +11,28 @@ const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService"); 
 /* @Index */
 module.exports.allAttendances = (req, res, next) => {
 	let { page, limit } = req.query;
-	Attendance.pagination(page, limit)
+	Attendance.pagination(Number(page), Number(limit))
 	.then(addEmployeeInfoToAttendancesPromiseAll) 
-	.then(attendances => res.render("attendances", { attendances }))
+	.then(addToLocalsPromise(res, "attendances"))
+	.then(___ => calculateAttendancesPagination(page))
+	.then(addToLocalsPromise(res, "pages"))
+	.then(___ => res.render("attendances"))
 	.catch(handleError(next));
+}
+
+function calculateAttendancesPagination(page) {
+
+	return Attendance.count().exec()
+	.then(attendancesCount => {
+		let pageCount = Math.trunc((9+attendancesCount)/10); /* Assuming lmit is 9+1=10 per page */
+		let pages = [];
+		for (let i = 1; i <= pageCount; i++) {
+			let pageNumber = i;
+			let selected = pageNumber === Number(page);
+			pages.push( { pageNumber, selected} );
+		}
+		return pages;
+	});
 }
 
 /* @Show AJAX */

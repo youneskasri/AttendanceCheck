@@ -107,7 +107,7 @@ module.exports.setProfileImage = (req, res) => {
 
 function updateProfileImage(idEmployee) {
 	return createdFile => {
-		winston.info(idEmployee);
+		winston.info('Update profile image for ' + idEmployee);
 		return Employee.findByIdAndUpdate({ _id: idEmployee }, { profileImage: createdFile._id }, { new: false })
 			.exec()
 			.then(deleteOldImageIfExists) /* Error is handled well in the last catch block */
@@ -159,7 +159,7 @@ function formatAttendanceForCalendar(attendance) {
 	let badge = true;
 	let title = 'Attended ' + moment(attendance.date).format('DD/MM/YYYY at HH:mm:s');
 	let body = attendance._id;	let footer = '';
-	let classname = 'table-success';
+	let classname = ''; // 'table-success';
 	
 	return {date, badge, title, body, footer, classname};
 }

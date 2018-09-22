@@ -1,6 +1,8 @@
-<h1>Last attendances</h1>
+<h1 class="mt-4">Last 30 attendances</h1>
 <form action="/employees/{{ employee._id }}/report">
-    <button class="btn btn-warning float-right">Generate attendances Report</button>
+    <button class="btn btn-warning float-right">
+      <i class="fas fa-images"></i>  
+      Attendances Report</button>
 </form>
   <table class="table table-sm  text-center table-striped mt-4">
         <thead class="table-dark">
@@ -16,7 +18,8 @@
                 <td>{{dateFormat date "DD/MM/YYYY"}}</td>
                 <td>{{dateFormat date "HH:mm:ss"}}</td>
                 <td>
-                  <button class="showAttendance btn-sm btn-warning">See 
+                  <button class="showAttendance btn-sm btn-warning">
+                    <i class="fas fa-eye"></i>
                     <span class="d-none date">{{dateFormat date "DD/MM/YYYY à HH:mm"}}</span>
                     <span class="d-none url">/attendances/{{ _id }}</span>
                   </button>

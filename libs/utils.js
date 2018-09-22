@@ -36,7 +36,7 @@ module.exports = function(app) {
 			let port = app.get("port")
 			if (port != 8443 && port != 443) {
 				winston.info("Using HTTP");
-				return app.listen(port);
+				return app.listen(port, _ => console.log("The application has started on http://localhost:"+port));
 			}
 			/* HTTPS certificate */
 			let options = {

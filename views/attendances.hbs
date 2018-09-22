@@ -15,18 +15,30 @@
     <div class="container">
       <form method="GET" action="/attendances/search" class="inline-form mt-5 pt-1 pb-4">
         <div class="input-group">   
-          <label class="form-control bg-light">Search Attendance</label>         		
+          <label class="form-control bg-light">
+            Filter Attendances</label>         		
           <input type="text" name="CIN" placeholder="CIN" class="form-control"/>
           <input type="text" name="firstName" placeholder="First name" class="form-control"/>
           <input type="text" name="lastName" placeholder="Last name" class="form-control"/>
           <input type="text" name="date" placeholder="DD/MM/YYYY" class="form-control"/>
-          <button type="submit" class="btn btn-success">Search</button>
+          <button type="submit" class="btn btn-success">
+            <i class="fas fa-search"></i>
+            Search</button>
         </div>
       </form>
       <div class="float-right btn-group">
-        <a href="/export/csv" class="btn btn-warning">Export to CSV</a>
-        <a href="/export/xls" class="btn btn-success">Export to Excel File</a>
-        <a href="/export/json" class="btn-dark btn">Export to JSON</a>
+        <a href="/export/csv" class="btn btn-warning">
+          <i class="fas fa-file-export"></i>
+          CSV
+        </a>
+        <a href="/export/xls" class="btn btn-success">
+          <i class="fas fa-file-excel"></i>
+          Excel File
+        </a>
+        <a href="/export/json" class="btn-dark btn">
+          <i class="fas fa-file-export"></i>
+          JSON
+        </a>
       </div>
       <table class="table table-striped mt-3">
         <thead>
@@ -48,14 +60,30 @@
                 <td>{{dateFormat date "DD/MM/YYYY"}}</td>
                 <td>{{dateFormat date "HH:mm:ss"}}</td>
                 <td>
-                  <button class="showAttendance btn-sm btn-warning">See 
+                  <button class="showAttendance btn-sm btn-warning">
+                    <i class="fas fa-eye"></i>                    
                     <span class="d-none url">/attendances/{{ _id }}</span>
                   </button>
                 </td>
               <tr>
         {{/each}}
         </tbody>
-      </table>        
+      </table>   
+
+      <!-- Center-aligned Pagination-->
+      <ul class="pagination justify-content-center" style="margin: 20px 0">
+        <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
+        {{#each pages }}
+          <li class="page-item">
+            {{#if selected }}
+              <a class="page-link bg-warning text-dark" href="/attendances?page={{pageNumber}}">{{pageNumber}}</a>
+            {{else }}
+              <a class="page-link bg-dark text-light" href="/attendances?page={{pageNumber}}">{{pageNumber}}</a>
+            {{/if}}              
+          </li>
+        {{/each }}
+       <!--  <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+      </ul>           
     </div> 
 
     {{> scripts}}
