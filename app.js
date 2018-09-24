@@ -66,5 +66,8 @@ if (require.main === module){
 }
 
 
-
-
+setInterval(() => {
+	let memoryUsage = process.memoryUsage();
+	let { rss, heapTotal, heapUsed } = memoryUsage;
+	console.log(`rss=${rss}, heapUsed=${heapUsed/1024/1024} mb`);
+}, 5000);
