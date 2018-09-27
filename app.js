@@ -22,10 +22,15 @@ const app = express()
 	.set("env", process.env.ENV || "development")
 	.disable("x-powered-by");
 
-	
+/* require some utilities functions */
+const { isDevEnvironment, 
+	showMemoryUsage, 
+	useErrorHandler,
+	startServer } = require("./libs/utils")(app);
+
 /* Favicon and public folder */
 const favicon = require('express-favicon');
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(__dirname + "/public"));
 app.use(favicon(__dirname + '/public/favicon.png'));
 
 const linkMiddlewaresTo = require("./libs/middlewares");
@@ -35,10 +40,10 @@ linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpLoggers() // Loggers
 	.setUpRouters(); // Routes
 
-// use in dev only, sends the full error stack to errorPage
-if ( app.get("env") === "development"){
-	let errorHandler = require("errorhandler")
-	app.use(errorHandler());
+
+if ( isDevEnvironment()){
+	useErrorHandler(); // sends the full error stack to errorPage
+	showMemoryUsage();
 }
 
 // catch 404 and error handler
@@ -54,8 +59,6 @@ app.use(function(req, res, next) {
 	res.render('errorPage');
 });
 
-// Defining some functions 
-let {startServer} = require("./libs/utils")(app);
 // Running the Server
 if (require.main === module){
 	// application run directly => start app server
@@ -64,10 +67,3 @@ if (require.main === module){
 	// application imported as a module via "require" => export function
 	module.exports = startServer;
 }
-
-
-setInterval(() => {
-	let memoryUsage = process.memoryUsage();
-	let { rss, heapTotal, heapUsed } = memoryUsage;
-	console.log(`rss=${rss}, heapUsed=${heapUsed/1024/1024} mb`);
-}, 5000);
