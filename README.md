@@ -1,3 +1,7 @@
+# Database Size Needed en moyenne :
+50mb = 0.05GB per Employee per Month
+0.05GB * 50 Emp * 12 Month = 30GB
+
 # Build :
 - build:obfuscate
     - Copy * content from . to ./target
