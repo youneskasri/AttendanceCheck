@@ -7,8 +7,30 @@ module.exports = function(app) {
 	const tts = new SimpleTTS();
 	const winston = require('../config/winston');
 
-	/* I used obj to avoid using this b/c js has no block scope */
-	return obj = {
+	return {
+
+		showMemoryUsage: (interval) => {
+			let printInterval = interval || 5000;
+			setInterval(() => {
+				let memoryUsage = process.memoryUsage();
+				let { rss, heapTotal, heapUsed } = memoryUsage;
+				console.log(`rss=${rss}, heapUsed=${heapUsed/1024/1024} mb`);
+			}, printInterval);
+		},
+
+		isDevEnvironment : (appArg) => {
+			let application = app || appArg;
+			if (!application) throw new Error("App object is undefined #isDevEnvironment");
+			return application.get("env") === "development";
+		},
+
+		useErrorHandler: (appArg) => {
+			let application = app || appArg;
+			if (!application) throw new Error("App object is undefined #isDevEnvironment");
+			let errorHandler = require("errorhandler");
+			application.use(errorHandler());
+		},
+
 		addToLocalsPromise: (res, name) => {
 			return (objectToAdd) => {
 				res.locals[name] = objectToAdd;
@@ -31,7 +53,7 @@ module.exports = function(app) {
 			});
 		},
 
-		startServer: ()=>{
+		startServer: function () {
 			/* Test With Http */
 			let port = app.get("port")
 			if (port != 8443 && port != 443) {
@@ -49,7 +71,7 @@ module.exports = function(app) {
 				/*
 				*	Liste des routes ( sans middlewares )
 				*/
-				//obj.showRoutesInConsole(); // NOt working
+				this.showRoutesInConsole();
 				/*
 				*	Show an OS notification message
 				*/
