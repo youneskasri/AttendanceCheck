@@ -3,9 +3,8 @@ module.exports = function(app){
 	const express = require("express"),
 		path = require('path');
 
-	return middlewares = {
-		setUpHandlebars: ()=>{
-			//const handlebars = require("express-handlebars");
+	const middlewares = {
+		setUpHandlebars: function () {
 			const exphbs = require("exphbs");
 			const cond = require("handlebars-cond").cond;
 			const dateFormat = require("handlebars-dateformat");
@@ -16,17 +15,17 @@ module.exports = function(app){
 
 			app.engine('hbs', exphbs);
 			app.set('view engine', 'hbs');
-			return middlewares;
+			return this;
 		},
 
-		setUpJsonParser: ()=>{
+		setUpJsonParser: function () {
 			const bodyParser = require("body-parser");
 			app.use(bodyParser.json({limit:1024*1024*20}))
 				.use(bodyParser.urlencoded({ extended: false, limit:1024*1024*20 }));
-			return middlewares;
+			return this;
 		},
 
-		setUpSession: ()=>{
+		setUpSession: function () {
 			const session = require("express-session");
 			const credentials = require("../credentials");
 			app.use(session({
@@ -36,10 +35,10 @@ module.exports = function(app){
 				resave: false,
 				saveUninitialized: true
 			}));
-			return middlewares;
+			return this;
 		},
 
-		setUpRouters: ()=>{
+		setUpRouters: function () {
 			const indexRouter = require('../routes/indexRouter'),
 				usersRouter = require('../routes/usersRouter'),
 				employeesRouter = require('../routes/employeesRouter'),
@@ -50,10 +49,10 @@ module.exports = function(app){
 				.use('/users', usersRouter)
 				.use('/cards', cardsRouter)
 				.use('/employees', employeesRouter);
-			return middlewares;
+			return this;
 		},
 
-		setUpLoggers: ()=>{
+		setUpLoggers: function () {
 			const winston = require('../config/winston');
 			const morgan = require('morgan');
 			if ( app.get("env") === "development"){
@@ -61,8 +60,10 @@ module.exports = function(app){
 			} else {
 				app.use(morgan('combined', { stream: winston.stream }));
 			}			
-			return middlewares;
+			return this;
 		}
 
 	};
+
+	return middlewares;
 }
