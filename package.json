@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "npm install -g npm-run-all jshint mocha nodemon javascript-obfuscator",
     "start": "node app.js",
     "test:jshint" : "jshint app.js services models routes || exit 0",
     "test:mocha": "mocha ./qa || exit 0",
     "test:selenium": "echo TODO Tests Applicatifs avec Selenium",
-    "test": "npm-run-all test:*"
+    "test": "npm-run-all test:*",
+
+    "predeploy": "javascript-obfuscator . --output ./target --target node",
+    "deploy": "echo DEPLOYY TODO"
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
