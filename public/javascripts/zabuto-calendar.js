@@ -11,7 +11,6 @@ $(document).ready(()=> {
 });
 
 function setupZabutoCalendar() {
-  console.log(calendarData);
   /* Fetch Calendar Data*/
   $("#my-calendar").zabuto_calendar({
     language: "fr",
@@ -26,10 +25,7 @@ function loadAttendanceData(id) {
   let hasEvent = $("#" + id).data("hasEvent");
 
   if (hasEvent) {
-    console.log(date);
     events = calendarData.filter(evt => evt.date == date);
-    console.log(events);
-
     if (events.length > 0 ) {
       let lastEventId = events[events.length-1].body;
       getAttendanceByIdAndShowModal(lastEventId);
@@ -40,7 +36,6 @@ function loadAttendanceData(id) {
 }
 
 function getAttendanceByIdAndShowModal(id) {
-  let basePath = window.location.pathname;
   $.get(`/attendances/${id}`)
     .done(data => {
       if (data.error) 
