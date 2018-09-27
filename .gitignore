@@ -7,9 +7,11 @@ node_modules
 #ignore images
 public/images
 
+#ignore logs
+logs
 
 # our secret keys
 .env*
 credentials.js
 lib/crypto.js
-log
+
