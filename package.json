@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "jshint" : "jshint services models routes || echo 'JSHint Errors'",
-    "test": "mocha ./qa"
+    "test:jshint" : "jshint app.js services models routes || exit 0",
+    "test:mocha": "mocha ./qa || exit 0",
+    "test:selenium": "echo TODO Tests Applicatifs avec Selenium",
+    "test": "npm-run-all test:*"
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
