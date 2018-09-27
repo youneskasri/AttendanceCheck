@@ -1,6 +1,8 @@
       
+
+
       /* Ajax POST Request To Create a new Employee */
-      $("form#newEmployee").submit((evt)=>{
+      $("form#newEmployeeForm").submit((evt)=>{
         
           evt.preventDefault();
           let CIN = getInputValue("CIN");

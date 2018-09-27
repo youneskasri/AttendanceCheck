@@ -3,7 +3,7 @@ $(document).ready(findLastAttendance);
 function findLastAttendance() {
     let $lastAttendance = $("tr.attendance").first();
     let url = $lastAttendance.find("span.url").text();
-
+    if (!url) return console.log('No attendance for this employee');
     $.get(url)
     .done(data => {
         if (data.error) 

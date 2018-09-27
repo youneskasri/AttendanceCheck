@@ -3,8 +3,8 @@
 
     $("button.showAttendance").click(evt => {
       evt.preventDefault();
-
-      let url = $(evt.target).find("span.url").text();
+      let target = $(evt.target);
+      let url = target.find("span.url").text();
       $.get(url)
         .done(data => {
           if (data.error) {
