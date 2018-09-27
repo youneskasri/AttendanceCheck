@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Cards</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-light text-dark">
+    {{> loadingSpinner}}
+    {{> navbar}}
+    {{> errorHandlers}}
+     <!-- Content -->
+     <div class="container-fluid mt-4">
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Level</th>
+                <th>Message</th>                
+              </tr>
+            </thead>
+            <tbody>
+              {{#each logs}}
+              
+              {{#cond level '===' 'error'}}
+              <tr class="bg-danger">
+              {{else }}
+              <tr>
+              {{/cond }}
+                <td>{{ timestamp }}</td>
+                <td>{{ level }}</td>
+                <td>{{ message }}</td>                
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>        
+      </div> 
+
+    {{> scripts}}
+  </body>
+
+
+
+</html>
