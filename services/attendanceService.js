@@ -1,6 +1,7 @@
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
 const File = require("../models/file");
+const moment = require("moment");
 
 const { playSoundIfVolumeOn, addToLocalsPromise } = require('../libs/utils')();
 const { handleAjaxError, handleError } = require("../libs/errors");
@@ -18,7 +19,7 @@ module.exports.allAttendances = (req, res, next) => {
 	.then(addToLocalsPromise(res, "pages"))
 	.then(___ => res.render("attendances"))
 	.catch(handleError(next));
-}
+};
 
 function calculateAttendancesPagination(page) {
 
@@ -43,7 +44,7 @@ module.exports.showAttendance = (req, res) => {
 	.then(attendanceWithEmployeeData => {
 		res.send({ attendance: attendanceWithEmployeeData });
 	}).catch(handleAjaxError(res));
-}
+};
 
 function linkEmployeeToAttendance(attendance) {
 	return Employee.findByCIN(attendance.CIN)
@@ -75,7 +76,7 @@ module.exports.createAttendance = (req, res) => {
 			.then(registerAttendanceAndSendResponse(employee, req, res));
 		})
 		.catch(handleAjaxError(res));
-}
+};
 
 
 function registerAttendanceAndSendResponse(employee, req, res) {
@@ -111,12 +112,12 @@ module.exports.searchAndFilterAttendances = (req, res, next ) => {
 
 	let { page, limit } = req.query;
 
-	Attendance.pagination(page, limit)
+	Attendance.pagination(Number(page), Number(limit))
 	.then(addEmployeeInfoToAttendancesPromiseAll)
 	.then(filterAttendances(req))
 	.then(attendances => res.render("attendances", { attendances }))
 	.catch(handleError(next));
-}
+};
 
 function filterAttendances(req) {
 	return attendances => {
@@ -144,7 +145,6 @@ function ByLastName(lastName) {
 	return element => element.employee.lastName.toUpperCase().includes(lastName.toUpperCase());
 }
 
-const moment = require("moment");
 function ByDate(date) {
 	if (!date) return _ => true; /* SKIP¨*/
 	return element => {

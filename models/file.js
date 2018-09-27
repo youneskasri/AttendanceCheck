@@ -14,6 +14,6 @@ File.saveImageFile = (imagePNG) => {
 		contentType: 'image/png',
 		data: imagePNG
 	});
-}
+};
 
 module.exports = File;

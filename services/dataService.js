@@ -17,7 +17,7 @@ module.exports.exportDataToFormat = (req, res, next) => {
 	.then(extractDataRows)
 	.then(data => convertToFileData(res, data, format))
 	.catch(handleError(next));
-}
+};
 
 function extractDataRows(employees) {
 	let rows = [];
@@ -32,7 +32,7 @@ function extractDataRows(employees) {
 				time: moment(attendance.date).format('HH:mm:ss')
 			};
 			rows.push(row);
-		})	
+		});	
 	});
 	return rows;
 }
@@ -65,7 +65,7 @@ function convertToFileData(response, dataObj, exportType){
 			response.setHeader('Content-disposition', 'attachment;filename=' + fileName);
 			return content;
 		}
-	})
+	});
 	
 	response.write(result);
 	response.end();

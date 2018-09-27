@@ -13,12 +13,12 @@ module.exports.allCards = (req, res, next) => {
 		playSoundIfVolumeOn(req, "Employees cards");
 		return res.render("cards", { employees });
 	}).catch(handleError(next));
-}
+};
 
 /* @Search */
 module.exports.searchCards = (req, res, next) => {
 	/* Remplacer les espaces multiples par ' ', puis trim() */
-	let q = req.query['q'].replace(/\s{2,}/g, ' ').trim();
+	let q = req.query.q.replace(/\s{2,}/g, ' ').trim();
 
 	Employee.findAllAndPopulateImage()
 	.then(filterEmployeesByKeyword(q))
@@ -26,5 +26,5 @@ module.exports.searchCards = (req, res, next) => {
 		playSoundIfVolumeOn(req, " Search results");
 		return res.render("cards", { employees, query : q});	
 	}).catch(handleError(next));
-}
+};
 

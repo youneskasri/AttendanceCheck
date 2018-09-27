@@ -24,7 +24,7 @@ module.exports.indexQrScanner = (req, res, next) => {
         .then(() => playSoundIfVolumeOn(req,"Welcome ! The application has started"))
         .then(() => res.render("scanner"))
         .catch(handleError(next));
-}
+};
   
 /* Used by 'attendanceService' */
 module.exports.addEmployeeInfoToAttendancesPromiseAll = addEmployeeInfoToAttendancesPromiseAll;

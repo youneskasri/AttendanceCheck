@@ -24,14 +24,14 @@ module.exports.allEmployees = (req, res, next) => {
 		winston.info("Treatment time : " + (new Date() - startTime));
 		return res.render("employees", { employees });
 	}).catch(handleError(next));
-}
+};
 
 
 /* @Search */
 module.exports.searchEmployees = (req, res, next) => {
 
 	/* Remplacer les espaces multiples par ' ', puis trim() */
-	let q = req.query['q'].replace(/\s{2,}/g, ' ').trim();
+	let q = req.query.q.replace(/\s{2,}/g, ' ').trim();
 
 	Employee.findAllAndPopulateImage()
 	.then(filterEmployeesByKeyword(q))
@@ -39,7 +39,7 @@ module.exports.searchEmployees = (req, res, next) => {
 		playSoundIfVolumeOn(req, "Search results");
 		return res.render("employees", { employees, query : q });	
 	}).catch(handleError(next));
-}
+};
 
 /* @Show */
 module.exports.showEmployee = (req, res, next) => {
@@ -48,7 +48,7 @@ module.exports.showEmployee = (req, res, next) => {
 	.then(playShowEmployeeSound(req))
 	.then(employee => res.render("show-employee", { employee }))
 	.catch(handleError(next));
-}
+};
 
 function addLastAttendancesToEmployee(employee) {
 
@@ -74,7 +74,7 @@ module.exports.createEmployee = (req, res) => {
 		res.send({success: true, employee: savedEmployee});
 	})
 	.catch(sendErrorAjax(res)); 
-}
+};
 
 function validateInputsAndSaveEmployee(employeeForm) {
 	return Employee.create({
@@ -103,7 +103,7 @@ module.exports.setProfileImage = (req, res) => {
 		.then(updateProfileImage(idEmployee))
 		.then(image => res.send({ success: true, image }))
 		.catch(handleAjaxError(res));
-}
+};
 
 function updateProfileImage(idEmployee) {
 	return createdFile => {
@@ -120,7 +120,7 @@ function updateProfileImage(idEmployee) {
 function deleteOldImageIfExists(oldEmployee){
 	if (oldEmployee.profileImage){
 		return File.findByIdAndRemove({_id: oldEmployee.profileImage})
-		.exec()	/* Error is Handled well in the last CATCH Block (y) */
+		.exec();	/* Error is Handled well in the last CATCH Block (y) */
 	} else {
 		winston.info("No previous image file");
 	}	
@@ -135,7 +135,7 @@ module.exports.getCalendar = (req, res) => {
 		.then(formatAttendancesForCalendar)
 		.then(calendarData => res.send({ calendarData }))
 		.catch(handleAjaxError(res));
-}
+};
 
 
 function currentMonthAttendances(idEmployee) {
@@ -172,7 +172,7 @@ module.exports.generateAttendancesReport = (req, res, next) => {
 		.then(addToLocalsPromise(res, 'attendances'))
 		.then(___ => res.render("attendances-report"))
 		.catch(handleError(next));
-}
+};
 
 function currentMonthAttendancesWithImages(idEmployee) {
 
