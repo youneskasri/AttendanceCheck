@@ -1,3 +1,21 @@
+# Build :
+- build:obfuscate
+    - Copy * content from . to ./target
+    - For Each File .js in ./target :
+        obfuscate FILENAME.js --> FILENAME-obfuscated.js
+        rm all NOT-obfuscated file
+        rename FILENAME-obfuscated.js to FILENAME.js
+I'll Write this for loop using Node FS
+
+# PostBuild
+- postbuild:tests 
+    # # # # #
+- node ./target/app.js
+
+
+**Global dependencies**
+npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator;
+
 **Handling AJAX Errors**
 - In Backend => HandleAjaxError(res) returns Promise(err) that *Sends Error Stack & Message Status=200*
 - In Front End :
