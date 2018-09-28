@@ -58,7 +58,7 @@ module.exports = function(app){
 			if ( app.get("env") === "development"){
 				app.use(morgan('dev'));
 			} else {
-				app.use(morgan('combined', { stream: winston.stream }));
+				app.use(morgan(/*'combined'*/ 'short', { stream: winston.stream }));
 			}			
 			return this;
 		}

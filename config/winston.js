@@ -29,7 +29,7 @@ const formatToJsonWithTimestamp = format.combine(
     format.timestamp({
     format: 'YYYY-MM-DD HH:mm:ss'
     }),
-    format.printf(info => `{"timestamp":"${info.timestamp}","level":"${info.level}","message":"${info.message}"}`)
+    format.printf(info => `{"timestamp":"${info.timestamp}","level":"${info.level}","message":"${info.message.replace(/["\n\r]/g, '')}"}`)
 );
 
 let logger = winston.createLogger({
