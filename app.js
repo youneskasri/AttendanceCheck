@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/attendance-check', mongooseOpts)
 /* App settings */
 const app = express()
 	.set("port", process.env.PORT || 4000 || 8443)
-	.set("env", process.env.ENV || "development")
+	.set("env", process.env.NODE_ENV || "development")
 	.disable("x-powered-by");
 
 /* require some utilities functions */
