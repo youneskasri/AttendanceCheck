@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Memory Usage</title>
+        {{> links}}
+    </head>
+
+    <body>
+        {{> loadingSpinner}}
+        {{> errorHandlers}}
+
+        <div style="width:75%;">
+            <canvas id="canvas"></canvas>
+            <button id="pauseResume">Pause</button>
+        </div>
+
+        <script type="text/javascript" src="/javascripts/vendor/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/javascripts/vendor/moment.min.js"></script>
+        <script src="http://www.chartjs.org/dist/2.7.2/Chart.js"></script>
+        <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+
+        <!-- Init Chart -->
+        <script>
+            let data1 = [{ x: moment().toDate(), y: 20 }];
+
+            let dataset1 = {
+                label: 'Heap Used',
+                backgroundColor: '#550000',
+                borderColor: window.chartColors.red,
+                fill: false,
+                data: [],
+            };
+
+            let dataset2 = {
+                label: 'Dataset with date object point data',
+                backgroundColor: '#000055',
+                borderColor: window.chartColors.blue,
+                fill: false,
+                data: []
+            };
+
+            const xAxes = [{
+                type: 'time',
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'DateTime'
+                },
+                ticks: {
+                    major: {
+                        fontStyle: 'bold',
+                        fontColor: '#FF0000'
+                    }
+                }
+            }];
+
+            const yAxes = [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                }
+            }];
+
+            const options = {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Memory Usage'
+                },
+                scales: { xAxes, yAxes	}
+            };
+
+            const config = {
+                type: 'line', options,
+                data: {	datasets: [ dataset1, dataset2 ] }
+            };
+
+            window.onload = function() {
+                let ctx = document.getElementById('canvas').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+            };
+
+        </script>
+
+        <!-- Update Chart Data -->
+        <script>
+      
+            let newPointInterval = setInterval(getMemoryUsageData, 5000);
+
+            function getMemoryUsageData() {
+                $.get("/memory").done(updateMemoryUsageData)
+                .fail(console.error);
+            }
+
+            function updateMemoryUsageData(result) {
+                console.log(result);
+                let { memoryUsage } = result;
+                updateHeapUsedDataset({ heapUsed: memoryUsage.heapUsed });
+                updateLines();
+            }
+
+            function updateHeapUsedDataset({ heapUsed }) {
+                if (config.data.datasets.length > 0) {
+                    config.data.datasets[0].data.push({
+                        x: moment(),
+                        y: heapUsed
+                    });
+                }
+            };
+         
+            function updateLines() {
+                window.myLine.update();
+            }
+
+            $("#pauseResume").click(clearOrRedefineInterval);
+
+            function clearOrRedefineInterval(e) {
+                if ( $(e.target).text() === "Pause" ) {
+                    $(e.target).text("Resume");
+                    clearInterval(newPointInterval);
+                } else {
+                    $(e.target).text("Pause");
+                    newPointInterval = setInterval(getMemoryUsageData, 5000);
+                }
+            }
+            
+        </script>
+    </body>
+
+</html>
