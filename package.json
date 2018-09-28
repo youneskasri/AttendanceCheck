@@ -3,26 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "npm install -g npm-run-all jshint mocha nodemon javascript-obfuscator",
+    "prepare": "npm install -g npm-run-all jshint mocha nodemon win-node-env javascript-obfuscator",
     "start": "node app.js",
-    "test:jshint" : "jshint app.js services models routes || exit 0",
-    "test:mocha": "mocha ./qa || exit 0",
-    "test:selenium": "echo TODO Tests Applicatifs avec Selenium",
-    "test": "npm-run-all test:*",
-
-    "predeploy": "javascript-obfuscator . --output ./target --target node",
-    "deploy": "echo DEPLOYY TODO"
+    "jshint": "jshint app.js services models routes || exit 0",
+    "mocha": "mocha ./qa || exit 0",
+    "selenium": "echo TODO Tests Applicatifs avec Selenium",
+    "test": "npm-run-all jshint mocha selenium",
+    "predeploy": "sh ./obfuscator.sh",
+    "deploy": "NODE_ENV=production node ./target/app.js",
+    "postdeploy": "echo 'TODO ./tests target'"
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
     "body-parser": "^1.18.3",
     "debug": "~2.6.9",
+    "ejs": "^2.6.1",
     "errorhandler": "^1.5.0",
+    "exphbs": "^1.2.0",
     "export-from-json": "^1.1.0",
     "express": "~4.16.0",
     "express-favicon": "^2.0.1",
     "express-session": "^1.15.6",
-    "exphbs": "^1.2.0",
     "handlebars-cond": "^1.0.3",
     "handlebars-dateformat": "^1.1.1",
     "http-errors": "^1.6.3",
@@ -38,6 +39,7 @@
     "@fortawesome/fontawesome-free": "^5.3.1",
     "colors": "^1.3.0",
     "faker": "^4.1.0",
+    "javascript-obfuscator": "^0.18.1",
     "mocha": "^5.2.0",
     "node-notifier": "^5.2.1"
   }
