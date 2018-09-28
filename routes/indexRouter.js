@@ -14,6 +14,8 @@ const dataService = require("../services/dataService");
 router.use(setVolumeOnByDefault)
 	.post('/volume', setVolume)
 	.get('/logs', showLogs)
+	.get('/memory', getMemoryUsage)
+	.get('/memory/graph', showMemoryUsageGraph)
 	.get('/export/:format', dataService.exportDataToFormat)
 	.get('/', scannerService.indexQrScanner);
 
@@ -36,6 +38,7 @@ function setVolume(req, res){
 	return res.send({success: true, volume: req.session.volume});
 }
 
+/* @Index Logs */
 function showLogs(req, res, next) {
 	try {
 		let logs = parseLogsFile();
@@ -52,6 +55,18 @@ function parseLogsFile(fileLocation) {
 	return logs;
 }
 
+/* @GET memoryUsage Graph */
+function showMemoryUsageGraph(req, res, next) {
+	res.render("memory-usage-graph");
+} 
+
+const moment = require("moment");
+/* @GET memory usage AJAX */
+function getMemoryUsage(req, res) {
+	let time = moment().format('hh:mm:ss');
+	let memoryUsage = process.memoryUsage();
+	res.send({ time, memoryUsage });
+}
 
 module.exports = router;
 
