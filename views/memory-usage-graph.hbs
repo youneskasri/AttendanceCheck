@@ -22,21 +22,39 @@
 
         <!-- Init Chart -->
         <script>
-            let data1 = [{ x: moment().toDate(), y: 20 }];
 
-            let dataset1 = {
+            let datasetRSS = {
+                label: 'Resident Set Size',
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                fill: false,
+                pointRadius: 0,
+                data: []
+            };
+
+            let datasetExternal = {
+                label: 'External',
+                backgroundColor: window.chartColors.yellow,
+                borderColor: window.chartColors.yellow,
+                fill: false,
+                pointRadius: 0,
+                data: []                
+            }
+
+            let datasetHeapUsed = {
                 label: 'Heap Used',
-                backgroundColor: '#550000',
+                backgroundColor: window.chartColors.red,
                 borderColor: window.chartColors.red,
                 fill: false,
                 data: [],
             };
 
-            let dataset2 = {
-                label: 'Dataset with date object point data',
-                backgroundColor: '#000055',
+            let datasetHeapTotal = {
+                label: 'Heap Total',
+                backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
                 fill: false,
+                pointRadius: 0,
                 data: []
             };
 
@@ -59,7 +77,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'value'
+                    labelString: 'Memory in MB'
                 }
             }];
 
@@ -67,14 +85,19 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: 'Memory Usage'
+                    text: 'Memory Usage in MB'
                 },
                 scales: { xAxes, yAxes	}
             };
 
+            const HEAP_USED_INDEX = 0,
+                HEAP_TOTAL_INDEX = 1,
+                RSS_INDEX = 2,
+                EXTERNAL_INDEX = 3;
+
             const config = {
                 type: 'line', options,
-                data: {	datasets: [ dataset1, dataset2 ] }
+                data: {	datasets: [ datasetHeapUsed, datasetHeapTotal, datasetRSS, datasetExternal ] }
             };
 
             window.onload = function() {
@@ -95,20 +118,42 @@
             }
 
             function updateMemoryUsageData(result) {
-                console.log(result);
                 let { memoryUsage } = result;
-                updateHeapUsedDataset({ heapUsed: memoryUsage.heapUsed });
+                let heapUsedInMb = memoryUsage.heapUsed/1024/1024;
+                let heapTotalInMb = memoryUsage.heapTotal/1024/1024;
+                let rssInMb = memoryUsage.rss/1024/1024;
+                let externalInMb = memoryUsage.external/1024/1024;
+                let time = moment();
+                
+                console.log(`heapUsed / heapTotal = ${heapUsedInMb} / ${heapTotalInMb}`);
+                updateHeapUsedDataset({ time, heapUsed: heapUsedInMb });
+                updateHeapTotalDataset({ time, heapTotal: heapTotalInMb });
+                updateRssDataset({ time, rss: rssInMb });
+                updateExternalDataset({ time, external: externalInMb});       
                 updateLines();
             }
 
-            function updateHeapUsedDataset({ heapUsed }) {
-                if (config.data.datasets.length > 0) {
-                    config.data.datasets[0].data.push({
-                        x: moment(),
-                        y: heapUsed
-                    });
-                }
+            function updateHeapUsedDataset({ time, heapUsed }) {
+                updateDataset({ index: HEAP_USED_INDEX, x: time, y: heapUsed});
             };
+
+            function updateHeapTotalDataset({ time, heapTotal }) {
+                updateDataset({ index: HEAP_TOTAL_INDEX, x: time, y: heapTotal});
+            };
+
+            function updateRssDataset({ time, rss }) {
+                updateDataset({ index: RSS_INDEX, x: time, y: rss});
+            }
+
+            function updateExternalDataset({ time, external }) {
+                updateDataset({ index: EXTERNAL_INDEX, x: time, y: external});
+            }
+
+            function updateDataset({ index, x,y }) {
+                if (config.data.datasets.length > index) {
+                    config.data.datasets[index].data.push({ x,y });
+                }
+            }
          
             function updateLines() {
                 window.myLine.update();
