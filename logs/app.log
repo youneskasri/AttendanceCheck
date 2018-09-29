@@ -1,31 +1,18 @@
-{"message":"\u001b[32mError message : \u001b[39mCan't export unknown data type xsl.","level":"warn"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"\u001b[32mError message : \u001b[39mCan't export unknown data type xsl.","level":"warn"}
-{"message":"\u001b[32mError message : \u001b[39mCan't export unknown data type xsl.","level":"warn"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"error":{},"level":"error","message":"uncaughtException: app.set is not a function\nTypeError: app.set is not a function\n    at Object.<anonymous> (C:\\Users\\admin\\Workspaces\\pointage-absence\\bin\\www:16:5)\n    at Module._compile (module.js:653:30)\n    at Object.Module._extensions..js (module.js:664:10)\n    at Module.load (module.js:566:32)\n    at tryModuleLoad (module.js:506:12)\n    at Function.Module._load (module.js:498:3)\n    at Function.Module.runMain (module.js:694:10)\n    at startup (bootstrap_node.js:204:16)\n    at bootstrap_node.js:625:3","stack":"TypeError: app.set is not a function\n    at Object.<anonymous> (C:\\Users\\admin\\Workspaces\\pointage-absence\\bin\\www:16:5)\n    at Module._compile (module.js:653:30)\n    at Object.Module._extensions..js (module.js:664:10)\n    at Module.load (module.js:566:32)\n    at tryModuleLoad (module.js:506:12)\n    at Function.Module._load (module.js:498:3)\n    at Function.Module.runMain (module.js:694:10)\n    at startup (bootstrap_node.js:204:16)\n    at bootstrap_node.js:625:3","exception":true,"date":"Sat Sep 22 2018 22:27:18 GMT+0100 (Maroc (heure d’été))","process":{"pid":5684,"uid":null,"gid":null,"cwd":"C:\\Users\\admin\\Workspaces\\pointage-absence","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v8.12.0","argv":["C:\\Program Files\\nodejs\\node.exe","C:\\Users\\admin\\Workspaces\\pointage-absence\\bin\\www"],"memoryUsage":{"rss":56029184,"heapTotal":37044224,"heapUsed":26448160,"external":18965832}},"os":{"loadavg":[0,0,0],"uptime":19558.7954381},"trace":[{"column":5,"file":"C:\\Users\\admin\\Workspaces\\pointage-absence\\bin\\www","function":null,"line":16,"method":null,"native":false},{"column":30,"file":"module.js","function":"Module._compile","line":653,"method":"_compile","native":false},{"column":10,"file":"module.js","function":"Module._extensions..js","line":664,"method":".js","native":false},{"column":32,"file":"module.js","function":"Module.load","line":566,"method":"load","native":false},{"column":12,"file":"module.js","function":"tryModuleLoad","line":506,"method":null,"native":false},{"column":3,"file":"module.js","function":"Module._load","line":498,"method":"_load","native":false},{"column":10,"file":"module.js","function":"Module.runMain","line":694,"method":"runMain","native":false},{"column":16,"file":"bootstrap_node.js","function":"startup","line":204,"method":null,"native":false},{"column":3,"file":"bootstrap_node.js","function":null,"line":625,"method":null,"native":false}]}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Treatment time : 50","level":"info"}
-{"message":"\u001b[32mAD213583\u001b[39m","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"\u001b[32mError message : \u001b[39mFailed to parse: { find: \"attendances\", filter: {}, sort: { _id: -1 }, projection: {}, skip: 6, limit: \"3\", returnKey: false, showRecordId: false, lsid: { id: UUID(\"4a3e7102-f1bf-466b-b932-f10b96ea1f22\") }, $db: \"attendance-check\" }. 'limit' field must be numeric.","level":"warn"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"\u001b[32mError message : \u001b[39mpageNumber is not defined","level":"warn"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
-{"message":"Using HTTP","level":"info"}
-{"message":"Database connected","level":"info"}
+{"timestamp":"2018-09-29 15:27:24","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:27:25","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:28:37","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:28:38","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:31:02","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:31:03","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:31:51","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:31:53","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:32:10","level":"info","message":"Treatment time : 40"}
+{"timestamp":"2018-09-29 15:49:20","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:49:21","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:49:37","level":"error","message":"uncaughtException: Can't set headers after they are sent.Error: Can't set headers after they are sent.    at validateHeader (_http_outgoing.js:491:11)    at ServerResponse.setHeader (_http_outgoing.js:498:3)    at ServerResponse.header (C:\Users\admin\Workspaces\pointage-absence\node_modules\express\lib\response.js:767:10)    at ServerResponse.send (C:\Users\admin\Workspaces\pointage-absence\node_modules\express\lib\response.js:170:12)    at done (C:\Users\admin\Workspaces\pointage-absence\node_modules\express\lib\response.js:1004:10)    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:38:11    at Exphbs.findLayout (C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:144:3)    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:22:12    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:91:5    at Exphbs.executeTemplate (C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:118:3)    at Exphbs.renderFile (C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:88:8)    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:19:10    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:79:7    at Exphbs.compileContent (C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:106:3)    at C:\Users\admin\Workspaces\pointage-absence\node_modules\exphbs\lib\render.js:70:10    at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:511:3)"}
+{"timestamp":"2018-09-29 15:50:08","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:50:09","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:51:28","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:51:29","level":"info","message":"Database connected"}
+{"timestamp":"2018-09-29 15:52:49","level":"info","message":"Using HTTP"}
+{"timestamp":"2018-09-29 15:52:50","level":"info","message":"Database connected"}
