@@ -119,6 +119,31 @@ module.exports.searchAndFilterAttendances = (req, res, next ) => {
 	.catch(handleError(next));
 };
 
+module.exports.searchAndFilterAttendancesAwait = async (req, res, next) => {
+	const { page, limit } = req.query;
+	try {
+		let attendances = await Attendance.pagination(Number(page), Number(limit));
+		let attendancesWithEmployee = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+		let filteredAttendances = filterAttendances(req)(attendancesWithEmployee);
+		res.render("attendances", { attendances: filteredAttendances });
+	} catch (e) {
+		handleError(next)(e);
+	}
+};
+
+module.exports.searchAndFilterAttendancesAwait2 = async (req, res, next) => {
+	let attendances = await getFilteredAttendances(req);
+	res.render("attendances", { attendances });
+};
+
+async function getFilteredAttendances(req) {
+	const { page, limit } = req.query;
+	let attendances = await Attendance.pagination(Number(page), Number(limit));
+	let attendancesWithEmployee = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+	return filterAttendances(req)(attendancesWithEmployee);
+}
+
+
 function filterAttendances(req) {
 	return attendances => {
 		let { CIN, firstName, lastName, date } = req.query;
