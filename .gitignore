@@ -20,3 +20,6 @@ lib/crypto.js
 # ignore deployed files
 target
 
+.vscode/settings.json
+package-lock.json
+logs/app.log
