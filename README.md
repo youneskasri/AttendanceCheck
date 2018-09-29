@@ -18,7 +18,7 @@ I'll Write this for loop using Node FS
 
 
 **Global dependencies**
-npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator;
+npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator win-node-env; *shelljs shx Not working with bash scripts*
 
 **Handling AJAX Errors**
 - In Backend => HandleAjaxError(res) returns Promise(err) that *Sends Error Stack & Message Status=200*
