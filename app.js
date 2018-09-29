@@ -36,7 +36,7 @@ app.use(favicon(__dirname + '/public/favicon.png'));
 const linkMiddlewaresTo = require("./libs/middlewares");
 linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpJsonParser() // JSON Parser
-	.setUpSession() // Session
+	.setUpSession(mongoose) // Session
 	.setUpLoggers() // Loggers
 	.setUpRouters(); // Routes
 

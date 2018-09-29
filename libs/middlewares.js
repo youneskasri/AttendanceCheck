@@ -25,11 +25,13 @@ module.exports = function(app){
 			return this;
 		},
 
-		setUpSession: function () {
+		setUpSession: function (mongoose) {
 			const session = require("express-session");
+			const MongoStore = require('connect-mongo')(session);
 			const credentials = require("../credentials");
 			app.use(session({
 				secret: credentials.cookieSecret,
+				store: new MongoStore({	mongooseConnection: mongoose.connection }),
 				/* to remove deprecation warning see :
 				* https://github.com/expressjs/session#options before launch */
 				resave: false,
