@@ -1,3 +1,9 @@
+# Set Proxy NPM ( NOT WORKING )
+npm config set proxy http://ENSIAS-Student:wpass1234@10.23.201.11:3128
+npm config set https-proxy https://ENSIAS-Student:wpass1234@10.23.201.11:3128 http://<username>:<password>@<proxy-server-url>:<port>
+# Unset Proxy NPM
+http://luxiyalu.com/how-to-remove-all-npm-proxy-settings/
+
 # Database Size Needed en moyenne :
 50mb = 0.05GB per Employee per Month
 0.05GB * 50 Emp * 12 Month = 30GB
@@ -18,7 +24,7 @@ I'll Write this for loop using Node FS
 
 
 **Global dependencies**
-npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator win-node-env; *shelljs shx Not working with bash scripts*
+npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator win-node-env node-inspector; *shelljs shx Not working with bash scripts*
 
 **Handling AJAX Errors**
 - In Backend => HandleAjaxError(res) returns Promise(err) that *Sends Error Stack & Message Status=200*
