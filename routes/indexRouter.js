@@ -9,16 +9,40 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 const scannerService = require("../services/scannerService");
 const dataService = require("../services/dataService");
+const authService = require("../services/authService");
 
-/* GET home page. */
+/* Login & Logout */
+router.get('/login', showLoginPage)
+	.post('/login', handleLogin)
+	.use('/logout', handleLogout);
+
 router.use(setVolumeOnByDefault)
 	.post('/volume', setVolume)
-	.get('/logs', showLogs)
-	.get('/memory', getMemoryUsage)
-	.get('/memory/graph', showMemoryUsageGraph)
-	.get('/export/:format', dataService.exportDataToFormat)
 	.get('/', scannerService.indexQrScanner);
 
+const { isLoggedIn } = authService;
+router /* Protected Routes, Need Login */
+	.get('/logs', isLoggedIn, showLogs)
+	.get('/memory', isLoggedIn, getMemoryUsage)
+	.get('/memory/graph', isLoggedIn, showMemoryUsageGraph)
+	.get('/export/:format', isLoggedIn, dataService.exportDataToFormat);
+	
+
+function showLoginPage(req, res, next) { return res.render("login"); }
+function handleLogin(req, res, next) {
+	return passport.authenticate("local", {
+        successRedirect: req.pathname,
+        failureRedirect: "/login",
+        failureFlash: true,
+        successFlash: 'You succesfully logged out !'
+	})(req, res, next);
+}
+
+function handleLogout(req, res, next){
+   req.logout();
+   req.flash("success", "You succesfully logged out !");
+   res.redirect("/");
+}
 
 function setVolumeOnByDefault(req, res, next) {
 	if (!req.session.volume) req.session.volume = 'ON';
@@ -67,6 +91,7 @@ function getMemoryUsage(req, res) {
 	let memoryUsage = process.memoryUsage();
 	res.send({ time, memoryUsage });
 }
+
 
 module.exports = router;
 

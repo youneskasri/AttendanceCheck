@@ -37,6 +37,7 @@ const linkMiddlewaresTo = require("./libs/middlewares");
 linkMiddlewaresTo(app).setUpHandlebars() // View engine
 	.setUpJsonParser() // JSON Parser
 	.setUpSession(mongoose) // Session
+	.setUpPassportAndFlash() // Passport Auth & Flash Msg
 	.setUpLoggers() // Loggers
 	.setUpRouters(); // Routes
 

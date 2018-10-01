@@ -43,7 +43,7 @@
 
 	$(".alert>button.close").click(closeAlertError);
 	function closeAlertError() {
-		$(".alert.alert-danger").addClass("d-none");
+		$(this).parent().addClass("d-none");
 	}
 
 </script>

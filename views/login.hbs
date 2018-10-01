@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Show Attendances</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 bg-light text-dark">
+    {{> loadingSpinner}}
+    {{> navbar}}
+    {{> errorHandlers}}
+    
+    <!-- Content -->
+    <div class="container pt-5">
+      <form method="POST" action="/login" class="col-md-6 offset-md-3 mt-5 pt-1 pb-4">
+        <div class="form-group">   
+          <label class="form-control bg-light text-center">
+            Please enter your credentials</label>
+            <div class="form-group">       		
+              <label class="">Username</label>
+              <input autofocus type="text" name="username" placeholder="Please enter your username" class="form-control"/>
+            </div>
+            <div class="form-group">       		
+              <label class="">Password</label>
+              <input type="password" name="password" placeholder="Please enter your password" class="form-control"/>
+            </div>            
+          
+          <button type="Login" class="btn btn-block btn-success">
+            <i class="fas fa-key"></i>
+            Login</button>
+        </div>
+      </form>          
+    </div> 
+
+    {{> scripts}}
+
+  </body>
+</html>

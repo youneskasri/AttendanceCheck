@@ -40,6 +40,30 @@ module.exports = function(app){
 			return this;
 		},
 
+		setUpPassportAndFlash: function() {
+			const passport = require('passport'),
+				flash = require('connect-flash'),
+				LocalStrategy = require("passport-local"),
+				User = require('../models/user');
+			
+			app.use(flash())
+				.use(passport.initialize())
+				.use(passport.session());
+
+			passport.use(new LocalStrategy(User.authenticate()));
+			passport.serializeUser(User.serializeUser());
+			passport.deserializeUser(User.deserializeUser());
+
+			app.use(function(req, res, next){
+				res.locals.currentUser = req.user;
+				res.locals.success = req.flash('success');
+				res.locals.error = req.flash('error');
+				next();
+			});
+
+			return this;
+		},
+
 		setUpRouters: function () {
 			const indexRouter = require('../routes/indexRouter'),
 				usersRouter = require('../routes/usersRouter'),

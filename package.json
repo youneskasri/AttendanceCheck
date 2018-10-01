@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "npm install -g npm-run-all jshint mocha nodemon win-node-env javascript-obfuscator",
+    "prepare": "npm install -g npm-run-all jshint mocha nodemon win-node-env javascript-obfuscator node-inspector",
     "start": "node app.js",
     "jshint": "jshint app.js services models routes || exit 0",
     "mocha": "mocha ./qa || exit 0",
@@ -16,9 +16,9 @@
   "dependencies": {
     "app-root-path": "^2.1.0",
     "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.1",
     "debug": "~2.6.9",
-    "ejs": "^2.6.1",
     "errorhandler": "^1.5.0",
     "exphbs": "^1.2.0",
     "export-from-json": "^1.1.0",
@@ -32,6 +32,9 @@
     "mongoose": "^5.1.7",
     "morgan": "~1.9.0",
     "node-excel-export": "^1.4.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1",
     "qrcode-generator": "^1.4.0",
     "simpletts": "^2.3.0",
     "winston": "^3.1.0"
