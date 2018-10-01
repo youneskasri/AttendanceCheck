@@ -1,3 +1,5 @@
+npm install --save passport-local-mongoose passport
+
 History of attendances : # Mazal Ndir Pagination
 
 - Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla...
