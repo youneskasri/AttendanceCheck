@@ -23,3 +23,4 @@ target
 .vscode/settings.json
 package-lock.json
 logs/app.log
+package-lock.json
