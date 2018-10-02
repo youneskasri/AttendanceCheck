@@ -1,3 +1,5 @@
+for file in $(ls *.css); do  node-minify --compressor clean-css --input $file --output minified/$file; done;
+
 # Set Proxy NPM ( NOT WORKING )
 npm config set proxy http://ENSIAS-Student:wpass1234@10.23.201.11:3128
 npm config set https-proxy https://ENSIAS-Student:wpass1234@10.23.201.11:3128 http://<username>:<password>@<proxy-server-url>:<port>
@@ -17,6 +19,7 @@ http://luxiyalu.com/how-to-remove-all-npm-proxy-settings/
         rename FILENAME-obfuscated.js to FILENAME.js
 I'll Write this for loop using Node FS
 
+node-minify --compressor clean-css --input *.css 
 # PostBuild
 - postbuild:tests 
     # # # # #
@@ -24,7 +27,7 @@ I'll Write this for loop using Node FS
 
 
 **Global dependencies**
-npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator win-node-env node-inspector; *shelljs shx Not working with bash scripts*
+npm install -g express-generator mocha nodemon jshint npm-run-all javascript-obfuscator node-minify win-node-env node-inspector; *shelljs shx Not working with bash scripts*
 
 **Handling AJAX Errors**
 - In Backend => HandleAjaxError(res) returns Promise(err) that *Sends Error Stack & Message Status=200*
