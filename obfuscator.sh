@@ -31,6 +31,20 @@ do
     cp -r $folder ./target && echo "Copy of $folder done !" 
 done
 
+# Minify CSS assets in Target 
+for cssFile in $(ls ./target/public/stylesheets/*.css) 
+do  
+    node-minify --compressor clean-css --input $cssFile --output $cssFile 
+done
+
+# Minify JS assets in Target 
+for jsFile in $(ls ./target/public/javascripts/*.js) 
+do  
+    node-minify --compressor uglify-es --input $jsFile --output $jsFile 
+done
+
+# Minify VIEWS in Target
+# TODO with a middleware
 
 #--------------------------------
 # Copy node_modules if necessary
