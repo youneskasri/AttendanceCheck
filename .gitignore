@@ -4,6 +4,7 @@ package-lock.json
 
 # ignore temp files
 *~
+TODO.txt
 
 #ignore images
 public/images
