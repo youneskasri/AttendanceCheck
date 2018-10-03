@@ -1,5 +1,6 @@
 const express = require('express'),
-	router = express.Router();
+	router = express.Router(), 
+	passport = require("passport");
 
 const fs = require("fs"),
 	appRootPath = require("app-root-path");
@@ -30,11 +31,13 @@ router /* Protected Routes, Need Login */
 
 function showLoginPage(req, res, next) { return res.render("login"); }
 function handleLogin(req, res, next) {
+	let successRedirect = req.session.redirectTo || '/';
+	delete req.session.redirectTo;
 	return passport.authenticate("local", {
-        successRedirect: req.pathname,
+        successRedirect,
         failureRedirect: "/login",
         failureFlash: true,
-        successFlash: 'You succesfully logged out !'
+        successFlash: 'You succesfully logged in !'
 	})(req, res, next);
 }
 
@@ -75,8 +78,19 @@ function showLogs(req, res, next) {
 function parseLogsFile(fileLocation) {
 	const logFileContent = fs.readFileSync(fileLocation || `${appRootPath}/logs/app.log`);
 	let logsMatch = logFileContent.toString().match(/{"timestamp":.*,"level":.*,"message":.*}/g);
-	let logs = logsMatch.map(JSON.parse);
+	let logs = logsMatch.map(parseJson);
 	return logs;
+}
+
+function parseJson(log, i) {
+	let result;
+	try { 
+		result=JSON.parse(log); 
+	} catch(e) { 
+		console.log('Error while parsing log number '+(i+1));
+		result={message: `_______Cannot parse line ${i+1} in logs file_______`};
+	}
+	return result;
 }
 
 /* @GET memoryUsage Graph */

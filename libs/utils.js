@@ -10,11 +10,11 @@ module.exports = function(app) {
 	return {
 
 		showMemoryUsage: (interval) => {
-			let printInterval = interval || 5000;
+			let printInterval = interval || 15*60*1000;
 			setInterval(() => {
 				let memoryUsage = process.memoryUsage();
 				let { rss, heapTotal, heapUsed } = memoryUsage;
-				console.log(`rss=${rss}, heapUsed=${heapUsed/1024/1024} mb`);
+				console.log(`rss=${rss/1024/1024} mb, heapUsed=${heapUsed/1024/1024} mb`);
 			}, printInterval);
 		},
 

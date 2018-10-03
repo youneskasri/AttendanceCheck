@@ -44,14 +44,14 @@ module.exports = function(app){
 		setUpPassportAndFlash: function() {
 			const passport = require('passport'),
 				flash = require('connect-flash'),
-				LocalStrategy = require("passport-local"),
+				//LocalStrategy = require("passport-local"),
 				User = require('../models/user');
 			
 			app.use(flash())
 				.use(passport.initialize())
 				.use(passport.session());
 
-			passport.use(new LocalStrategy(User.authenticate()));
+			passport.use(User.createStrategy());
 			passport.serializeUser(User.serializeUser());
 			passport.deserializeUser(User.deserializeUser());
 
@@ -132,7 +132,7 @@ function parseAndDecryptIfNecessary(relativePathFromRoot) {
 			decrypted = decipher.update(fileData, 'hex', 'utf8');
 			console.log(true, decrypted);
 		}
-		console.log(false);
+		console.log(false, 'credentials file is not encrypted');
 		let jsonData = JSON.parse(decrypted);
 		return jsonData; 
 	} catch (e) {

@@ -4,8 +4,10 @@ module.exports = {
           return next();
       }
       req.flash('error', 'You must be signed in to do that!');
+      req.session.redirectTo = req.path;
       res.redirect('/login');
   },
+  
   isAdmin: function(req, res, next) {
     if(req.user.isAdmin) {
       next();
@@ -14,6 +16,7 @@ module.exports = {
       res.redirect('back');
     }
   },
+
   isSafe: function(req, res, next) {
     if(req.body.image.match(/^https:\/\/images\.unsplash\.com\/.*/)) {
       next();

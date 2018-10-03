@@ -1,6 +1,7 @@
 const express = require('express'),
 	createError = require('http-errors'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	User = require("./models/user");
 
 const colors = require('colors');
 const winston = require("./config/winston");
@@ -67,4 +68,22 @@ if (require.main === module){
 } else {
 	// application imported as a module via "require" => export function
 	module.exports = startServer;
+}
+
+createAdminAccountIfNotExists();
+
+function createAdminAccountIfNotExists() {
+
+	console.log("createAdminAccountIfNotExists");
+	User.count({ username: "admin" }, function (err, count) {
+		if (err) return console.error(err);
+		if (count < 1) {
+			console.log("count < 1");
+			User.register({ username: "admin"}, "champloo", 
+			(err, savedUser) => {
+				if (err) console.error(err);
+				else console.log(savedUser.username + ' saved !');
+			});
+		} else console.log("count >= 1");
+	});
 }

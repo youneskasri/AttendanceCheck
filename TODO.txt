@@ -1,13 +1,15 @@
-Kemel Hadak Crypto
+[] Kemel Hadak Crypto
 
+[] nsayeb qlq comptes utilisateurs
 
-npm install --save passport-local-mongoose passport
+[] History of attendances : # Mazal Ndir Pagination
 
-History of attendances : # Mazal Ndir Pagination
+[] Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla... A REMPLACER PAR zabuto-calendar ??
 
-- Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla...
+[] Role n PUBLIC ( no auth), USER, SUPERVISOR, ADMIN
+SUPERVISOR can : update employee data, delete an employee
 
-# Delete, Update Employee ? Should I make it only for an Admin Account ? Need for Auth & Authorization ?
+- Mnin ndir new attendance nzid possibilité y annulé ??
 
 # Mnin nChof Attendance List dial un Employee : Marquer NOT OK | (OK a voir) => ze3ma pénalité
 
