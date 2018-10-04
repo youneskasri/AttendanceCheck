@@ -42,7 +42,7 @@ module.exports.showAttendance = (req, res) => {
 	.populate('faceImage').exec()
 	.then(linkEmployeeToAttendance)
 	.then(attendanceWithEmployeeData => {
-		res.send({ attendance: attendanceWithEmployeeData });
+		res.send({ success: true, attendance: attendanceWithEmployeeData });
 	}).catch(handleAjaxError(res));
 };
 
@@ -86,7 +86,7 @@ function registerAttendanceAndSendResponse(employee, req, res) {
 				pushAttendanceToEmployeeAttendances(employee, attendance)
 				.then(() => {
 					playSoundIfVolumeOn(req, "Welcome " + employee.firstName);
-					return res.send({ attendance, employee, todaysImage: file.data });
+					return res.send({ attendance, employee, todaysImage: file.data, success: true });
 				}).catch(handleAjaxError(res));
 			}); // Error is handled well in the last catch block (y) (y)
 	};

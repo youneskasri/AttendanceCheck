@@ -36,7 +36,11 @@
     }
 
 	function alertError(error) {
-		$("#errorMessage").text(error.message);
+		let message;
+		if(error) {
+			message = error.message || error;
+		}
+		$("#errorMessage").text(message);
 		console.log(error);
 		$(".alert.alert-danger").removeClass("d-none");
 	}

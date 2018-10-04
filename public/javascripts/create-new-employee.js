@@ -22,20 +22,21 @@
       }
       
       /* Handle Ajax Response To Add Newly created Employee */  
-      function handleServerResponse(data){    
-        if (data.error) {
-          if (data.error.code === 11000){
-            showErrorMessage("CIN already used! ");
-            $("input[name='CIN']").val('');
-          } else {
-            showErrorMessage(data.error.message || "Error while processing, See Logs");
-          }
-        } else if (data.success){
-            console.log("Received employee : " + data.employee);
+      function handleServerResponse(data){ 
+        if (data.success){
             appendNewEmployee(data.employee);
             cleanInputFields();
             $("input[name='CIN']").focus();
             showSuccessMessage("Saved! ");
+        } else {
+          if (data.error && data.error.code === 11000){
+            showErrorMessage("CIN already used! ");
+            $("input[name='CIN']").val('');
+          } else {
+            let message = "Error while processing, See Logs";
+            if (data && data.error) message = data.error.message;
+            showErrorMessage(message);
+          }
         }
       }
 

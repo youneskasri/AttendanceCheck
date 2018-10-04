@@ -7,13 +7,12 @@
       let url = target.find("span.url").text();
       $.get(url)
         .done(data => {
-          if (data.error) {
-            alertError(data.error);
-          } else  {
+          if (data.success) {
             console.log(data.attendance.CIN, "ddd0");
             showAttendanceModal(data.attendance);
+          } else  {
+            alertError(data.error || "Error while showing Attendance");
           }
-            
         })
         .fail(showErrorModalJquery);
     });

@@ -38,10 +38,12 @@ function loadAttendanceData(id) {
 function getAttendanceByIdAndShowModal(id) {
   $.get(`/attendances/${id}`)
     .done(data => {
-      if (data.error) 
-        alertError(data.error);
-      else 
+      if (data.success) {
         showAttendanceModal(data.attendance);
+      } else {
+        console.log(data);
+        alertError(data.error || "Can't Load Attendance Data");
+      }
     }).fail(showErrorModalJquery);
 }
 

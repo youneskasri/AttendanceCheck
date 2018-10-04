@@ -17,15 +17,14 @@ function handleScan(content){
   if (TEST) alert("will send : "+content);
   $.post("/attendances", {content, faceImage})
   .done(result => {
-      //if (TEST) alert("Data: " + data.text + "\nStatus: " + status);
       console.log("Result", result);
-      if (result.error){
-        alertError(result.error);
-      } else {
+      if( result.success ){
         result.attendance.date = moment(result.attendance.date).format(DATE_FORMAT);
         updateTodaysPicture(result.todaysImage);
         setLastPersonChecked(result.attendance, result.employee);
         appendAttendanceToTable(result.attendance, result.employee);
+      } else {
+        alertError(result.error || "Error while trying to register attendance, Verify logs");
       }
   }).fail(showErrorModalJquery);
 } 
@@ -80,7 +79,7 @@ Instascan.Camera.getCameras()
     else if (cameras.length > 0) 
       scanner.start(cameras[0]);
     else {
-      showErrorModal('No Camera Found');
+      alertError('No Camera Found');
     }
   })
   .catch(err => showErrorModal(err.message));

@@ -9,9 +9,11 @@ $("#savePicture").click((evt)=>{
     if (result.error) {
       return alertError(result.error);
     }
-    console.log(result.image.data.toString());
-    result.success || true ? $("#empPicture").attr("src", result.image.data.toString())
-    : console.log(result);
+    if (result.success) {
+      $("#empPicture").attr("src", result.image.data.toString());
+    } else {
+      alertError("Error while setting profile Image !");
+    }
   })
   .fail(showErrorModalJquery);
 });

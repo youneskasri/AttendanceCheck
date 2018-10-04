@@ -133,7 +133,7 @@ module.exports.getCalendar = (req, res) => {
 	const idEmployee = req.params.id;
 	currentMonthAttendances(idEmployee)
 		.then(formatAttendancesForCalendar)
-		.then(calendarData => res.send({ calendarData }))
+		.then(calendarData => res.send({ success: true, calendarData }))
 		.catch(handleAjaxError(res));
 };
 
