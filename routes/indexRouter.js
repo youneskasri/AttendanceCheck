@@ -19,14 +19,14 @@ router.get('/login', showLoginPage)
 
 router.use(setVolumeOnByDefault)
 	.post('/volume', setVolume)
-	.get('/', scannerService.indexQrScanner);
+	.get('/', scannerService.indexQrScanner)
+	.get('/export/:format', dataService.exportDataToFormat);
 
 const { isLoggedIn } = authService;
 router /* Protected Routes, Need Login */
 	.get('/logs', isLoggedIn, showLogs)
 	.get('/memory', isLoggedIn, getMemoryUsage)
-	.get('/memory/graph', isLoggedIn, showMemoryUsageGraph)
-	.get('/export/:format', isLoggedIn, dataService.exportDataToFormat);
+	.get('/memory/graph', isLoggedIn, showMemoryUsageGraph);
 	
 
 function showLoginPage(req, res, next) { return res.render("login"); }
