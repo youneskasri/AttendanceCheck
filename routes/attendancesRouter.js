@@ -18,7 +18,7 @@ router.get('/search/await', attendanceService.searchAndFilterAttendancesAwait)
 function catchErrors(fn) {
 	return function (req, res, next) {
 		return fn(req, res, next).catch(next);
-	}
-};
+	};
+}
 
 module.exports = router;

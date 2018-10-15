@@ -110,14 +110,23 @@ function registerAttendance(employee, imageId) {
 /* @Search */
 module.exports.searchAndFilterAttendances = (req, res, next ) => {
 
-	let { page, limit } = req.query;
+	// let { page, limit } = req.query;
 
-	Attendance.pagination(Number(page), Number(limit))
+	Attendance.findAllSortByIdDesc()
 	.then(addEmployeeInfoToAttendancesPromiseAll)
 	.then(filterAttendances(req))
-	.then(attendances => res.render("attendances", { attendances }))
+	.then(addToLocalsPromise(res, "attendances"))
+	//.then(___ => calculateAttendancesPagination(page))
+	//.then(addToLocalsPromise(res, "pages"))
+	.then(___ => res.render("attendances"))
 	.catch(handleError(next));
 };
+
+function addToQueryString(queryObj) {
+	let { CIN, firstName, lastName, date } = queryObj;
+	let querystring = `&CIN=${CIN}&firstName=${firstName}&lastName=${lastName}&date=${date}`;
+	return querystring;
+}
 
 module.exports.searchAndFilterAttendancesAwait = async (req, res, next) => {
 	const { page, limit } = req.query;
