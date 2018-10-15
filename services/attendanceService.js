@@ -12,6 +12,8 @@ const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService"); 
 /* @Index */
 module.exports.allAttendances = (req, res, next) => {
 	let { page, limit } = req.query;
+	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
+	page = page - 1;
 	Attendance.pagination(Number(page), Number(limit))
 	.then(addEmployeeInfoToAttendancesPromiseAll) 
 	.then(addToLocalsPromise(res, "attendances"))
@@ -26,16 +28,18 @@ function calculateAttendancesPagination(page) {
 	return Attendance.count().exec()
 	.then(attendancesCount => {
 		let pageCount = Math.trunc(attendancesCount/10);
-		console.log(pageCount, attendancesCount);
 		if (attendancesCount%10>0) pageCount++;
-		console.log(pageCount);
 		let pages = [];
-		for (let i = 0; i < pageCount; i++) {
-			let pageNumber = i;
-			let textContent = pageNumber+1;
+		let thereIsASelectedPage = false;
+		for (let pageNumber = 0; pageNumber < pageCount; pageNumber++) {
 			let selected = pageNumber === Number(page);
+			if (selected===true) thereIsASelectedPage = true;
+			let textContent = pageNumber+1;
 			pages.push( { pageNumber, textContent, selected} );
 		}
+		if (!thereIsASelectedPage)
+			pages[0].selected=true;
+			
 		return pages;
 	});
 }
