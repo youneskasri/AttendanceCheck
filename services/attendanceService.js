@@ -25,12 +25,16 @@ function calculateAttendancesPagination(page) {
 
 	return Attendance.count().exec()
 	.then(attendancesCount => {
-		let pageCount = Math.trunc((9+attendancesCount)/10); /* Assuming lmit is 9+1=10 per page */
+		let pageCount = Math.trunc(attendancesCount/10);
+		console.log(pageCount, attendancesCount);
+		if (attendancesCount%10>0) pageCount++;
+		console.log(pageCount);
 		let pages = [];
-		for (let i = 1; i <= pageCount; i++) {
+		for (let i = 0; i < pageCount; i++) {
 			let pageNumber = i;
+			let textContent = pageNumber+1;
 			let selected = pageNumber === Number(page);
-			pages.push( { pageNumber, selected} );
+			pages.push( { pageNumber, textContent, selected} );
 		}
 		return pages;
 	});

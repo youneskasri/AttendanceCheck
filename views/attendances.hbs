@@ -76,9 +76,9 @@
         {{#each pages }}
           <li class="page-item">
             {{#if selected }}
-              <a class="page-link bg-warning text-dark" href="/attendances?page={{pageNumber}}">{{pageNumber}}</a>
+              <a class="page-link bg-warning text-dark" href="/attendances?page={{pageNumber}}">{{textContent}}</a>
             {{else }}
-              <a class="page-link bg-dark text-light" href="/attendances?page={{pageNumber}}">{{pageNumber}}</a>
+              <a class="page-link bg-dark text-light" href="/attendances?page={{pageNumber}}">{{textContent}}</a>
             {{/if}}              
           </li>
         {{/each }}
