@@ -8,18 +8,19 @@ const dataService = require("../services/dataService");
 const authService = require("../services/authService");
 const winston = require("../config/winston");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { isLoggedIn } = authService;
 
 /* Login & Logout */
 router.get('/login', showLoginPage)
 	.post('/login', handleLogin)
 	.use('/logout', handleLogout);
 
-router.use(setVolumeOnByDefault)
+router.use(isLoggedIn)
+	.use(setVolumeOnByDefault)
 	.post('/volume', setVolume)
 	.get('/', scannerService.indexQrScanner)
 	.get('/export/:format', dataService.exportDataToFormat);
 
-const { isLoggedIn } = authService;
 router /* Protected Routes, Need Login */
 	.get('/logs', isLoggedIn, showLogs)
 	.get('/memory', isLoggedIn, getMemoryUsage)
