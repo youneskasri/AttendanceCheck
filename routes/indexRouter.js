@@ -1,16 +1,13 @@
 const express = require('express'),
 	router = express.Router(), 
 	passport = require("passport");
-
 const fs = require("fs"),
 	appRootPath = require("app-root-path");
- 
-const winston = require("../config/winston");
-const { playSoundIfVolumeOn } = require('../libs/utils')();
-
 const scannerService = require("../services/scannerService");
 const dataService = require("../services/dataService");
 const authService = require("../services/authService");
+const winston = require("../config/winston");
+const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* Login & Logout */
 router.get('/login', showLoginPage)

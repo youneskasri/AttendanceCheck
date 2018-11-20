@@ -1,63 +1,49 @@
 const Employee = require("../models/employee");
 const File = require("../models/file");
 const Attendance = require("../models/attendance");
-
-const { filterEmployeesByKeyword, printEmployees } = Employee;
-const { playSoundIfVolumeOn, addToLocalsPromise } = require('../libs/utils')();
-const { handleAjaxError, handleError, printError } = require("../libs/errors");
-const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService");
-
 const winston = require("../config/winston");
-
 const moment = require("moment");
 
-const NB_LAST_ATTENDANCES = 30;
+const { filterEmployeesByKeyword, printEmployees } = Employee;
+const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { handleAjaxError, printError } = require("../libs/errors");
 
 /* @Index */
-module.exports.allEmployees = (req, res, next) => {
+module.exports.allEmployees = async (req, res, next) => {
 
-	let startTime = new Date();
-	Employee.findAllAndPopulateImage()
-	.then(employees =>{		
-		// printEmployees(employees);
-		playSoundIfVolumeOn(req, "List of employees");
-		winston.info("Treatment time : " + (new Date() - startTime));
-		return res.render("employees", { employees });
-	}).catch(handleError(next));
+	let employees = await Employee.findAllAndPopulateImage()
+	playSoundIfVolumeOn(req, "List of employees");
+	return res.render("employees", { employees });
 };
 
-
 /* @Search */
-module.exports.searchEmployees = (req, res, next) => {
+module.exports.searchEmployees = async (req, res, next) => {
 
 	/* Remplacer les espaces multiples par ' ', puis trim() */
 	let q = req.query.q.replace(/\s{2,}/g, ' ').trim();
 
-	Employee.findAllAndPopulateImage()
-	.then(filterEmployeesByKeyword(q))
-	.then(employees => {
-		playSoundIfVolumeOn(req, "Search results");
-		return res.render("employees", { employees, query : q });	
-	}).catch(handleError(next));
+	let employees = await Employee.findAllAndPopulateImage();
+	employees = filterEmployeesByKeyword(q)(employees);
+	playSoundIfVolumeOn(req, "Search results");
+	return res.render("employees", { employees, query : q });	
 };
 
 /* @Show */
-module.exports.showEmployee = (req, res, next) => {
-	Employee.findByIdAndPopulateImage(req.params.id)
-	.then(addLastAttendancesToEmployee)
-	.then(playShowEmployeeSound(req))
-	.then(employee => res.render("show-employee", { employee }))
-	.catch(handleError(next));
+module.exports.showEmployee = async (req, res, next) => {
+	const { id } = req.params;
+	let { page } = req.query;
+	!page ? page = 0 : page-- ;
+	/* find Employee */
+	let employee = await Employee.findByIdAndPopulateImage(id);
+	const { CIN } = employee;
+	/* add attendances page */
+	let attendances = await Attendance.filterPagination({CIN}, Number(page));
+	playSoundIfVolumeOn(req, `${employee.firstName}'s profile`);
+	employee.attendances = attendances;
+	let pages = await calculateFilteredAttendancesPagination({CIN}, page);
+	/* send Response */
+	res.render("show-employee", { employee, pages });
 };
-
-function addLastAttendancesToEmployee(employee) {
-
-	return Attendance.findLastAttendancesByCIN(NB_LAST_ATTENDANCES, employee.CIN)
-	.then(attendances => {
-		employee.attendances = attendances;
-		return employee;
-	});
-}
 
 function calculateFilteredAttendancesPagination(criteria, page) {
 
@@ -73,45 +59,23 @@ function calculateFilteredAttendancesPagination(criteria, page) {
 			let textContent = pageNumber+1;
 			pages.push( { pageNumber, textContent, selected} );
 		}
-		if (!thereIsASelectedPage)
+		if (!thereIsASelectedPage && pages.length>0)
 			pages[0].selected=true;
 			
 		return pages;
 	});
 }
 
-
-module.exports.showEmployeeAsync = async (req, res, next) => {
-	const { id } = req.params;
-	let { page } = req.query;
-	!page ? page = 0 : page-- ;
-	let employee = await Employee.findByIdAndPopulateImage(id);
-	const { CIN } = employee;
-	let attendances = await Attendance.filterPagination({CIN}, Number(page));
-	playSoundIfVolumeOn(req, `${employee.firstName}'s profile`);
-	employee.attendances = attendances;
-	let pages = await calculateFilteredAttendancesPagination({CIN}, page);
-	res.render("show-employee", { employee, pages });
-};
-
-function playShowEmployeeSound(req) {
-	return (employee) => { 
-		playSoundIfVolumeOn(req, employee.firstName + "'s profile"); return employee; 
-	};
-}
-
 /* @Create AJAX */
-module.exports.createEmployee = (req, res) => {
+module.exports.createEmployee = async (req, res, next) => {
 
-	validateInputsAndSaveEmployee(req.body)
-	.then(savedEmployee => {
-		winston.info('Saved in DB: '.green + savedEmployee._id);
-		res.send({success: true, employee: savedEmployee});
-	})
-	.catch(sendErrorAjax(res)); 
+	let employee = await validateInputsAndSaveEmployee(req.body);
+	winston.info('Saved in DB: '.green + employee._id);
+	res.send({success: true, employee: employee});
 };
 
 function validateInputsAndSaveEmployee(employeeForm) {
+	/* TODO Validate Inputs */
 	return Employee.create({
 		CIN: employeeForm.CIN,
 		firstName: employeeForm.firstName,
@@ -121,14 +85,22 @@ function validateInputsAndSaveEmployee(employeeForm) {
 	});
 }
 
+/* @GenerateReport */
+module.exports.generateAttendancesReport = async (req, res, next) => {
+	const { id } = req.params;
+	let employee = await Employee.findByIdAndPopulateImage(id);
+	let attendances = await Attendance.currentMonthAttendancesWithImages(employee.CIN)
+	res.render("attendances-report", {employee, attendances});
+};
+
 function sendErrorAjax(res) {
 	return err => {
 		printError(err);
 		res.send({ error: err });
 	};
-}
+}	
 
-/* @ProfileImage AJAX */
+/* @ProfileImage AJAX (old promises syntax) */
 module.exports.setProfileImage = (req, res) => {
 
 	winston.info("setProfileImage");
@@ -151,7 +123,6 @@ function updateProfileImage(idEmployee) {
 	};
 }
 
-
 function deleteOldImageIfExists(oldEmployee){
 	if (oldEmployee.profileImage){
 		return File.findByIdAndRemove({_id: oldEmployee.profileImage})
@@ -161,8 +132,7 @@ function deleteOldImageIfExists(oldEmployee){
 	}	
 }
 
-
-/* @Calendar AJAX */
+/* @Calendar AJAX (old promises syntax) */
 module.exports.getCalendar = (req, res) => {
 
 	const idEmployee = req.params.id;
@@ -171,7 +141,6 @@ module.exports.getCalendar = (req, res) => {
 		.then(calendarData => res.send({ success: true, calendarData }))
 		.catch(handleAjaxError(res));
 };
-
 
 function currentMonthAttendances(idEmployee) {
 
@@ -197,20 +166,4 @@ function formatAttendanceForCalendar(attendance) {
 	let classname = ''; // 'table-success';
 	
 	return {date, badge, title, body, footer, classname};
-}
-
-module.exports.generateAttendancesReport = (req, res, next) => {
-	const idEmployee = req.params.id;
-	Employee.findByIdAndPopulateImage(idEmployee)
-		.then(addToLocalsPromise(res, 'employee'))
-		.then(___ => currentMonthAttendancesWithImages(idEmployee))
-		.then(addToLocalsPromise(res, 'attendances'))
-		.then(___ => res.render("attendances-report"))
-		.catch(handleError(next));
-};
-
-function currentMonthAttendancesWithImages(idEmployee) {
-
-	return getEmployeeCIN(idEmployee)
-		.then(CIN => Attendance.currentMonthAttendancesWithImages(CIN));
 }

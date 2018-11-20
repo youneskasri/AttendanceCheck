@@ -10,7 +10,7 @@ module.exports = {
 
 	catchErrors: (fn) => (req, res, next) => fn(req, res, next).catch(handleError(next)),
 
-	catchErrorsAJAX: (fn) => (req, res, next) => fn(req, res, next).catch(handleAjaxError(next))
+	catchErrorsAJAX: (fn) => (req, res, next) => fn(req, res, next).catch(handleAjaxError(res))
 }
 
 function handleAjaxError(res) {
