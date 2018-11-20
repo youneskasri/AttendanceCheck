@@ -3,27 +3,13 @@ const Attendance = require("../models/attendance");
 const File = require("../models/file");
 const moment = require("moment");
 
-const { playSoundIfVolumeOn, addToLocalsPromise } = require('../libs/utils')();
-const { handleAjaxError, handleError } = require("../libs/errors");
+const { playSoundIfVolumeOn } = require('../libs/utils')();
 const winston = require("../config/winston");
 
 const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService"); // TODO refactor
 
 /* @Index */
-module.exports.allAttendances = (req, res, next) => {
-	let { page, limit } = req.query;
-	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
-	page = page - 1;
-	Attendance.pagination(Number(page), Number(limit))
-	.then(addEmployeeInfoToAttendancesPromiseAll) 
-	.then(addToLocalsPromise(res, "attendances"))
-	.then(___ => calculateAttendancesPagination(page))
-	.then(addToLocalsPromise(res, "pages"))
-	.then(___ => res.render("attendances"))
-	.catch(handleError(next));
-};
-
-module.exports.allAttendancesAsync = async (req, res, next) => {
+module.exports.allAttendances = async (req, res, next) => {
 	let { page, limit } = req.query;
 	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
 	let attendances = await Attendance.pagination(Number(page), Number(limit));
@@ -54,13 +40,11 @@ function calculateAttendancesPagination(page) {
 }
 
 /* @Show AJAX */
-module.exports.showAttendance = (req, res) => {
-	Attendance.findById(req.params.id)
-	.populate('faceImage').exec()
-	.then(linkEmployeeToAttendance)
-	.then(attendanceWithEmployeeData => {
-		res.send({ success: true, attendance: attendanceWithEmployeeData });
-	}).catch(handleAjaxError(res));
+module.exports.showAttendance = async (req, res) => {
+	let attendance = await Attendance.findById(req.params.id)
+		.populate('faceImage').exec();
+	attendance = await linkEmployeeToAttendance(attendance);
+	res.send({ success: true, attendance });
 };
 
 function linkEmployeeToAttendance(attendance) {
@@ -78,38 +62,26 @@ function linkEmployeeToAttendance(attendance) {
 }
 
 /* @Create AJAX */
-module.exports.createAttendance = (req, res) => {
-	let text = req.body.content.replace("http://www.",''),
-		faceImagePNG = req.body.faceImage;
+module.exports.createAttendance = async (req, res) => {
+	let faceImagePNG = req.body.faceImage;
 
+	/* HARD CODED for TESTS */
 	let CIN = 'AD213583';
-
 	/* Search if employee exists */
-	Employee.findAndPopulateImageByCIN(CIN)
-		.then(employee => {
-			if (!employee) throw new Error("Employee not found");
-			winston.info(employee.CIN.green);
-			return File.saveImageFile(faceImagePNG) /* Save image file */
-			.then(registerAttendanceAndSendResponse(employee, req, res));
-		})
-		.catch(handleAjaxError(res));
+	let employee = await Employee.findAndPopulateImageByCIN(CIN);
+	if (!employee) throw new Error("Employee not found");
+	winston.info(employee.CIN.green);
+	/* Save Image File, And Register Attendance */
+	let file = await File.saveImageFile(faceImagePNG);
+	let attendance = await registerAttendance(employee, file._id);
+	await saveAttendanceToEmployee(employee, attendance);
+	/* Send Response */
+	playSoundIfVolumeOn(req, "Welcome " + employee.firstName);
+	return res.send({ attendance, employee, todaysImage: file.data, success: true });				
 };
 
 
-function registerAttendanceAndSendResponse(employee, req, res) {
-	return file => {
-		return registerAttendance(employee, file._id) /* Register attendance */
-			.then(attendance => {
-				pushAttendanceToEmployeeAttendances(employee, attendance)
-				.then(() => {
-					playSoundIfVolumeOn(req, "Welcome " + employee.firstName);
-					return res.send({ attendance, employee, todaysImage: file.data, success: true });
-				}).catch(handleAjaxError(res));
-			}); // Error is handled well in the last catch block (y) (y)
-	};
-}
-
-function pushAttendanceToEmployeeAttendances(employee, attendance) {
+function saveAttendanceToEmployee(employee, attendance) {
 	let idAttendances = employee.attendances.slice();
 	idAttendances.push(attendance._id);
 	return Employee
@@ -125,39 +97,7 @@ function registerAttendance(employee, imageId) {
 }
 
 /* @Search */
-module.exports.searchAndFilterAttendances = (req, res, next ) => {
-
-	// let { page, limit } = req.query;
-
-	Attendance.findAllSortByIdDesc()
-	.then(addEmployeeInfoToAttendancesPromiseAll)
-	.then(filterAttendances(req))
-	.then(addToLocalsPromise(res, "attendances"))
-	//.then(___ => calculateAttendancesPagination(page))
-	//.then(addToLocalsPromise(res, "pages"))
-	.then(___ => res.render("attendances"))
-	.catch(handleError(next));
-};
-
-function addToQueryString(queryObj) {
-	let { CIN, firstName, lastName, date } = queryObj;
-	let querystring = `&CIN=${CIN}&firstName=${firstName}&lastName=${lastName}&date=${date}`;
-	return querystring;
-}
-
-module.exports.searchAndFilterAttendancesAwait = async (req, res, next) => {
-	const { page, limit } = req.query;
-	try {
-		let attendances = await Attendance.pagination(Number(page), Number(limit));
-		let attendancesWithEmployee = await addEmployeeInfoToAttendancesPromiseAll(attendances);
-		let filteredAttendances = filterAttendances(req)(attendancesWithEmployee);
-		res.render("attendances", { attendances: filteredAttendances });
-	} catch (e) {
-		handleError(next)(e);
-	}
-};
-
-module.exports.searchAndFilterAttendancesAwait2 = async (req, res, next) => {
+module.exports.searchAndFilterAttendances = async (req, res, next) => {
 	let attendances = await getFilteredAttendances(req);
 	res.render("attendances", { attendances });
 };
@@ -168,7 +108,6 @@ async function getFilteredAttendances(req) {
 	let attendancesWithEmployee = await addEmployeeInfoToAttendancesPromiseAll(attendances);
 	return filterAttendances(req)(attendancesWithEmployee);
 }
-
 
 function filterAttendances(req) {
 	return attendances => {
