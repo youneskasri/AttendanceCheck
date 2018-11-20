@@ -59,6 +59,41 @@ function addLastAttendancesToEmployee(employee) {
 	});
 }
 
+function calculateFilteredAttendancesPagination(criteria, page) {
+
+	return Attendance.count(criteria).exec()
+	.then(attendancesCount => {
+		let pageCount = Math.trunc(attendancesCount/10);
+		if (attendancesCount%10>0) pageCount++;
+		let pages = [];
+		let thereIsASelectedPage = false;
+		for (let pageNumber = 0; pageNumber < pageCount; pageNumber++) {
+			let selected = pageNumber === Number(page);
+			if (selected===true) thereIsASelectedPage = true;
+			let textContent = pageNumber+1;
+			pages.push( { pageNumber, textContent, selected} );
+		}
+		if (!thereIsASelectedPage)
+			pages[0].selected=true;
+			
+		return pages;
+	});
+}
+
+
+module.exports.showEmployeeAsync = async (req, res, next) => {
+	const { id } = req.params;
+	let { page } = req.query;
+	!page ? page = 0 : page-- ;
+	let employee = await Employee.findByIdAndPopulateImage(id);
+	const { CIN } = employee;
+	let attendances = await Attendance.filterPagination({CIN}, Number(page));
+	playSoundIfVolumeOn(req, `${employee.firstName}'s profile`);
+	employee.attendances = attendances;
+	let pages = await calculateFilteredAttendancesPagination({CIN}, page);
+	res.render("show-employee", { employee, pages });
+};
+
 function playShowEmployeeSound(req) {
 	return (employee) => { 
 		playSoundIfVolumeOn(req, employee.firstName + "'s profile"); return employee; 

@@ -23,6 +23,15 @@ module.exports.allAttendances = (req, res, next) => {
 	.catch(handleError(next));
 };
 
+module.exports.allAttendancesAsync = async (req, res, next) => {
+	let { page, limit } = req.query;
+	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
+	let attendances = await Attendance.pagination(Number(page), Number(limit));
+	attendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+	let pages = await calculateAttendancesPagination(page)
+	res.render("attendances", { attendances, pages });
+}
+
 function calculateAttendancesPagination(page) {
 
 	return Attendance.count().exec()

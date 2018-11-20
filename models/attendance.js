@@ -14,17 +14,25 @@ Attendance.findAllSortByIdDesc = () => {
 };
 
 Attendance.pagination = (page, limit) => {
+	return makePaginationForAttendances({}, page, limit);
+};
+
+Attendance.filterPagination = (criteria, page, limit) => {
+	return makePaginationForAttendances(criteria, page, limit);
+};
+
+function makePaginationForAttendances(criteria, page, limit) {
 	let pageOptions = {
 		page: page || 0,
 		limit: limit || 10
 	};
-	
-	return Attendance.find()
-	.sort({ _id: -1 })
-	.skip(pageOptions.page*pageOptions.limit)
-	.limit(pageOptions.limit)
-	.exec();
-};
+
+	return Attendance.find(criteria)
+		.sort({ _id: -1 })
+		.skip(pageOptions.page*pageOptions.limit)
+		.limit(pageOptions.limit)
+		.exec();
+}
 
 Attendance.findLastAttendances = (n) => {
 	return Attendance.find({}).sort({date: -1}).limit(n).exec();
