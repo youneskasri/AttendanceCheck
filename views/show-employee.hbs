@@ -85,26 +85,7 @@
   <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
 
   <script type="text/javascript" src="/javascripts/zabuto-calendar.js"></script>
-  
-  <!-- Script: Print Employee Card @Deprecated -->
-  <script>
-    function printElementById(id) {
-      var e = document.getElementById(id);
-      var ifr = document.createElement('iframe');
-      ifr.style='height: 0px; width: 0px; position: absolute'
-      document.body.appendChild(ifr);
 
-      $(e).clone().appendTo(ifr.contentDocument.body);
-      ifr.contentWindow.print();
 
-      ifr.parentElement.removeChild(ifr);
-    }
-
-      $("button#printEmployeeCard").click(evt => {
-        printElementById('employeeCard');
-      });
-  </script>
-  
-      <div id="#bottom"></div>
   </body>
 </html>

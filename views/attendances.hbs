@@ -15,15 +15,19 @@
     <div class="container">
       <form method="GET" action="/attendances/search" class="inline-form mt-5 pt-1 pb-4">
         <div class="input-group">   
-          <label class="form-control bg-light">
+          <label class="form-control bg-light" data-i18n="FILTER_ATTENDANCES">
             Filter Attendances</label>         		
-          <input type="text" name="CIN" placeholder="CIN" class="form-control"/>
-          <input type="text" name="firstName" placeholder="First name" class="form-control"/>
-          <input type="text" name="lastName" placeholder="Last name" class="form-control"/>
-          <input type="text" name="date" placeholder="DD/MM/YYYY" class="form-control"/>
+          <input type="text" name="CIN" data-i18n="[placeholder]CIN" placeholder="CIN" class="form-control"
+            value="{{CIN}}" />
+          <input type="text" name="firstName" data-i18n="[placeholder]FIRSTNAME" placeholder="First name"
+            value="{{firstName}}" class="form-control"/>
+          <input type="text" name="lastName" data-i18n="[placeholder]LASTNAME" placeholder="Last name" 
+            value="{{lastName}}" class="form-control"/>
+          <input type="text" name="date" placeholder="DD/MM/YYYY" 
+            value="{{date}}" class="form-control"/>
           <button type="submit" class="btn btn-success">
             <i class="fas fa-search"></i>
-            Search</button>
+            <span data-i18n="SEARCH">Search</span></button>
         </div>
       </form>
       <div class="float-right btn-group">
@@ -33,7 +37,7 @@
         </a>
         <a href="/export/xls" class="btn btn-success">
           <i class="fas fa-file-excel"></i>
-          Excel File
+          Excel
         </a>
         <a href="/export/json" class="btn-dark btn">
           <i class="fas fa-file-export"></i>
@@ -43,11 +47,11 @@
       <table class="table table-striped mt-3">
         <thead>
           <tr>
-            <th>CIN</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th data-i18n="CIN">CIN</th>
+            <th data-i18n="FIRSTNAME">Firstname</th>
+            <th data-i18n="LASTNAME">Lastname</th>
+            <th data-i18n="DATE">Date</th>
+            <th data-i18n="TIME">Time</th>
             <th></th>
           </tr>
         </thead>
@@ -76,9 +80,9 @@
         {{#each pages }}
           <li class="page-item">
             {{#if selected }}
-              <a class="page-link bg-warning text-dark" href="/attendances?page={{textContent}}">{{textContent}}</a>
+              <a class="page-link bg-warning text-dark" href="/attendances{{../pathSuffix}}?page={{textContent}}{{../queryStringParams}}">{{textContent}}</a>
             {{else }}
-              <a class="page-link bg-dark text-light" href="/attendances?page={{textContent}}">{{textContent}}</a>
+              <a class="page-link bg-dark text-light" href="/attendances{{../pathSuffix}}?page={{textContent}}{{../queryStringParams}}">{{textContent}}</a>
             {{/if}}              
           </li>
         {{/each }}

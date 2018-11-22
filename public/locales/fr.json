@@ -1,0 +1,40 @@
+{
+    "SCANNER": "Pointage",
+    "EMPLOYEES": "Employés",
+    "CARDS": "Cartes",
+    "ATTENDANCES": "Présences",
+
+    "FILTER_ATTENDANCES": "Filtrer les présences",
+    "SEARCH": "Rechercher",
+    "DATE": "Date",
+    "TIME": "Heure",
+    
+    "SEARCH_EMPLOYEE_CARD": "Rechercher la carte d'un employé",
+    "SEARCH_RESULT_FOR": "Résultat de recherche pour",
+
+    "PLEASE_ENTER_CREDENTIALS": "Veuillez entrer vos identifiants",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "LOGIN": "Se connecter",
+
+    "LAST_PERSON_CHECKED": "Dernière présence",
+    "LAST_ATTENDANCES": "Les dernières présences",
+    "TODAYS_PICTURE": "Photo du jour",
+    "COMPARED_TO": "Comparée à",
+    "OLD_PICTURE": "Photo d'identité",
+    "PRESENT_AT": "Présent le ",
+    "ATTENDANCE_DATE_TIME": "Date et heure",
+    "SHOW": "Voir",
+    "SHOW_ALL": "Afficher tout",
+    "QRCODE_SCANNER": "Lecteur de carte",
+    "FACE_DETECTION": "Détection du visage",
+
+    "EMPLOYEE_INFO": "Infos sur l'employé",
+    "FIRSTNAME": "Prénom",
+    "LASTNAME": "Nom",
+    "PHONE": "Tél",
+    "CIN": "CIN",
+    "FULLNAME": "Nom complet",
+    "BIRTH_DATE": "Date de naissance",
+    "TAKE_PICTURE": "Prendre une Photo"
+}

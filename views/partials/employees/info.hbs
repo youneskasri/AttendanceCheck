@@ -3,16 +3,16 @@
 <div class="card">
 	<div class="card-header bg-dark text-light">
 		<h2>			
-			Employee Info
+			<span data-i18n="EMPLOYEE_INFO">Employee Info</span>
 			<i class="far fa-address-card float-right"></i>
 		</h2>
 	</div>
 	<div class="card-body">
 		<input type="hidden" value="{{employee._id}}" name="idEmp"/>
-		<p class="text-dark"><b>First name</b> {{employee.firstName}}</p>
-		<p><b>Last name</b> {{employee.lastName}}</p>
-		<p><b>Phone</b> {{employee.phoneNumber}}</p>
-		<p><b>Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
+		<p class="text-dark"><b data-i18n="FIRSTNAME">First name</b> {{employee.firstName}}</p>
+		<p><b data-i18n="LASTNAME">Last name</b> {{employee.lastName}}</p>
+		<p><b data-i18n="PHONE">Phone</b> {{employee.phoneNumber}}</p>
+		<p><b data-i18n="BIRTH_DATE">Birth Date</b> {{dateFormat employee.birthDate "DD/MM/YYYY"}}</p>
 		
 		<div>
 		{{#if employee.profileImage.data}}
@@ -25,7 +25,7 @@
 		<div style="width: 250px">
 			<button id="takePicture"  class="btn btn-dark btn-block" data-toggle="modal" data-target="#takePictureModal">
 			<i class="fas fa-camera-retro"></i>
-			Take Picture</button>
+			<span data-i18n="TAKE_PICTURE">Take Picture</span></button>
 		</div>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 
 
 {{else}}
-undefuned
+	Employee Undefined, See Logs
 {{/if}}
 
 </div>

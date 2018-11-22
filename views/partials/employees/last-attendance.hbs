@@ -17,6 +17,12 @@
 		  	<div><span class="font-weight-bold">CIN</span> <span class="">{{employee.CIN}}</span></div>
 		    <div><span class="font-weight-bold">First name</span> {{employee.firstName}}</div>
 		    <div><span class="font-weight-bold">Last name</span> {{employee.lastName}}</div>
+				<div class="pt-2">
+					<a href="/cards/search?q={{employee.firstName}} {{employee.lastName}} {{employee.CIN}}" class="btn btn-sm btn-warning">
+						<i class="fas  fa-print"></i> 
+						Print Card
+						</a>
+				</div>
 		  </div>
 		</div>
 	</div>

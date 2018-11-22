@@ -1,12 +1,13 @@
 <div class="row pt-3">
   <div class="col-12">
-    <h3 class="bg-dark text-light mb-0 pb-2 pt-1  text-center">Last attendances</h3>
+    <h3 class="bg-dark text-light mb-0 pb-2 pt-1  text-center"
+      data-i18n="LAST_ATTENDANCES">Last attendances</h3>
     <table class="table table-hover mb-0">
         <thead>
           <tr>
-            <th>CIN</th>
-            <th>Full name</th>
-            <th>Attendance date</th>
+            <th data-i18n="CIN">CIN</th>
+            <th data-i18n="FULLNAME">Full name</th>
+            <th data-i18n="ATTENDANCE_DATE_TIME">Attendance time</th>
             <th></th>       
           </tr>
         </thead>
@@ -24,7 +25,7 @@
                 </a>
               </td>
               <td><a href="/employees/{{employee._id}}" class="date text-secondary">{{dateFormat date "DD/MM/YYYY à HH:mm"}}</a></td>  
-              <td class="p-0 pt-2"><a href="/employees/{{employee._id}}" class="link btn btn-sm btn-dark">Show</a></td>
+              <td class="p-0 pt-2"><a href="/employees/{{employee._id}}" class="link btn btn-sm btn-dark" data-i18n="SHOW">Show</a></td>
           </tr>
           {{/each}}
          <tr class="attendanceRow">
@@ -37,7 +38,7 @@
       </table>
       <!-- Center-aligned -->
       <ul class="pagination justify-content-center mt-2" style="margin:20px 0; border-radius: 0;">
-          <a href="/attendances" class="btn btn-block w-50 btn-dark">Show all</a>
+          <a href="/attendances" class="btn btn-block w-50 btn-dark" data-i18n="SHOW_ALL">Show all</a>
       </ul>
 
   </div>

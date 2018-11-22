@@ -15,20 +15,22 @@
     <div class="container pt-5">
       <form method="POST" action="/login" class="col-md-6 offset-md-3 mt-5 pt-1 pb-4">
         <div class="form-group">   
-          <label class="form-control bg-light text-center">
+          <label 
+            data-i18n="PLEASE_ENTER_CREDENTIALS"
+            class="form-control bg-light text-center">
             Please enter your credentials</label>
             <div class="form-group">       		
-              <label class="">Username</label>
+              <label class="" data-i18n="USERNAME">Username</label>
               <input autofocus type="text" name="username" placeholder="Please enter your username" class="form-control"/>
             </div>
             <div class="form-group">       		
-              <label class="">Password</label>
+              <label class="" data-i18n="PASSWORD">Password</label>
               <input type="password" name="password" placeholder="Please enter your password" class="form-control"/>
             </div>            
           
           <button type="Login" class="btn btn-block btn-success">
             <i class="fas fa-key"></i>
-            Login</button>
+            <span data-i18n="LOGIN">Login</span></button>
         </div>
       </form>          
     </div> 

@@ -1,13 +1,17 @@
 {{#if employee}}
   <div id="lastPersonChecked">
   <h4 class="card-title"><a href="/employees/{{employee._id}}" id="hrefLastPerson" class="text-secondary"><span id="fullName">{{employee.firstName}} {{employee.lastName}}</span>
-   <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary">{{ employee.CIN }}</span></small>
+   <small class="pl-3 text-dark font-weight-bold"># <span data-i18n="CIN">CIN</span> <span class="text-secondary">{{ employee.CIN }}</span></small>
   </a></h4>
   <h5>
     
   </h5>
   {{#if lastAttendance }}                 
-      <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">{{dateFormat lastAttendance.date "DD/MM/YYYY à HH:mm"}} </span></h5>
+      <h5 class="text-secondary">
+        <span class="text-dark" data-i18n="PRESENT_AT">
+          Present at
+        </span> <span id="attendanceDate">{{dateFormat lastAttendance.date "DD/MM/YYYY à HH:mm"}} </span>
+      </h5>
   {{/if}}
   <!-- <p class="card-text">Présence cette semaine</p>  -->
   <div id="zabuto_calendar"></div>
@@ -48,9 +52,9 @@
   <!-- Not displayed but I need it for jQuery (New Attendance) -->
   <div id="lastPersonChecked" class="d-none">
   <h4 class="card-title"><a href="#" id="hrefLastPerson" class="text-secondary"><span id="fullName"></span>
-   <small class="pl-3 text-dark font-weight-bold"># CIN <span class="text-secondary" id="CIN"></span></small>
+   <small class="pl-3 text-dark font-weight-bold"># <span data-i18n="CIN">CIN</span> <span class="text-secondary" id="CIN"></span></small>
   </a></h4>
-  <h5 class="text-secondary"><span class="text-dark">Présent le </span> <span id="attendanceDate">...</span></i></h5>
+  <h5 class="text-secondary"><span class="text-dark" ><span data-i18n="PRESENT_AT">Present at </span></span> <span id="attendanceDate">...</span></i></h5>
   <div id="zabuto_calendar"></div>
   </div>
 {{/if }}

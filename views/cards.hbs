@@ -15,7 +15,7 @@
           <div class="container-fluid pb-3">
             <div class="row">
               <div class="col-10">
-                <h3 class="pb-3">Search for An Employee Card</h3>
+                <h3 class="pb-3" data-i18n="SEARCH_EMPLOYEE_CARD">Search for An Employee Card</h3>
                 <form action="/cards/search" method="GET">
                   <input autofocus name="q" type="text" class="form-control" placeholder="Filter by name or CIN"/>
                 </form>
@@ -26,7 +26,7 @@
             </div>
           </div>
           {{#if query }}
-              <h5 class="text-center">Search result for : <span class="text-success">{{ query }}</span></h5>
+              <h5 class="text-center"><span data-i18n="SEARCH_RESULT_FOR">Search result for</span> : <span class="text-success">{{ query }}</span></h5>
           {{/if}}          
           <hr>
           <div class="row p-0 m-0" id="listOfEmployees">
@@ -39,10 +39,10 @@
                 </span>
                 <div class="media-body w-75">
 <!--                   <a href="/employees/{{_id}}" class="text-dark"> -->
-                    <div><label class="font-weight-bold"> First name</label> {{firstName}}</div>
-                    <div><label class="font-weight-bold"> Last name</label> {{lastName}}</div>
-                    <div><label class="font-weight-bold"> CIN</label> {{CIN}}</div>
-                    <div><label class="font-weight-bold"> Phone</label> {{phoneNumber}}</div>
+                    <div> <label class="font-weight-bold" data-i18n="FIRSTNAME">First name</label> {{firstName}}</div>
+                    <div> <label class="font-weight-bold" data-i18n="LASTNAME">Last name</label> {{lastName}}</div>
+                    <div> <label class="font-weight-bold" data-i18n="CIN">CIN</label> {{CIN}}</div>
+                    <div> <label class="font-weight-bold" data-i18n="PHONE">Phone</label> {{phoneNumber}}</div>
  
                 </div>
                 {{#if profileImage.data}}
