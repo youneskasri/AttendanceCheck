@@ -18,25 +18,26 @@ module.exports.allAttendances = async (req, res, next) => {
 	res.render("attendances", { attendances, pages });
 }
 
-function calculateAttendancesPagination(page) {
-
+function calculateAttendancesPagination(currentPage) {
 	return Attendance.count().exec()
-	.then(attendancesCount => {
-		let pageCount = Math.trunc(attendancesCount/10);
-		if (attendancesCount%10>0) pageCount++;
-		let pages = [];
-		let thereIsASelectedPage = false;
-		for (let pageNumber = 0; pageNumber < pageCount; pageNumber++) {
-			let selected = pageNumber === Number(page);
-			if (selected===true) thereIsASelectedPage = true;
-			let textContent = pageNumber+1;
-			pages.push( { pageNumber, textContent, selected} );
-		}
-		if (!thereIsASelectedPage)
-			pages[0].selected=true;
-			
-		return pages;
-	});
+	.then(attendancesCount => getAttendancesPages({ attendancesCount, currentPage }));
+}
+
+function getAttendancesPages({ attendancesCount, currentPage }) {
+	let pageCount = Math.trunc(attendancesCount/10);
+	if (attendancesCount%10>0) pageCount++;
+	let pages = [];
+	let thereIsASelectedPage = false;
+	for (let pageNumber = 0; pageNumber < pageCount; pageNumber++) {
+		let selected = pageNumber === Number(currentPage);
+		if (selected===true) thereIsASelectedPage = true;
+		let textContent = pageNumber+1;
+		pages.push( { pageNumber, textContent, selected} );
+	}
+	if (!thereIsASelectedPage && pages.length>0)
+		pages[0].selected=true;
+		
+	return pages;
 }
 
 /* @Show AJAX */
@@ -98,16 +99,37 @@ function registerAttendance(employee, imageId) {
 
 /* @Search */
 module.exports.searchAndFilterAttendances = async (req, res, next) => {
-	let attendances = await getFilteredAttendances(req);
-	res.render("attendances", { attendances });
+	let { page, limit } = req.query;
+	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
+
+	let { CIN , date, firstName, lastName } = req.query;
+	let attendances = await Attendance.findAllSortByIdDesc();
+	attendances = attendances.filter(ByCIN(CIN))
+		.filter(ByDate(date));
+
+	attendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+	attendances = attendances.filter(ByFirstName(firstName))
+		.filter(ByLastName(lastName));
+	
+	let pages = getAttendancesPages({ attendancesCount: attendances.length, currentPage: page });
+
+	/* Skip & Limit */ 
+	if (!page || page < 0) page = 0;
+	if (!limit) limit = 10;
+	let startIndex = page * limit;
+	 endIndex = startIndex + limit;
+	attendances = attendances.slice(startIndex, endIndex);
+
+	console.log( CIN , date, firstName, lastName);
+	CIN = CIN || '', firstName = firstName || '', lastName = lastName || '', date = date || '';
+	/* &CIN=&firstName=&lastName=&date= */
+	let queryStringParams = `&CIN=${CIN}&firstName=${firstName}&lastName=${lastName}&date=${date}`;
+	res.render("attendances", { attendances, pages, 
+		CIN, firstName, lastName, date,
+		queryStringParams, pathSuffix: '/search'});
 };
 
-async function getFilteredAttendances(req) {
-	const { page, limit } = req.query;
-	let attendances = await Attendance.pagination(Number(page), Number(limit));
-	let attendancesWithEmployee = await addEmployeeInfoToAttendancesPromiseAll(attendances);
-	return filterAttendances(req)(attendancesWithEmployee);
-}
+
 
 function filterAttendances(req) {
 	return attendances => {
