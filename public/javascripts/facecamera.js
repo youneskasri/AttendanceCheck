@@ -14,7 +14,8 @@ function turnOnTheWebCam(){
     video.srcObject = stream;
     video.play();
   }).catch(function(error){ /* TODO Tester Affichage de error */
-    showErrorModal("#Error turnOnTheWebCam - FaceCamera : " + error);
+    alertError("ERROR_FACE_CAMERA");
+    console.error(error);
   });
 }
 

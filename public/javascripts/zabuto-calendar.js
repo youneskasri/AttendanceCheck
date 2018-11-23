@@ -42,7 +42,7 @@ function getAttendanceByIdAndShowModal(id) {
         showAttendanceModal(data.attendance);
       } else {
         console.log(data);
-        alertError(data.error || "Can't Load Attendance Data");
+        alertError(data.error || "CANT_LOAD_ATTENDANCE_DATA");
       }
     }).fail(showErrorModalJquery);
 }

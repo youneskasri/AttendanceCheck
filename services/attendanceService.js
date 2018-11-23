@@ -7,6 +7,7 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 const winston = require("../config/winston");
 
 const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService"); // TODO refactor
+const { EmployeeNotFoundException } = require("../libs/exceptions");
 
 /* @Index */
 module.exports.allAttendances = async (req, res, next) => {
@@ -65,12 +66,15 @@ function linkEmployeeToAttendance(attendance) {
 /* @Create AJAX */
 module.exports.createAttendance = async (req, res) => {
 	let faceImagePNG = req.body.faceImage;
-
+	let CIN = req.body.content;
+	
 	/* HARD CODED for TESTS */
-	let CIN = 'AD213583';
+	if (CIN.includes('www.')) 
+		CIN = 'AD213583';
+
 	/* Search if employee exists */
 	let employee = await Employee.findAndPopulateImageByCIN(CIN);
-	if (!employee) throw new Error("Employee not found");
+	if (!employee) throw new Error("EMPLOYEE_NOT_FOUND");
 	winston.info(employee.CIN.green);
 	/* Save Image File, And Register Attendance */
 	let file = await File.saveImageFile(faceImagePNG);
@@ -128,19 +132,6 @@ module.exports.searchAndFilterAttendances = async (req, res, next) => {
 		CIN, firstName, lastName, date,
 		queryStringParams, pathSuffix: '/search'});
 };
-
-
-
-function filterAttendances(req) {
-	return attendances => {
-		let { CIN, firstName, lastName, date } = req.query;
-		let filteredAttendances = attendances.filter(ByCIN(CIN))
-			.filter(ByFirstName(firstName))
-			.filter(ByLastName(lastName))
-			.filter(ByDate(date));
-		return filteredAttendances;
-	};
-}
 
 function ByCIN(CIN) {
 	if (!CIN) return _ => true; /* SKIP¨*/

@@ -26,14 +26,36 @@
             <div class="card">
                 {{> scanner/last-person-pictures}}
               <div class="card-body bg-light">         
-                {{> scanner/last-person-info}}
+                {{> scanner/last-person-info}}                
               </div>
             </div>
+            <!-- Register an attendance manually -->
+            <div class="pt-4 bg-dark text-light">
+              <h4 class="text-center" data-i18n="REGISTER_ATTENDANCE_MANUALLY">Register an attendance manually</h4>
+              <form class="registerManually pt-2">
+                <input name="CIN" type="text" class="form-control noBorder" 
+                  placeholder="CIN" data-i18n="[placeholder]CIN"  autocomplete="off" onblur="this.focus()" autofocus />                
+                <div class="w-75 mx-auto p-0">                  
+                  <button type="submit" class="registerManually btn btn-warning btn-block">Save</button>      
+                </div>
+              </form>
+
+              </div>
+            <div class="pt-2">
+              <!--
+              <div class="text-success font-weight-bold">
+                <span data-i18n="WELCOME">Welcome</span> <span id="manualFirstName">Younes</span>
+              </div>
+              <div class="text-danger font-weight-bold">
+                <span data-i18n="ERROR_CIN_NOT_FOUND">Error</span>
+              </div> -->             
+            </div>
+
           </div>
       </div> 
 
 
-
+      <!-- DO NOT DELETE needed for a JS script -->
       <div class="d-none">
           <h2>Cameras</h2>
         <ul id="cameras">
@@ -50,17 +72,15 @@
     {{> scripts}}
   
     <script type="text/javascript" src="javascripts/facecamera.js"></script>
+    <script type="text/javascript" src="javascripts/register-attendance.js"></script>
     <script type="text/javascript" src="javascripts/codereader.js"></script>
-    
+
 
     <script>
-      //turnOnTheWebCam();
-      /* Enable Tooltips */
-      $(document).ready(function(){
-          let currentDay = "#" + "vendredi";
-          $(currentDay).addClass("border-top").addClass("border-success");
+      $("form.registerManually").on("submit", function(e) {
+        e.preventDefault();
+        registerAttendanceManually();
       });
     </script>
-
   </body>
 </html>

@@ -2,11 +2,9 @@ const winston = require("../config/winston");
 
 module.exports = {
 
-	handleAjaxError: handleAjaxError,
-
-	handleError: handleError, 
-	
-	printError: printError,
+	handleAjaxError,
+	handleError,	
+	printError,
 
 	catchErrors: (fn) => (req, res, next) => fn(req, res, next).catch(handleError(next)),
 

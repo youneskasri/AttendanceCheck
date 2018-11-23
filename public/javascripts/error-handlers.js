@@ -1,27 +1,39 @@
+
 function showErrorModal(errorMessage, textStatus, jqXHR) {
-    $("#modalTitle").text("Erreur !");
-    console.log(errorMessage, textStatus, jqXHR);
+    let dictionary =  getCurrentDictionary();
+
+    $("#modalTitle").text(dictionary["ERROR"]+" !");
+    console.log("006", errorMessage, textStatus, jqXHR);
     let text;
     if (errorMessage) {
-        text = 'Server Error : ' + errorMessage; 			
+        text = dictionary["SERVER_ERROR"]+ ' : ' + translateIfPossible(errorMessage, dictionary);
     } else {
-        text = ( 'Status='+textStatus + ', Please verify that the Server is running');
+        text = ( 'Status='+textStatus + ', '+ dictionary["PLEASE_VERIFY_SERVER_RUNNING"]);
     }		
     $("#modalText").text(text);
     $('#errorModal').modal('show');
 }
 
-function showErrorModalJquery(jqXHR, textStatus, errorMessage) {
-    showErrorModal(errorMessage, textStatus, jqXHR);
+function translateIfPossible(msg, dictionaryArg) {
+    let dictionary = dictionaryArg || getCurrentDictionary();
+    try {
+        let message = dictionary[msg];
+        if (!message)    return msg;
+        return message;
+    }
+    catch (ex) { return msg; }
 }
 
+
 function alertError(error) {
+    let dictionary = JSON.parse(localStorage.getItem("fr"));
     let message;
     if(error) {
         message = error.message || error;
+        message = dictionary["ERROR"] + ' ! ' + translateIfPossible(message, dictionary);
     }
     $("#errorMessage").text(message);
-    console.log(error);
+    console.log(message);
     $(".alert.alert-danger").removeClass("d-none");
 }
 
@@ -30,3 +42,6 @@ function closeAlertError() {
     $(this).parent().addClass("d-none");
 }
 
+function showErrorModalJquery(jqXHR, textStatus, errorMessage) {
+    showErrorModal(errorMessage, textStatus, jqXHR);
+}

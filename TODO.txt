@@ -1,17 +1,20 @@
+[] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
+
 [] Kemel Hadak Crypto
 
-[] nsayeb qlq comptes utilisateurs
-
-[] History of attendances : # Mazal Ndir Pagination
-
-[] Ba9i dik Lundi Mardi Mercredi Jeudi f page lewla... A REMPLACER PAR zabuto-calendar ??
-
+[] Nsayeb CRUD utilisateurs
+[] Delete Employee (pr admin slmnt effective deletion)
+[] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
 [] Role n PUBLIC ( no auth), USER, SUPERVISOR, ADMIN
-SUPERVISOR can : update employee data, delete an employee
+SUPERVISOR can : update employee data, delete an employee(set inactive)
 
-- Mnin ndir new attendance nzid possibilité y annulé ??
 
-# Mnin nChof Attendance List dial un Employee : Marquer NOT OK | (OK a voir) => ze3ma pénalité
+Roles : 
+- ROOT ( tous les droits: ANA, suppression effective, vider la BD)
+- ADMIN ( Gestion utilisateurs + SUPERVISOR)
+x SUPERVISOR ( Gestion Employés, + SIMPLE ) # DANS VERSION 2 InchaAllah
+- SIMPLE ( Pointage présence, Cartes etc... )
+ 
 
 ## TEST A AUTOMATISER #
 
@@ -34,3 +37,7 @@ test picture => new attendance
 	& the users profile
 
 
+
+
+/* VERSION 2 : PLUS TARD */
+# Mnin nChof Attendance List dial un Employee : Marquer NOT OK | (OK a voir) => ze3ma pénalité

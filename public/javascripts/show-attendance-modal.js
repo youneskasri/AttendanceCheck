@@ -11,7 +11,7 @@
             console.log(data.attendance.CIN, "ddd0");
             showAttendanceModal(data.attendance);
           } else  {
-            alertError(data.error || "Error while showing Attendance");
+            alertError(data.error || "ERROR_WHILE_SHOWING_ATTENDANCE");
           }
         })
         .fail(showErrorModalJquery);

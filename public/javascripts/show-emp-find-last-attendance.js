@@ -6,10 +6,14 @@ function findLastAttendance() {
     if (!url) return console.log('No attendance for this employee');
     $.get(url)
     .done(data => {
-        if (data.error) 
+        if (data.error)  // TODO
             alertError(data.error);
-        else 
+        else if (data.success && data.attendance) {
             setLastAttendance(data.attendance)
+        } else {
+            alertError("ERROR_FIND_LAST_ATTENDANCE");
+        }
+           
     })
     .fail(showErrorModalJquery);
 }

@@ -1,4 +1,25 @@
 {
+    "WELCOME": "Bienvenue",
+    
+    "ERROR_CIN_NOT_FOUND": "Erreur ! Vérifiez que le CIN entré appartient bien à un employé",
+    "ERROR_WHILE_SHOWING_ATTENDANCE": "Erreur lors de l'affichage de la présence",
+    "CANT_LOAD_ATTENDANCE_DATA": "Erreur lors du chargement des données de présences",
+    "EMPLOYEE_NOT_FOUND": "Le code ne correspond à aucun employé",
+    "ERROR_CHANGE_VOLUME": "Erreur lors du changement de volume",
+    "ERROR_FIND_LAST_ATTENDANCE": "Erreur lors du chargement de la dernière présence",
+    "ERROR_SET_PROFILE_IMAGE": "Erreur lors de la mise à jour de la photo de profil",
+    "ERROR_REGISTER_ATTENDANCE": "Erreur lors de l'enregistrement de la présence",
+    "ERROR_FACE_CAMERA": "Vérifiez que la Caméra du Visage est bien détectée",
+    "NO_CAMERA_FOUND": "Veuillez activer les caméras",
+
+    "ERROR_WHILE_PROCESSING": "Erreur lors du traitement",
+    "CIN_ALREADY_USED": "Ce CIN est déjà utilisé",
+    "SAVED_SUCCESS": "Enregistré avec succès !",
+
+    "ERROR": "Erreur",
+    "SERVER_ERROR": "Erreur Serveur",
+    "PLEASE_VERIFY_SERVER_RUNNING": "Vérifiez que le serveur est en marche",
+
     "SCANNER": "Pointage",
     "EMPLOYEES": "Employés",
     "CARDS": "Cartes",
@@ -28,6 +49,7 @@
     "SHOW_ALL": "Afficher tout",
     "QRCODE_SCANNER": "Lecteur de carte",
     "FACE_DETECTION": "Détection du visage",
+    "REGISTER_ATTENDANCE_MANUALLY": "Enregister la présence manuellement",
 
     "EMPLOYEE_INFO": "Infos sur l'employé",
     "FIRSTNAME": "Prénom",

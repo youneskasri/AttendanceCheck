@@ -12,7 +12,7 @@ $("#savePicture").click((evt)=>{
     if (result.success) {
       $("#empPicture").attr("src", result.image.data.toString());
     } else {
-      alertError("Error while setting profile Image !");
+      alertError("ERROR_SET_PROFILE_IMAGE");
     }
   })
   .fail(showErrorModalJquery);
