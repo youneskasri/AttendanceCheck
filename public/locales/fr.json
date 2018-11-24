@@ -8,6 +8,10 @@
     "NEW_EMPLOYEE": "Nouvel employé",
 
 
+    "AUTH_SUCCESS_MESSAGE": "Vous êtes connecté avec succès",
+    "MUST_BE_SIGNED_IN": "Il faut être authentifié pour accèder à cette ressource",
+
+    
     "ERROR_CIN_NOT_FOUND": "Erreur ! Vérifiez que le CIN entré appartient bien à un employé",
     "ERROR_WHILE_SHOWING_ATTENDANCE": "Erreur lors de l'affichage de la présence",
     "CANT_LOAD_ATTENDANCE_DATA": "Erreur lors du chargement des données de présences",

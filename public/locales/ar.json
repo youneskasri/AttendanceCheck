@@ -1,0 +1,74 @@
+{
+    "WELCOME": "مرحبا",
+    "NEXT": "التالي",
+    "FILTER_BY_NAME_CIN": "البحث بالاسم او النسب او رقم البطاقة الوطنية",
+
+    "SEARCH_FOR_EMPLOYEES": "البحث عن العمال",
+    "REGISTER_AN_EMPLOYEE": "تسجيل عامل جديد",
+    "NEW_EMPLOYEE": "اضافة عامل",
+
+
+    "AUTH_SUCCESS_MESSAGE": "لقد تم تسجيل الدخول بنجاح",
+    "MUST_BE_SIGNED_IN": "يجب عليك تجيل الدخول",
+
+    
+    "ERROR_CIN_NOT_FOUND": ".المرجو النحقق. رقم البطاقة الوطنية الذي ادخلتم غير مسجل",
+    "ERROR_WHILE_SHOWING_ATTENDANCE": "تم هناك خطأ اثناء اظهار الحضور",
+    "CANT_LOAD_ATTENDANCE_DATA": "تم هناك خطأ اثناء اليحث عن الحضور",
+    "EMPLOYEE_NOT_FOUND": "رقم البطاقة الوطنية الذي ادخلتم لا يوافق اي عامل مسجل",
+    "ERROR_CHANGE_VOLUME": " تم هناك خطأ اثناء تغيير الصوت ",
+    "ERROR_FIND_LAST_ATTENDANCE": " تم هناك خطأ اثناء البحت عن اخر تسجيل ",
+    "ERROR_SET_PROFILE_IMAGE": "تم هناك خطأ اثناء تغيير الصورة ",
+    "ERROR_REGISTER_ATTENDANCE": "تم هناك خطأ اثناء تسجيل الحضور",
+    "ERROR_FACE_CAMERA": "تاكد ان كاميرا الوجة مركبة بطريقة جيدة",
+    "NO_CAMERA_FOUND": "المرجو تركيب او اشعال الكاميرات",
+
+    "ERROR_WHILE_PROCESSING": "هناك خطأ ما",
+    "CIN_ALREADY_USED": "رقم البطاقة الوطنية مستعمل",
+    "SAVED_SUCCESS": "سجل بنجاح",
+
+    "ERROR": "هناك مشكلة",
+    "SERVER_ERROR": "هناك مشكلة",
+    "PLEASE_VERIFY_SERVER_RUNNING": "تاكد ان الخادم (server) مشغل",
+
+    "SCANNER": "تسجيل الحضور",
+    "EMPLOYEES": "العمال",
+    "CARDS": "البطاقات",
+    "ATTENDANCES": "الحضور",
+    "CONFIGURATION": "ادراة",
+
+    "FILTER_ATTENDANCES": "البحث في الحضور",
+    "SEARCH": "ابحث",
+    "DATE": "التاريخ",
+    "TIME": "الساعة",
+    
+    "SEARCH_EMPLOYEE_CARD": "Rechercher la carte d'un employé",
+    "SEARCH_RESULT_FOR": "Résultat de recherche pour",
+
+    "PLEASE_ENTER_CREDENTIALS": "Veuillez entrer vos identifiants",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "LOGIN": "Se connecter",
+
+    "LAST_PERSON_CHECKED": "Dernière présence",
+    "LAST_ATTENDANCES": "Les dernières présences",
+    "TODAYS_PICTURE": "Photo du jour",
+    "COMPARED_TO": "Comparée à",
+    "OLD_PICTURE": "Photo d'identité",
+    "PRESENT_AT": "Présent le ",
+    "ATTENDANCE_DATE_TIME": "Date et heure",
+    "SHOW": "Voir",
+    "SHOW_ALL": "Afficher tout",
+    "QRCODE_SCANNER": "Lecteur de carte",
+    "FACE_DETECTION": "Détection du visage",
+    "REGISTER_ATTENDANCE_MANUALLY": "Enregister la présence manuellement",
+
+    "EMPLOYEE_INFO": "Infos sur l'employé",
+    "FIRSTNAME": "Prénom",
+    "LASTNAME": "Nom",
+    "PHONE": "Tél",
+    "CIN": "CIN",
+    "FULLNAME": "Nom complet",
+    "BIRTH_DATE": "Date de naissance",
+    "TAKE_PICTURE": "Prendre une Photo"
+}
