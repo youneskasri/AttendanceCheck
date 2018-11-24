@@ -5,32 +5,38 @@ On va surtout faire appel à la fct: getCurrentDictionnary() pour chercher les t
 avec une KEY
 */ 
 
-
-
 // !!! Question: I assumed sessionStorage would be cleared when i close the Tab. Is that true ?
 
-const locales = ['fr'];
-
 // Default locale
-const DEFAULT_LOCALE = "fr";
-sessionStorage.setItem("locale", "fr");
+const DEFAULT_LOCALE = "ar";
+if ( !localStorage.getItem("locale")) {
+    localStorage.setItem("locale", DEFAULT_LOCALE);
+}
 
 // Load the default dictionary 
 loadCurrentDictionaryAndUpdateValues();
 
 
+// change Language Event
+$("select#chooseLanguage").change(function(e) {
+    let currentLocale = $(this).val();
+    localStorage.setItem("locale", currentLocale);
+    loadCurrentDictionaryAndUpdateValues();
+});
+
 /* (used in error handlers ) to translate if possible
 Get Dico for the current locale */
 function getCurrentDictionary() {
-    let locale = sessionStorage.getItem("locale") || DEFAULT_LOCALE;
+    let locale = localStorage.getItem("locale") || DEFAULT_LOCALE;
     return JSON.parse(sessionStorage.getItem(locale));
 }
 
 
 
 function loadCurrentDictionaryAndUpdateValues() {
-    let locale = sessionStorage.getItem("locale");
-    loadDictionaryAndUpdateValues(locale);
+    let locale = localStorage.getItem("locale");    
+    loadDictionaryAndUpdateValues(locale);  
+    $("select#chooseLanguage").val(locale);  
 }
 
 /* If not in SessionStorage, load via AJAX */
@@ -50,9 +56,7 @@ function loadDictionaryAndUpdateValues(locale) {
 /* Fill data-i18n nodes */
 function updateValues(locale) {
     let dictionary = JSON.parse(sessionStorage.getItem(locale));
-    console.log("dico", dictionary);
     $("[data-i18n]").each((index, element) => {
-        console.log($(element).attr("data-i18n"));
         let key = $(element).attr("data-i18n");
 
         if (key.includes("[placeholder]")) {
