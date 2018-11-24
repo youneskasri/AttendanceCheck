@@ -1,6 +1,13 @@
 {
     "WELCOME": "Bienvenue",
-    
+    "NEXT": "Suivant",
+    "FILTER_BY_NAME_CIN": "Filter par nom, prénom et CIN",
+
+    "SEARCH_FOR_EMPLOYEES": "Rechercher des employés",
+    "REGISTER_AN_EMPLOYEE": "Enregistrer un nouvel employé",
+    "NEW_EMPLOYEE": "Nouvel employé",
+
+
     "ERROR_CIN_NOT_FOUND": "Erreur ! Vérifiez que le CIN entré appartient bien à un employé",
     "ERROR_WHILE_SHOWING_ATTENDANCE": "Erreur lors de l'affichage de la présence",
     "CANT_LOAD_ATTENDANCE_DATA": "Erreur lors du chargement des données de présences",
@@ -24,6 +31,7 @@
     "EMPLOYEES": "Employés",
     "CARDS": "Cartes",
     "ATTENDANCES": "Présences",
+    "CONFIGURATION": "Configuration",
 
     "FILTER_ATTENDANCES": "Filtrer les présences",
     "SEARCH": "Rechercher",

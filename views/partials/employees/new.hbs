@@ -1,4 +1,4 @@
-<h6>New employee</h6>
+<h6 data-i18n="NEW_EMPLOYEE">New employee</h6>
 <div>
   <button class="btn btn-warning border rounded"  
   href="#" data-toggle="modal" data-target="#newEmployee">
@@ -12,7 +12,7 @@
     
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title text-secondary">Register an Employee <span id="newEmployeeMessage" class="d-none ml-2"></span>
+        <h4 class="modal-title text-secondary"><span data-i18n="REGISTER_AN_EMPLOYEE">Register an Employee</span> <span id="newEmployeeMessage" class="d-none ml-2"></span>
         </h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -21,21 +21,21 @@
       <div class="modal-body">
         <form id="newEmployeeForm" action="/employees" method="POST">
 
-            <input class="form-control border-bottom-0" type="text" placeholder="CIN" name="CIN" required/> 
+            <input class="form-control border-bottom-0" type="text" data-i18n="[placeholder]CIN" placeholder="CIN" name="CIN" required/> 
            
-           <input class="form-control  border-bottom-0" type="text" placeholder="First name" name="firstName" required/>
-           <input class="form-control  border-bottom-0" type="text" placeholder="Last name" name="lastName" required> 
-            <input  class="form-control  border-bottom-0" type="text" placeholder="Phone Number 06000000" name="phoneNumber" required>
+           <input class="form-control  border-bottom-0" type="text" data-i18n="[placeholder]FIRSTNAME"  placeholder="First name" name="firstName" required/>
+           <input class="form-control  border-bottom-0" type="text" data-i18n="[placeholder]LASTNAME" placeholder="Last name" name="lastName" required> 
+            <input  class="form-control  border-bottom-0" type="text" data-i18n="[placeholder]PHONE" placeholder="Phone Number 06000000" name="phoneNumber" required>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">Birth date</span>
+              <span class="input-group-text" data-i18n="BIRTH_DATE">Birth date</span>
             </div>
             <input type="date" name="birthDate"
                value="2018-07-22"
                min="1900-01-01" max="2018-12-31" class="form-control" />
           </div>
           
-          <button class="btn btn-secondary btn-block mt-4 w-50 mx-auto">Next</button>
+          <button class="btn btn-secondary btn-block mt-4 w-50 mx-auto" data-i18n="NEXT">Next</button>
         </form>
       </div>
       

@@ -16,17 +16,19 @@ function showErrorModal(errorMessage, textStatus, jqXHR) {
 
 function translateIfPossible(msg, dictionaryArg) {
     let dictionary = dictionaryArg || getCurrentDictionary();
+
+    console.log(msg, dictionary[msg], dictionary);
     try {
         let message = dictionary[msg];
         if (!message)    return msg;
         return message;
     }
-    catch (ex) { return msg; }
+    catch (ex) { console.log(ex); return msg; }
 }
 
 
 function alertError(error) {
-    let dictionary = JSON.parse(localStorage.getItem("fr"));
+    let dictionary = getCurrentDictionary();
     let message;
     if(error) {
         message = error.message || error;

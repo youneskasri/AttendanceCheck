@@ -19,15 +19,17 @@
                 {{> employees/new}}
               </div>
               <div class="col-10">
-                <h3 class="pb-3">Search for Employees</h3>
+                <h3 class="pb-3" data-i18n="SEARCH_FOR_EMPLOYEES">Search for Employees</h3>
                 <form action="/employees/search" method="GET">
-                  <input autofocus name="q" type="text" class="form-control" placeholder="Filter by name or CIN" />
+                  <input autofocus name="q" type="text" class="form-control"
+                   data-i18n="[placeholder]FILTER_BY_NAME_CIN"
+                   placeholder="Filter by name or CIN" />
                 </form>
               </div>
             </div>
           </div>
           {{#if query }}
-              <h5 class="text-center">Search result for : <span class="text-success">{{ query }}</span></h5>
+              <h5 class="text-center"><span data-i18n="SEARCH_RESULT_FOR">Search result for :</span> <span class="text-success">{{ query }}</span></h5>
           {{/if}}
           <hr>
           <div class="row p-0 m-0" id="listOfEmployees">
@@ -60,6 +62,8 @@
                 <img id="img" src="/images/img_avatar3.png" alt="John Doe" class="mr-3 m-1 rounded-circle" style="width:60px;">
                 <div class="media-body">
                   <a id="link" href="/employees/_id" class="text-dark">
+                  <!-- JUST A PLACEHOLDER
+                  NO NEED FOR I18N HERE !!-->
                   <h6><span id="fullName">firstName lastName</span> <span id="CIN" class="font-italic">CIN</span></h6>
                   </a>
                   <p id="phoneNumber">phoneNumber</p>

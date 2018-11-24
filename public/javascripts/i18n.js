@@ -43,7 +43,7 @@ function loadDictionaryAndUpdateValues(locale) {
         .done(result => {
             sessionStorage.setItem(locale, JSON.stringify(result));
             updateValues(locale);
-        }).fail(showErrorModalJquery);
+        }).fail(console.log);
     }    
 }
 

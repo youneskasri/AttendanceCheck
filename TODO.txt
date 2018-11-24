@@ -1,5 +1,6 @@
-[] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
+[X] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
 
+[] Kemel I18N
 [] Kemel Hadak Crypto
 
 [] Nsayeb CRUD utilisateurs
@@ -15,6 +16,7 @@ Roles :
 x SUPERVISOR ( Gestion Employés, + SIMPLE ) # DANS VERSION 2 InchaAllah
 - SIMPLE ( Pointage présence, Cartes etc... )
  
+
 
 ## TEST A AUTOMATISER #
 
