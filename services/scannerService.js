@@ -21,7 +21,7 @@ module.exports.indexQrScanner = (req, res, next) => {
         .then(addToLocalsPromise(res, 'lastAttendance'))
         .then(findAttendedEmployeeWithImage)
         .then(addToLocalsPromise(res, 'employee'))
-        .then(() => playSoundIfVolumeOn(req,"Welcome ! The application has started"))
+        .then(() => playSoundIfVolumeOn(req,"Checking attendance"))
         .then(() => res.render("scanner"))
         .catch(handleError(next));
 };
