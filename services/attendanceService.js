@@ -17,7 +17,7 @@ module.exports.allAttendances = async (req, res, next) => {
 	attendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
 	let pages = await calculateAttendancesPagination(page)
 	res.render("attendances", { attendances, pages });
-	if (page<1) playSoundIfVolumeOn(req, "History of attendances");
+	if (!page) playSoundIfVolumeOn(req, "History of attendances");
 }
 
 function calculateAttendancesPagination(currentPage) {

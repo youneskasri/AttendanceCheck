@@ -38,7 +38,7 @@ module.exports.showEmployee = async (req, res, next) => {
 	const { CIN } = employee;
 	/* add attendances page */
 	let attendances = await Attendance.filterPagination({CIN}, Number(page));
-	playSoundIfVolumeOn(req, `${employee.firstName}'s profile`);
+	if (!page) playSoundIfVolumeOn(req, `${employee.firstName}'s profile`);
 	employee.attendances = attendances;
 	let pages = await calculateFilteredAttendancesPagination({CIN}, page);
 	/* send Response */
