@@ -10,6 +10,8 @@
     "REGISTER_AN_EMPLOYEE": "Enregistrer un nouvel employé",
     "NEW_EMPLOYEE": "Nouvel employé",
 
+    "EMAIL": "Email",
+    "ROLE": "Rôle",
 
     "AUTH_SUCCESS_MESSAGE": "Vous êtes connecté avec succès !",
     "LOGOUT_SUCCESS_MESSAGE": "Vous êtes déconnecté avec succès !",

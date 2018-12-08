@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Logs </title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 table-dark text-light">
+    {{> loadingSpinner}}
+    {{> userNavbar }}
+    {{> errorHandlers}}
+    
+    <div class="container-fluid mt-4">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>                    
+                    <th data-i18n="USERNAME">Username</th>
+                    <th data-i18n="ROLE">Rôle</th>
+                    <th data-i18n="CIN">CIN</th>
+                    <th data-i18n="PHONE">Tel</th>
+                    <th data-i18n="EMAIL">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>               
+            </tbody>
+        </table>
+    </div>
+    {{> scripts}}
+  </body>
+</html>

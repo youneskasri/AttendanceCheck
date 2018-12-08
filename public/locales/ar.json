@@ -10,7 +10,9 @@
     "REGISTER_AN_EMPLOYEE": "تسجيل عامل جديد",
     "NEW_EMPLOYEE": "اضافة عامل",
 
-
+    "EMAIL": "Email",
+    "ROLE": "Rôle",
+    
     "AUTH_SUCCESS_MESSAGE": "لقد تم تسجيل الدخول بنجاح",
     "LOGOUT_SUCCESS_MESSAGE": "تم الخروج بنجاح",
     "MUST_BE_SIGNED_IN": "يجب عليك تجيل الدخول",
