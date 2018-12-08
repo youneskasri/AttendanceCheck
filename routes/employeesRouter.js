@@ -1,7 +1,7 @@
 const express = require('express'),
 	router = express.Router();
 const { isLoggedIn } = require("../services/authService");
-const { catchErrors, catchErrorsAJAX } = require("../libs/errors");	
+const { catchErrors } = require("../libs/errors");	
 const employeeService = require("../services/employeeService");
 
 router.use(isLoggedIn)
@@ -11,6 +11,6 @@ router.use(isLoggedIn)
 	.get('/:id/calendar', catchErrors(employeeService.getCalendar))
 	.get('/:id', catchErrors(employeeService.showEmployee))
 	.post('/:id/profileImage', catchErrors(employeeService.setProfileImage))
-	.post('/', catchErrorsAJAX(employeeService.createEmployee));
+	.post('/', catchErrors(employeeService.createEmployee));
 
 module.exports = router;

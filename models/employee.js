@@ -56,4 +56,33 @@ Employee.printEmployees = function (employees) {
 	}));
 };
 
+
+
+  
+/* Used by 'attendanceService' & 'scannerService' ... */
+module.exports.addEmployeeInfoToAttendancesPromiseAll = (attendances) => {
+    /* For each attendance, add employees fname and lastname */
+    let promises = getEachAttendedEmployeePromise(attendances);
+    
+    /* Quand j'ai trouvé les employees, assign them to their attendances */
+    return Promise.all(promises).then(employeesNames => {
+        return attendancesWithEmployee(attendances, employeesNames);
+    });
+}
+  
+/* @returns an Array of Promises */
+function getEachAttendedEmployeePromise(attendances) {
+    return attendances.map(att => {
+        return Employee.findOne({ CIN: att.CIN }).select('firstName lastName').exec();
+    });
+}
+
+function attendancesWithEmployee(attendances, employeesNames) {
+    return attendances.map((attendance, i) => {
+        attendance.employee = employeesNames[i];
+        return attendance;
+    });
+}
+
+
 module.exports = Employee;

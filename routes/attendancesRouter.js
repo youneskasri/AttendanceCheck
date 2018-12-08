@@ -1,14 +1,14 @@
 const express = require('express'),
 	router = express.Router();
 const { isLoggedIn } = require("../services/authService");
-const { catchErrors, catchErrorsAJAX } = require("../libs/errors");
+const { catchErrors } = require("../libs/errors");
 
 const attendanceService = require("../services/attendanceService");
 
 router.use(isLoggedIn)
 	.get('/search', catchErrors(attendanceService.searchAndFilterAttendances))
-	.get('/:id', catchErrorsAJAX(attendanceService.showAttendance))
+	.get('/:id', catchErrors(attendanceService.showAttendance))
 	.get('/', catchErrors(attendanceService.allAttendances))
-	.post('/', catchErrorsAJAX(attendanceService.createAttendance));
+	.post('/', catchErrors(attendanceService.createAttendance));
 
 module.exports = router;

@@ -1,20 +1,16 @@
+const moment = require("moment");
+const winston = require("../config/winston");
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
 const File = require("../models/file");
-const moment = require("moment");
-
 const { playSoundIfVolumeOn } = require('../libs/utils')();
-const winston = require("../config/winston");
-
-const { addEmployeeInfoToAttendancesPromiseAll } = require("./scannerService"); // TODO refactor
-const { EmployeeNotFoundException } = require("../libs/exceptions");
 
 /* @Index */
 module.exports.allAttendances = async (req, res, next) => {
 	let { page, limit } = req.query;
 	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
 	let attendances = await Attendance.pagination(Number(page), Number(limit));
-	attendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+	attendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(attendances);
 	let pages = await calculateAttendancesPagination(page)
 	res.render("attendances", { attendances, pages });
 	if (!page) playSoundIfVolumeOn(req, "History of attendances");
@@ -43,11 +39,10 @@ function getAttendancesPages({ attendancesCount, currentPage }) {
 }
 
 /* @Show AJAX */
-module.exports.showAttendance = async (req, res) => {
+module.exports.showAttendance = async (req, res, next) => {
 	let attendance = await Attendance.findById(req.params.id)
 		.populate('faceImage').exec();
 	attendance = await linkEmployeeToAttendance(attendance);
-	throw new Error("Test L50");
 	res.send({ success: true, attendance });
 };
 
@@ -66,7 +61,7 @@ function linkEmployeeToAttendance(attendance) {
 }
 
 /* @Create AJAX */
-module.exports.createAttendance = async (req, res) => {
+module.exports.createAttendance = async (req, res, next) => {
 	let faceImagePNG = req.body.faceImage;
 	let CIN = req.body.content;
 	

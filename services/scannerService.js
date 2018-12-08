@@ -11,7 +11,7 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 module.exports.indexQrScanner = async (req, res, next) => {
 
     let lastAttendances = await Attendance.findLastAttendances(3);
-    lastAttendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+    lastAttendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(attendances);
 
     let lastAttendance = await Attendance.findLastAttendance();
     let employee = await findAttendedEmployeeWithImage(lastAttendance);
@@ -19,38 +19,10 @@ module.exports.indexQrScanner = async (req, res, next) => {
     playSoundIfVolumeOn(req,"Checking attendance");
     res.render("scanner", { lastAttendances, lastAttendance, employee });
 };
-  
-/* Used by 'attendanceService' */
-module.exports.addEmployeeInfoToAttendancesPromiseAll = addEmployeeInfoToAttendancesPromiseAll;
 
-/* Used here and @Exported */
-function addEmployeeInfoToAttendancesPromiseAll(attendances) {
-    /* For each attendance, add employees fname and lastname */
-    let promises = getEachAttendedEmployeePromise(attendances);
-    
-    /* Quand j'ai trouvé les employees, assign them to their attendances */
-    return Promise.all(promises).then(employeesNames => {
-        return attendancesWithEmployee(attendances, employeesNames);
-    });
-}
-  
-/* @returns an Array of Promises */
-function getEachAttendedEmployeePromise(attendances) {
-    return attendances.map(att => {
-        return Employee.findOne({ CIN: att.CIN }).select('firstName lastName').exec();
-    });
-}
-
-function attendancesWithEmployee(lastAttendances, employeesNames) {
-    return lastAttendances.map((attendance, i) => {
-        attendance.employee = employeesNames[i];
-        return attendance;
-    });
-}
-
-function findAttendedEmployeeWithImage(lastAttendance) {
-    if (!lastAttendance) return;
-    return Employee.findAndPopulateImageByCIN(lastAttendance.CIN);
+function findAttendedEmployeeWithImage(attendance) {
+    if (!attendance) return;
+    return Employee.findAndPopulateImageByCIN(attendance.CIN);
 }
   
     
