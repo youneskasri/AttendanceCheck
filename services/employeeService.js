@@ -93,7 +93,7 @@ module.exports.generateAttendancesReport = async (req, res, next) => {
 };
 
 /* @ProfileImage AJAX */
-module.exports.setProfileImage = (req, res) => {
+module.exports.setProfileImage = async (req, res, next) => {
 
 	winston.info("setProfileImage");
 	let imageFile = req.body.image;	

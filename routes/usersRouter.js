@@ -1,6 +1,8 @@
 const express = require('express'),
   router = express.Router();
 
+const usersService = require("../services/userService");
+
 router.get('/users', usersService.index)
   .get('/users/new', usersService.new)
 	.post('/users', usersService.create)
