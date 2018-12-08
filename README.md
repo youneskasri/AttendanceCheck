@@ -1,5 +1,7 @@
 for file in $(ls *.css); do  node-minify --compressor clean-css --input $file --output minified/$file; done;
 
+**is the DB created auto with Mongoose ?** YES
+
 # To Check if User is Connected, and for Role in FrontEnd
 {{#if currentUser }} 
     {{#cond isAdmin '===' true}}

@@ -1,10 +1,6 @@
 const Employee = require("../models/employee");
 const Attendance = require("../models/attendance");
-
-const winston = require("../config/winston");
-
-const { addToLocalsPromise, playSoundIfVolumeOn } = require('../libs/utils')();
-const { handleError } = require("../libs/errors");
+const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index 
 * - Charge les (3) dernièrs passages
@@ -12,18 +8,16 @@ const { handleError } = require("../libs/errors");
 * - Charge le derniers passage avec l'image
 * -- Lui ajoute l'employé avec son image de profil
 */
-module.exports.indexQrScanner = (req, res, next) => {
+module.exports.indexQrScanner = async (req, res, next) => {
 
-    Attendance.findLastAttendances(3)
-        .then(addEmployeeInfoToAttendancesPromiseAll)
-        .then(addToLocalsPromise(res, 'lastAttendances'))  
-        .then(Attendance.findLastAttendance)
-        .then(addToLocalsPromise(res, 'lastAttendance'))
-        .then(findAttendedEmployeeWithImage)
-        .then(addToLocalsPromise(res, 'employee'))
-        .then(() => playSoundIfVolumeOn(req,"Checking attendance"))
-        .then(() => res.render("scanner"))
-        .catch(handleError(next));
+    let lastAttendances = await Attendance.findLastAttendances(3);
+    lastAttendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+
+    let lastAttendance = await Attendance.findLastAttendance();
+    let employee = await findAttendedEmployeeWithImage(lastAttendance);
+    
+    playSoundIfVolumeOn(req,"Checking attendance");
+    res.render("scanner", { lastAttendances, lastAttendance, employee });
 };
   
 /* Used by 'attendanceService' */

@@ -20,17 +20,14 @@ module.exports.setVolume = (req, res) => {
 
 /* @Index Logs */
 module.exports.showLogs = (req, res, next) => {
-	try {
-		let logs = parseLogsFile();
-		res.render("logs", { logs });
-	} catch(e) {
-		next(e);
-	}
+	let logs = parseLogsFile();
+	res.render("logs", { logs });
 }
 
 function parseLogsFile(fileLocation) {
 	const logFileContent = fs.readFileSync(fileLocation || `${appRootPath}/logs/app.log`);
 	let logsMatch = logFileContent.toString().match(/{"timestamp":.*,"level":.*,"message":.*}/g);
+	if (!logsMatch) return [];
 	let logs = logsMatch.map(parseJson);
 	return logs;
 }

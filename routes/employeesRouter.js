@@ -8,9 +8,9 @@ router.use(isLoggedIn)
 	.get('/', catchErrors(employeeService.allEmployees))
 	.get('/search', catchErrors(employeeService.searchEmployees))
 	.get('/:id/report', catchErrors(employeeService.generateAttendancesReport))
-	.get('/:id/calendar', employeeService.getCalendar)
+	.get('/:id/calendar', catchErrors(employeeService.getCalendar))
 	.get('/:id', catchErrors(employeeService.showEmployee))
-	.post('/:id/profileImage', employeeService.setProfileImage)
+	.post('/:id/profileImage', catchErrors(employeeService.setProfileImage))
 	.post('/', catchErrorsAJAX(employeeService.createEmployee));
 
 module.exports = router;

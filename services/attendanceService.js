@@ -47,6 +47,7 @@ module.exports.showAttendance = async (req, res) => {
 	let attendance = await Attendance.findById(req.params.id)
 		.populate('faceImage').exec();
 	attendance = await linkEmployeeToAttendance(attendance);
+	throw new Error("Test L50");
 	res.send({ success: true, attendance });
 };
 

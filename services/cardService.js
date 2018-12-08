@@ -1,7 +1,5 @@
 const Employee = require("../models/employee");
 const { filterEmployeesByKeyword, printEmployees } = Employee;
-
-const { handleError } = require("../libs/errors");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index */

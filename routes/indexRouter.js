@@ -6,6 +6,7 @@ const scannerService = require("../services/scannerService");
 const dataService = require("../services/dataService");
 const authService = require("../services/authService");
 const configurationService = require("../services/configurationService");
+const { catchErrors } = require("../libs/errors");
 const { isLoggedIn } = authService;
 
 /* Login & Logout */
@@ -16,8 +17,8 @@ router.get('/login', showLoginPage)
 router.use(isLoggedIn)
 	.use(configurationService.setVolumeOnByDefault)
 	.post('/volume', configurationService.setVolume)
-	.get('/', scannerService.indexQrScanner)
-	.get('/export/:format', dataService.exportDataToFormat);
+	.get('/', catchErrors(scannerService.indexQrScanner))
+	.get('/export/:format', catchErrors(dataService.exportDataToFormat));
 
 router /* Protected Routes, Need Login */
 	.get('/logs', isLoggedIn, configurationService.showLogs)

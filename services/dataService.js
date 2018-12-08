@@ -1,5 +1,4 @@
 const moment = require("moment");
-const { handleError } = require("../libs/errors");
 const Employee = require("../models/employee");
 const exportFromJSON = require("export-from-json");
 
@@ -8,15 +7,17 @@ const exportFromJSON = require("export-from-json");
 */
 
 /* @Route /export/:format (csv, xsl, json ..) */
-module.exports.exportDataToFormat = (req, res, next) => {
+module.exports.exportDataToFormat = async (req, res, next) => {
 	
-	let { format }= req.params; 
+	let { format } = req.params; 
 	if (!['csv', 'xls', 'json'].includes(format) ) return next("Invalid format");
 
-	Employee.find().populate('attendances').exec()
-	.then(extractDataRows)
-	.then(data => convertToFileData(res, data, format))
-	.catch(handleError(next));
+	let data = await Employee.find().populate('attendances').exec()
+		.then(extractDataRows);
+
+	 let result = convertToFileData(data, format);
+	 response.write(result);
+	 response.end();
 };
 
 function extractDataRows(employees) {
@@ -37,7 +38,7 @@ function extractDataRows(employees) {
 	return rows;
 }
 
-function convertToFileData(response, dataObj, exportType){
+function convertToFileData(dataObj, exportType){
 	// exportFromJSON actually supports passing JSON as the data option. It's very common that reading it from http request directly.
 	const data = JSON.stringify(dataObj);
 	const fileName = moment().format('YYYY-MM-DD HH mm ss')+'';
@@ -47,26 +48,26 @@ function convertToFileData(response, dataObj, exportType){
 		fileName,
 		exportType,
 		withBOM,
-		processor (content, type, fileName) {
-			switch (type) {
-				case 'txt':
-					response.setHeader('Content-Type', 'text/plain');
-					break;
-				case 'json':
-					response.setHeader('Content-Type', 'text/plain');
-					break;
-				case 'csv':
-					response.setHeader('Content-Type', 'text/csv');
-					break;
-				case 'xls':
-					response.setHeader('Content-Type', 'application/vnd.ms-excel');
-					break;
-			}
-			response.setHeader('Content-disposition', 'attachment;filename=' + fileName);
-			return content;
-		}
+		processor: setHeadersToExportFile
 	});
-	
-	response.write(result);
-	response.end();
+	return result;
+}
+
+function setHeadersToExportFile (content, type, fileName) {
+	switch (type) {
+		case 'txt':
+			response.setHeader('Content-Type', 'text/plain');
+			break;
+		case 'json':
+			response.setHeader('Content-Type', 'text/plain');
+			break;
+		case 'csv':
+			response.setHeader('Content-Type', 'text/csv');
+			break;
+		case 'xls':
+			response.setHeader('Content-Type', 'application/vnd.ms-excel');
+			break;
+	}
+	response.setHeader('Content-disposition', 'attachment;filename=' + fileName);
+	return content;
 }

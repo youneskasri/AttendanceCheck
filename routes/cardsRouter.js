@@ -1,7 +1,7 @@
 const express = require('express'),
     router = express.Router();
     const { isLoggedIn } = require("../services/authService");
-const { catchErrors, catchErrorsAJAX } = require("../libs/errors");
+const { catchErrors } = require("../libs/errors");
 const cardService = require("../services/cardService");
 
 router.use(isLoggedIn)

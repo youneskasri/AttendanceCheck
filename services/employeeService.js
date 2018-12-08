@@ -6,7 +6,6 @@ const moment = require("moment");
 
 const { filterEmployeesByKeyword, printEmployees } = Employee;
 const { playSoundIfVolumeOn } = require('../libs/utils')();
-const { handleAjaxError, printError } = require("../libs/errors");
 
 /* @Index */
 module.exports.allEmployees = async (req, res, next) => {
@@ -93,23 +92,15 @@ module.exports.generateAttendancesReport = async (req, res, next) => {
 	res.render("attendances-report", {employee, attendances});
 };
 
-function sendErrorAjax(res) {
-	return err => {
-		printError(err);
-		res.send({ error: err });
-	};
-}	
-
-/* @ProfileImage AJAX (old promises syntax) */
+/* @ProfileImage AJAX */
 module.exports.setProfileImage = (req, res) => {
 
 	winston.info("setProfileImage");
 	let imageFile = req.body.image;	
 	let idEmployee = req.body.idEmployee;
-	File.saveImageFile(imageFile)
-		.then(updateProfileImage(idEmployee))
-		.then(image => res.send({ success: true, image }))
-		.catch(handleAjaxError(res));
+	let image = await File.saveImageFile(imageFile)
+		.then(updateProfileImage(idEmployee));
+	res.send({ success: true, image });
 };
 
 function updateProfileImage(idEmployee) {
@@ -132,20 +123,20 @@ function deleteOldImageIfExists(oldEmployee){
 	}	
 }
 
-/* @Calendar AJAX (old promises syntax) */
-module.exports.getCalendar = (req, res) => {
+/* @Calendar AJAX */
+module.exports.getCalendar = async (req, res, next) => {
 
 	const idEmployee = req.params.id;
-	currentMonthAttendances(idEmployee)
-		.then(formatAttendancesForCalendar)
-		.then(calendarData => res.send({ success: true, calendarData }))
-		.catch(handleAjaxError(res));
+	let attendances = await currentMonthAttendances(idEmployee);
+	let calendarData = formatAttendancesForCalendar(attendances);
+	res.send({ success: true, calendarData });
 };
 
-function currentMonthAttendances(idEmployee) {
+async function currentMonthAttendances(idEmployee) {
 
-	return getEmployeeCIN(idEmployee)
-		.then(CIN => Attendance.currentMonthAttendances(CIN));
+	const CIN  = await getEmployeeCIN(idEmployee);
+	let attendances = await Attendance.currentMonthAttendances(CIN);
+	return attendances;
 }
 
 function getEmployeeCIN(idEmployee) {

@@ -1,13 +1,23 @@
 [X] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
 
-[] Kemel I18N
+[X] Kemel I18N Fr
+[] KEmel i18n ARABIC
+[] SAyéb I18n ENGLISH
+
 [] Kemel Hadak Crypto
 
 [] Nsayeb CRUD utilisateurs
 [] Delete Employee (pr admin slmnt effective deletion)
-[] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
-[] Role n PUBLIC ( no auth), USER, SUPERVISOR, ADMIN
-SUPERVISOR can : update employee data, delete an employee(set inactive)
+[X] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
+
+[] Role n PUBLIC ( no auth), USER, ADMIN
+PUBLIC can :
+	Scanner
+	Button <Se Connecter>
+USER can : 
+	add new emp 
+	update employee data, 
+	delete an employee(set inactive)
 
 
 Roles : 
