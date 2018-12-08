@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark pt-1 pb-1" style="z-index: 1">
   <a class="navbar-brand pl-5" href="/" data-trigger="hover" data-toggle="popover" title="Contact me " data-content="www.youneskasri.com">
     <span class="text-warning">Attendance</span>
@@ -8,50 +9,72 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mx-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/" data-i18n="SCANNER">Scanner</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/employees" data-i18n="EMPLOYEES">Employees</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/cards" data-i18n="CARDS">Cards</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/attendances" data-i18n="ATTENDANCES">Attendances</a>
-      </li>      
+      {{#if currentUser}}
+        <li class="nav-item">
+          <a class="nav-link" href="/" data-i18n="SCANNER">Scanner</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/employees" data-i18n="EMPLOYEES">Employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cards" data-i18n="CARDS">Cards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attendances" data-i18n="ATTENDANCES">Attendances</a>
+        </li>
+      {{/if}}      
     </ul>
+    
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-          <a class="btn btn-warning" href="/logs">
-            <i class="fas fa-cogs"></i> <span data-i18n="CONFIGURATION">Configuration</span>
-          </a>
-      </li>
-      
-      <li class="nav-item">
-        {{#cond volume '===' 'ON'}}
-          <a id="volume" class="btn btn-default text-light" href=""><i class="fas fa-volume-up"></i></a>
-        {{else}}
-          <a id="volume" class="btn btn-default text-light" href=""><i class="fas fa-volume-off"></i></a>
+      {{#if currentUser}}
+        {{#cond isAdmin '===' true}}
+          <li class="nav-item">
+              <a class="btn btn-warning" href="/logs">
+                <i class="fas fa-cogs"></i> <span data-i18n="CONFIGURATION">Configuration</span>
+              </a>
+          </li>
         {{/cond}}
-      </li>
-      <li class="nav-item">
-         <select id="chooseLanguage" class="mt-1 pb-1">            
-           <option value="ar">بالعربي</option>
-           <option value="fr">Français</option>
-           <option value="en">English</option>
-         </select>
-      </li>
-      <li class="nav-item pl-5">
-        <a  href="/logout" class="btn  btn-success btn-sm mt-1 "><i class="fas fa-sign-out-alt"></i> 
-           <span data-i18n="LOGOUT">logout</span> 
-        </a>
-      </li>
+        <!-- Volume -->
+        <li class="nav-item">
+          {{#cond volume '===' 'ON'}}
+            <a id="volume" class="btn btn-default text-light" href=""><i class="fas fa-volume-up"></i></a>
+          {{else}}
+            <a id="volume" class="btn btn-default text-light" href=""><i class="fas fa-volume-off"></i></a>
+          {{/cond}}
+        </li>
+        <!-- Language -->
+        <li class="nav-item">
+          <select id="chooseLanguage" class="mt-1 pb-1">            
+            <option value="ar">بالعربي</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </li>
+        <!-- Logout -->
+        <li class="nav-item pl-5">
+          <a  href="/logout" class="btn  btn-success btn-sm mt-1 "><i class="fas fa-sign-out-alt"></i> 
+            <span data-i18n="LOGOUT">logout</span> 
+          </a>
+        </li>
+      {{else }}
+        <li class="nav-item mr-2 mt-1">
+          <label class="text-light" data-i18n="CHOOSE_YOUR_LANGUAGE">Choose your language</label>
+        </li>
+        <li class="nav-item mt-1">
+          <select id="chooseLanguage" class="pb-1">            
+            <option value="ar">بالعربي</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </li>
+      {{/if}}
     </ul>
   
 
   </div>
 </nav>
+
+
   
 
 
