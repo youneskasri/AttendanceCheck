@@ -2,6 +2,8 @@
     "WELCOME": "مرحبا",
     "NEXT": "التالي",
     "FILTER_BY_NAME_CIN": "البحث بالاسم او النسب او رقم البطاقة الوطنية",
+    "RETURN": "الرجوع",
+    "LOGOUT": "الخروج",
 
     "SEARCH_FOR_EMPLOYEES": "البحث عن العمال",
     "REGISTER_AN_EMPLOYEE": "تسجيل عامل جديد",
@@ -9,7 +11,10 @@
 
 
     "AUTH_SUCCESS_MESSAGE": "لقد تم تسجيل الدخول بنجاح",
+    "LOGOUT_SUCCESS_MESSAGE": "تم الخروج بنجاح",
     "MUST_BE_SIGNED_IN": "يجب عليك تجيل الدخول",
+    "MUST_BE_ADMIN": "تحتاج الى حقوق اكثر للدخول الى هته الصفحة",
+    "PASSWORD_OR_USERNAME_INCORRECT": "البيانات التي ادخلتم غير صحيحة",
 
     
     "ERROR_CIN_NOT_FOUND": ".المرجو النحقق. رقم البطاقة الوطنية الذي ادخلتم غير مسجل",
@@ -28,6 +33,7 @@
     "SAVED_SUCCESS": "سجل بنجاح",
 
     "ERROR": "هناك مشكلة",
+    "SUCCESS": "نجاح العملية",
     "SERVER_ERROR": "هناك مشكلة",
     "PLEASE_VERIFY_SERVER_RUNNING": "تاكد ان الخادم (server) مشغل",
 
@@ -48,9 +54,13 @@
     "PLEASE_ENTER_CREDENTIALS": "Veuillez entrer vos identifiants",
     "USERNAME": "Nom d'utilisateur",
     "PASSWORD": "Mot de passe",
+    "PLEASE_ENTER_USERNAME": "Veuillez entrer votre nom d'utilisateur",
+    "PLEASE_ENTER_PASSWORD": "Veuillez entrer votre mot de passe",
     "LOGIN": "Se connecter",
 
     "LAST_PERSON_CHECKED": "Dernière présence",
+    "LAST_ATTENDANCE": "Dernière présence",
+    "LAST_MONTH_ATTENDANCES_REPORT": "Rapport des présences du dernier mois",
     "LAST_ATTENDANCES": "Les dernières présences",
     "TODAYS_PICTURE": "Photo du jour",
     "COMPARED_TO": "Comparée à",
@@ -70,5 +80,6 @@
     "CIN": "CIN",
     "FULLNAME": "Nom complet",
     "BIRTH_DATE": "Date de naissance",
-    "TAKE_PICTURE": "Prendre une Photo"
+    "TAKE_PICTURE": "Prendre une Photo",
+    "PRINT_CARD": "Imprimer Carte"
 }

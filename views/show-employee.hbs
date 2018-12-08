@@ -85,7 +85,20 @@
   <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
 
   <script type="text/javascript" src="/javascripts/zabuto-calendar.js"></script>
+  
+  <!-- Scroll to bottom when showing pages" -->
+  <script>
 
+    $(document).ready(() => {
+       let currentURL = window.location;
 
+document.querySelector(".pagination").hei
+    if (currentURL.toString().includes("page")) {
+      window.scrollTo(0, document.querySelector(".pagination").scrollHeight+2000);
+       window.scrollTo(0, document.querySelector(".pagination").scrollHeight+2000);
+    }
+   
+    });
+  </script>
   </body>
 </html>

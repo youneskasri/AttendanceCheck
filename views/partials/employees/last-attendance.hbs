@@ -1,26 +1,26 @@
 <div class="container-fluid">
 	
-	<h1>Last attendance</h1>
+	<h1 data-i18n="LAST_ATTENDANCE">Last attendance</h1>
 	<div>
 	<hr>
 		
 		
 	<div class="row">
 		<div class="col-6">
-			<h5>Date <span class="text-secondary" id="lastAttendanceDate"></span></h5>
+			<h5><span data-i18n="DATE">Date</span> <span class="text-secondary" id="lastAttendanceDate"></span></h5>
 			
 			<img id="lastAttendanceImage" class="img-fluid" src=""/>
 		</div>
 		<div class="col-6" id="employeeCard">
 		  <span id="qrCode"></span>
 		  <div class="card-body pt-1">
-		  	<div><span class="font-weight-bold">CIN</span> <span class="">{{employee.CIN}}</span></div>
-		    <div><span class="font-weight-bold">First name</span> {{employee.firstName}}</div>
-		    <div><span class="font-weight-bold">Last name</span> {{employee.lastName}}</div>
+		  	<div><span class="font-weight-bold" data-i18n="CIN">CIN</span> <span class="">{{employee.CIN}}</span></div>
+		    <div><span class="font-weight-bold" data-i18n="FIRSTNAME">First name</span> {{employee.firstName}}</div>
+		    <div><span class="font-weight-bold" data-i18n="LASTNAME">Last name</span> {{employee.lastName}}</div>
 				<div class="pt-2">
 					<a href="/cards/search?q={{employee.firstName}} {{employee.lastName}} {{employee.CIN}}" class="btn btn-sm btn-warning">
 						<i class="fas  fa-print"></i> 
-						Print Card
+						<span data-i18n="PRINT_CARD">Print Card</span>
 						</a>
 				</div>
 		  </div>

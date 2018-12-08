@@ -13,6 +13,10 @@
 	cursor: none;
 }
 
+img:hover {
+	cursor: pointer;
+}
+
 #preview {
   width: 100%;
 }

@@ -28,21 +28,22 @@ router /* Protected Routes, Need Login */
 	
 
 function showLoginPage(req, res, next) { return res.render("login"); }
+
 function handleLogin(req, res, next) {
 	let successRedirect = req.session.redirectTo || '/';
 	delete req.session.redirectTo;
 	return passport.authenticate("local", {
         successRedirect,
         failureRedirect: "/login",
-        failureFlash: true,
-        successFlash: 'You succesfully logged in !'
+        failureFlash: "PASSWORD_OR_USERNAME_INCORRECT",
+        successFlash: "AUTH_SUCCESS_MESSAGE"
 	})(req, res, next);
 }
 
 function handleLogout(req, res, next){
    req.logout();
-   req.flash("success", "You succesfully logged out !");
-   res.redirect("/");
+   req.flash("success", "LOGOUT_SUCCESS_MESSAGE");
+   res.redirect("/login");
 }
 
 function setVolumeOnByDefault(req, res, next) {

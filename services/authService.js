@@ -3,7 +3,7 @@ module.exports = {
       if(req.isAuthenticated()){
           return next();
       }
-      req.flash('error', 'You must be signed in to do that!');
+      req.flash('error', 'MUST_BE_SIGNED_IN');
       req.session.redirectTo = req.path;
       res.redirect('/login');
   },
@@ -12,7 +12,7 @@ module.exports = {
     if(req.user.isAdmin) {
       next();
     } else {
-      req.flash('error', 'This site is now read only thanks to spam and trolls.');
+      req.flash('error', 'MUST_BE_ADMIN');
       res.redirect('back');
     }
   },

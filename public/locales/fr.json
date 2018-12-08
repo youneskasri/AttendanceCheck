@@ -2,16 +2,20 @@
     "WELCOME": "Bienvenue",
     "NEXT": "Suivant",
     "FILTER_BY_NAME_CIN": "Filter par nom, prénom et CIN",
+    "RETURN": "Retour",
+    "LOGOUT": "Déconnexion",
 
     "SEARCH_FOR_EMPLOYEES": "Rechercher des employés",
     "REGISTER_AN_EMPLOYEE": "Enregistrer un nouvel employé",
     "NEW_EMPLOYEE": "Nouvel employé",
 
 
-    "AUTH_SUCCESS_MESSAGE": "Vous êtes connecté avec succès",
+    "AUTH_SUCCESS_MESSAGE": "Vous êtes connecté avec succès !",
+    "LOGOUT_SUCCESS_MESSAGE": "Vous êtes déconnecté avec succès !",
     "MUST_BE_SIGNED_IN": "Il faut être authentifié pour accèder à cette ressource",
+    "MUST_BE_ADMIN": "Cette ressource est réservée aux administrateurs.",
+    "PASSWORD_OR_USERNAME_INCORRECT": "Les identifiants entrés sont erronés.",
 
-    
     "ERROR_CIN_NOT_FOUND": "Erreur ! Vérifiez que le CIN entré appartient bien à un employé",
     "ERROR_WHILE_SHOWING_ATTENDANCE": "Erreur lors de l'affichage de la présence",
     "CANT_LOAD_ATTENDANCE_DATA": "Erreur lors du chargement des données de présences",
@@ -28,6 +32,7 @@
     "SAVED_SUCCESS": "Enregistré avec succès !",
 
     "ERROR": "Erreur",
+    "SUCCESS": "Succès",
     "SERVER_ERROR": "Erreur Serveur",
     "PLEASE_VERIFY_SERVER_RUNNING": "Vérifiez que le serveur est en marche",
 
@@ -48,9 +53,13 @@
     "PLEASE_ENTER_CREDENTIALS": "Veuillez entrer vos identifiants",
     "USERNAME": "Nom d'utilisateur",
     "PASSWORD": "Mot de passe",
+    "PLEASE_ENTER_USERNAME": "Veuillez entrer votre nom d'utilisateur",
+    "PLEASE_ENTER_PASSWORD": "Veuillez entrer votre mot de passe",
     "LOGIN": "Se connecter",
 
     "LAST_PERSON_CHECKED": "Dernière présence",
+    "LAST_ATTENDANCE": "Dernière présence",
+    "LAST_MONTH_ATTENDANCES_REPORT": "Rapport des présences du dernier mois",
     "LAST_ATTENDANCES": "Les dernières présences",
     "TODAYS_PICTURE": "Photo du jour",
     "COMPARED_TO": "Comparée à",
@@ -70,5 +79,6 @@
     "CIN": "CIN",
     "FULLNAME": "Nom complet",
     "BIRTH_DATE": "Date de naissance",
-    "TAKE_PICTURE": "Prendre une Photo"
+    "TAKE_PICTURE": "Prendre une Photo",
+    "PRINT_CARD": "Imprimer Carte"
 }

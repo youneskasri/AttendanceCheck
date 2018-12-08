@@ -40,14 +40,14 @@
                 </span>
                 <div class="media-body w-75">
 <!--                   <a href="/employees/{{_id}}" class="text-dark"> -->
-                    <div> <label class="font-weight-bold" data-i18n="FIRSTNAME">First name</label> {{firstName}}</div>
-                    <div> <label class="font-weight-bold" data-i18n="LASTNAME">Last name</label> {{lastName}}</div>
-                    <div> <label class="font-weight-bold" data-i18n="CIN">CIN</label> {{CIN}}</div>
-                    <div> <label class="font-weight-bold" data-i18n="PHONE">Phone</label> {{phoneNumber}}</div>
+                    <div> <a class="text-dark"  href="/employees/{{_id}}"><label class="font-weight-bold" data-i18n="FIRSTNAME">First name</label> {{firstName}} </a></div>
+                    <div> <a class="text-dark"  href="/employees/{{_id}}"><label class="font-weight-bold" data-i18n="LASTNAME">Last name</label> {{lastName}} </a></div>
+                    <div> <a  class="text-dark" href="/employees/{{_id}}"><label class="font-weight-bold" data-i18n="CIN">CIN</label> {{CIN}} </a></div> 
+                    <div> <a class="text-dark"  href="/employees/{{_id}}"><label class="font-weight-bold" data-i18n="PHONE">Phone</label> {{phoneNumber}} </a></div>
  
                 </div>
                 {{#if profileImage.data}}
-                  <img src="{{profileImage.data}}" alt="{{lastName}}" class="mr-3 m-1 w-25">
+                  <img onclick="document.location='/employees/{{_id}}'" src="{{profileImage.data}}" alt="{{lastName}}" class="mr-3 m-1 w-25">
                 {{else}}
                   <img src="/images/img_avatar3.png" class="mr-3 m-1 w-25">
                 {{/if}} 
