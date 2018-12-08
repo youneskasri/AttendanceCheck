@@ -1,5 +1,14 @@
 for file in $(ls *.css); do  node-minify --compressor clean-css --input $file --output minified/$file; done;
 
+# To Check if User is Connected, and for Role in FrontEnd
+{{#if currentUser }} 
+    {{#cond isAdmin '===' true}}
+        ADMIN
+    {{/cond}}
+    Hello
+{{/if}}
+
+
 # Set Proxy NPM ( NOT WORKING )
 npm config set proxy http://ENSIAS-Student:wpass1234@10.23.201.11:3128
 npm config set https-proxy https://ENSIAS-Student:wpass1234@10.23.201.11:3128 http://<username>:<password>@<proxy-server-url>:<port>
