@@ -12,10 +12,8 @@ $("a#volume").click(function(evt){
 	.done( (data)=>{
 		if (data.success == true){ 
 			icon.toggleClass("fa-volume-up fa-volume-off");
-		} else if (data.error) {
-			alertError(data.error);
 		} else {
-			alertError( "ERROR_CHANGE_VOLUME");
+			alertError("ERROR_CHANGE_VOLUME");
 		}
 	})
 	.fail(showErrorModalJquery);
