@@ -1,8 +1,5 @@
 module.exports = function(app){
-
-	const express = require("express"),
-		path = require('path');
-
+	
 	const middlewares = {
 		setUpHandlebars: function () {
 			const exphbs = require("exphbs");
