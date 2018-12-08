@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 const moment = require("moment");
 
-let attendanceSchema = mongoose.Schema({
-	CIN: String,
-	date: Date,
-	faceImage: { type: mongoose.Schema.Types.ObjectId, ref: 'File'  }
-});
-
+let attendanceSchema = require("./schemas/attendanceSchema");
 let Attendance = mongoose.model("Attendance", attendanceSchema);
 
 Attendance.findAllSortByIdDesc = () => {

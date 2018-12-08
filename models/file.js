@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
-let FileSchema = mongoose.Schema({
-	creationDate: Date,
-	contentType: String, // jpg, png etc...
-	data: String
-});
-
+let FileSchema = require("./schemas/fileSchema");
 let File = mongoose.model("File", FileSchema);
 
 File.saveImageFile = (imagePNG) => {

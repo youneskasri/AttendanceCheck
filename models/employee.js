@@ -1,17 +1,7 @@
-const mongoose = require("mongoose");
 const winston = require("../config/winston");
+const mongoose = require("mongoose");
 
-let employeeSchema = mongoose.Schema({
-	CIN: { type: String, unique: true },
-	registrationDate: Date,
-	firstName: String,
-	lastName: String,
-	birthDate: Date,
-	phoneNumber: String,
-	profileImage: { type: mongoose.Schema.Types.ObjectId, ref: 'File'  },
-	attendances: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attendance' }]
-});
-
+let employeeSchema = require("./schemas/employeeSchema");
 let Employee = mongoose.model("Employee", employeeSchema);
 
 Employee.findByCIN = (CIN) => {
@@ -60,7 +50,7 @@ Employee.printEmployees = function (employees) {
 
   
 /* Used by 'attendanceService' & 'scannerService' ... */
-module.exports.addEmployeeInfoToAttendancesPromiseAll = (attendances) => {
+Employee.addEmployeeInfoToAttendancesPromiseAll = (attendances) => {
     /* For each attendance, add employees fname and lastname */
     let promises = getEachAttendedEmployeePromise(attendances);
     
