@@ -108,7 +108,7 @@ module.exports.searchAndFilterAttendances = async (req, res, next) => {
 	attendances = attendances.filter(ByCIN(CIN))
 		.filter(ByDate(date));
 
-	attendances = await addEmployeeInfoToAttendancesPromiseAll(attendances);
+	attendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(attendances);
 	attendances = attendances.filter(ByFirstName(firstName))
 		.filter(ByLastName(lastName));
 	

@@ -11,7 +11,7 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 module.exports.indexQrScanner = async (req, res, next) => {
 
     let lastAttendances = await Attendance.findLastAttendances(3);
-    lastAttendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(attendances);
+    lastAttendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(lastAttendances);
 
     let lastAttendance = await Attendance.findLastAttendance();
     let employee = await findAttendedEmployeeWithImage(lastAttendance);

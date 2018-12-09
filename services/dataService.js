@@ -15,9 +15,8 @@ module.exports.exportDataToFormat = async (req, res, next) => {
 	let data = await Employee.find().populate('attendances').exec()
 		.then(extractDataRows);
 
-	 let result = convertToFileData(data, format);
-	 response.write(result);
-	 response.end();
+	 setHeadersAndSendFile(res, data, format);
+	 res.end();
 };
 
 function extractDataRows(employees) {
@@ -38,7 +37,7 @@ function extractDataRows(employees) {
 	return rows;
 }
 
-function convertToFileData(dataObj, exportType){
+function setHeadersAndSendFile(res, dataObj, exportType){
 	// exportFromJSON actually supports passing JSON as the data option. It's very common that reading it from http request directly.
 	const data = JSON.stringify(dataObj);
 	const fileName = moment().format('YYYY-MM-DD HH mm ss')+'';
@@ -48,26 +47,28 @@ function convertToFileData(dataObj, exportType){
 		fileName,
 		exportType,
 		withBOM,
-		processor: setHeadersToExportFile
+		processor: setHeadersToExportFile(res)
 	});
-	return result;
+	res.write(result);
 }
 
-function setHeadersToExportFile (content, type, fileName) {
-	switch (type) {
-		case 'txt':
-			response.setHeader('Content-Type', 'text/plain');
-			break;
-		case 'json':
-			response.setHeader('Content-Type', 'text/plain');
-			break;
-		case 'csv':
-			response.setHeader('Content-Type', 'text/csv');
-			break;
-		case 'xls':
-			response.setHeader('Content-Type', 'application/vnd.ms-excel');
-			break;
+function setHeadersToExportFile (res) {
+	return (content, type, fileName) => {
+		switch (type) {
+			case 'txt':
+				res.setHeader('Content-Type', 'text/plain');
+				break;
+			case 'json':
+				res.setHeader('Content-Type', 'text/plain');
+				break;
+			case 'csv':
+				res.setHeader('Content-Type', 'text/csv');
+				break;
+			case 'xls':
+				res.setHeader('Content-Type', 'application/vnd.ms-excel');
+				break;
+		}
+		res.setHeader('Content-disposition', 'attachment;filename=' + fileName);
+		return content;
 	}
-	response.setHeader('Content-disposition', 'attachment;filename=' + fileName);
-	return content;
 }
