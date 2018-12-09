@@ -4,14 +4,14 @@ const winston = require("../config/winston");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 const moment = require("moment");
 
-module.exports.setVolumeOnByDefault = (req, res, next) => {
+exports.setVolumeOnByDefault = (req, res, next) => {
 	if (!req.session.volume) req.session.volume = 'ON';
 	res.locals.volume = req.session.volume;
 	next();
 }
 
 /* @SetVolume AJAX */
-module.exports.setVolume = (req, res) => {
+exports.setVolume = (req, res) => {
 	req.session.volume = req.body.volume;
 	winston.info("volume = " + req.session.volume);
 	playSoundIfVolumeOn(req, "VOLUME ON");
@@ -19,7 +19,7 @@ module.exports.setVolume = (req, res) => {
 }
 
 /* @Index Logs */
-module.exports.showLogs = (req, res, next) => {
+exports.showLogs = (req, res, next) => {
 	let logs = parseLogsFile();
 	res.render("logs", { logs });
 }
@@ -44,12 +44,12 @@ function parseJson(log, i) {
 }
 
 /* @GET memoryUsage Graph */
-module.exports.showMemoryUsageGraph = (req, res, next) => {
+exports.showMemoryUsageGraph = (req, res, next) => {
 	res.render("memory-usage-graph");
 } 
 
 /* @GET memory usage AJAX */
-module.exports.getMemoryUsage = (req, res) => {
+exports.getMemoryUsage = (req, res) => {
 	let time = moment().format('hh:mm:ss');
 	let memoryUsage = process.memoryUsage();
 	res.send({ time, memoryUsage });

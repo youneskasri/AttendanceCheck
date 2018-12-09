@@ -6,7 +6,7 @@ const File = require("../models/file");
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index */
-module.exports.allAttendances = async (req, res, next) => {
+exports.allAttendances = async (req, res, next) => {
 	let { page, limit } = req.query;
 	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
 	let attendances = await Attendance.pagination(Number(page), Number(limit));
@@ -39,7 +39,7 @@ function getAttendancesPages({ attendancesCount, currentPage }) {
 }
 
 /* @Show AJAX */
-module.exports.showAttendance = async (req, res, next) => {
+exports.showAttendance = async (req, res, next) => {
 	let attendance = await Attendance.findById(req.params.id)
 		.populate('faceImage').exec();
 	attendance = await linkEmployeeToAttendance(attendance);
@@ -61,7 +61,7 @@ function linkEmployeeToAttendance(attendance) {
 }
 
 /* @Create AJAX */
-module.exports.createAttendance = async (req, res, next) => {
+exports.createAttendance = async (req, res, next) => {
 	let faceImagePNG = req.body.faceImage;
 	let CIN = req.body.content;
 	
@@ -99,7 +99,7 @@ function registerAttendance(employee, imageId) {
 }
 
 /* @Search */
-module.exports.searchAndFilterAttendances = async (req, res, next) => {
+exports.searchAndFilterAttendances = async (req, res, next) => {
 	let { page, limit } = req.query;
 	page = page - 1; 	/* Pages fl Front end mn  1 --> 7 et ici mn 0 --> 6 */
 

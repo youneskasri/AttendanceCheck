@@ -7,7 +7,7 @@ const exportFromJSON = require("export-from-json");
 */
 
 /* @Route /export/:format (csv, xsl, json ..) */
-module.exports.exportDataToFormat = async (req, res, next) => {
+exports.exportDataToFormat = async (req, res, next) => {
 	
 	let { format } = req.params; 
 	if (!['csv', 'xls', 'json'].includes(format) ) return next("Invalid format");

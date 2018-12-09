@@ -8,7 +8,7 @@ const { playSoundIfVolumeOn } = require('../libs/utils')();
 * - Charge le derniers passage avec l'image
 * -- Lui ajoute l'employé avec son image de profil
 */
-module.exports.indexQrScanner = async (req, res, next) => {
+exports.indexQrScanner = async (req, res, next) => {
 
     let lastAttendances = await Attendance.findLastAttendances(3);
     lastAttendances = await Employee.addEmployeeInfoToAttendancesPromiseAll(lastAttendances);

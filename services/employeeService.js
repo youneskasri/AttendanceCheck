@@ -8,7 +8,7 @@ const { filterEmployeesByKeyword, printEmployees } = Employee;
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index */
-module.exports.allEmployees = async (req, res, next) => {
+exports.allEmployees = async (req, res, next) => {
 
 	let employees = await Employee.findAllAndPopulateImage()
 	playSoundIfVolumeOn(req, "List of employees");
@@ -16,7 +16,7 @@ module.exports.allEmployees = async (req, res, next) => {
 };
 
 /* @Search */
-module.exports.searchEmployees = async (req, res, next) => {
+exports.searchEmployees = async (req, res, next) => {
 
 	/* Remplacer les espaces multiples par ' ', puis trim() */
 	let q = req.query.q.replace(/\s{2,}/g, ' ').trim();
@@ -28,7 +28,7 @@ module.exports.searchEmployees = async (req, res, next) => {
 };
 
 /* @Show */
-module.exports.showEmployee = async (req, res, next) => {
+exports.showEmployee = async (req, res, next) => {
 	const { id } = req.params;
 	let { page } = req.query;
 	!page ? page = 0 : page-- ;
@@ -66,7 +66,7 @@ function calculateFilteredAttendancesPagination(criteria, page) {
 }
 
 /* @Create AJAX */
-module.exports.createEmployee = async (req, res, next) => {
+exports.createEmployee = async (req, res, next) => {
 
 	let employee = await validateInputsAndSaveEmployee(req.body);
 	winston.info('Saved in DB: '.green + employee._id);
@@ -85,7 +85,7 @@ function validateInputsAndSaveEmployee(employeeForm) {
 }
 
 /* @GenerateReport */
-module.exports.generateAttendancesReport = async (req, res, next) => {
+exports.generateAttendancesReport = async (req, res, next) => {
 	const { id } = req.params;
 	let employee = await Employee.findByIdAndPopulateImage(id);
 	let attendances = await Attendance.currentMonthAttendancesWithImages(employee.CIN)
@@ -93,7 +93,7 @@ module.exports.generateAttendancesReport = async (req, res, next) => {
 };
 
 /* @ProfileImage AJAX */
-module.exports.setProfileImage = async (req, res, next) => {
+exports.setProfileImage = async (req, res, next) => {
 
 	winston.info("setProfileImage");
 	let imageFile = req.body.image;	
@@ -124,7 +124,7 @@ function deleteOldImageIfExists(oldEmployee){
 }
 
 /* @Calendar AJAX */
-module.exports.getCalendar = async (req, res, next) => {
+exports.getCalendar = async (req, res, next) => {
 
 	const idEmployee = req.params.id;
 	let attendances = await currentMonthAttendances(idEmployee);

@@ -3,7 +3,7 @@ const { filterEmployeesByKeyword, printEmployees } = Employee;
 const { playSoundIfVolumeOn } = require('../libs/utils')();
 
 /* @Index */
-module.exports.allCards = async (req, res, next) => {
+exports.allCards = async (req, res, next) => {
 	
 	let employees = await Employee.findAllAndPopulateImage()
 	playSoundIfVolumeOn(req, "Employees cards");
@@ -11,7 +11,7 @@ module.exports.allCards = async (req, res, next) => {
 };
 
 /* @Search */
-module.exports.searchCards = async (req, res, next) => {
+exports.searchCards = async (req, res, next) => {
 	/* Remplacer les espaces multiples par ' ', puis trim() */
 	let q = req.query.q.replace(/\s{2,}/g, ' ').trim();
 
