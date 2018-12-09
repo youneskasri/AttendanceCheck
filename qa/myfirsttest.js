@@ -1,23 +1,34 @@
-let { assert } = require("chai");
+/*
+    assert(value[, message])
+    assert.deepStrictEqual(actual, expected[, message])
+    assert.doesNotThrow(function[, error][, message])
+*/
+const assert = require("assert");
+const BASE_URL = `http://localhost:4000`;
+
+const {Builder, By, Key, until} = require('selenium-webdriver');
+
+let driver = null;
+
+(async function example() {
+  driver = await new Builder().forBrowser('chrome').build();
+  try {
+    // await getGoogleAndSearchSelenium(driver);
+    await getIndexPage_assertIsOK(driver);
+  } finally {
+    await driver.quit();
+  }
+})();
 
 
+async function getGoogleAndSearchSelenium() {
+    await driver.get('http://www.google.com/ncr');
+    await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
+    await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
+}
 
-
-describe("Employee Service", function (){
-    
-    before(function() {
-        // runs before all tests in this block
-    });
-
-    describe("#indexOf()", function() {
-        
-        it("should return -1 when the value is not present", function () {
-            let array = [1, 2, 3];
-            assert( array.indexOf(4) === -1);
-        });
-
-        it("should return [] when no employee is present", function() {
-
-        });
-    });
-});
+async function getIndexPage_assertIsOK(driver) {
+    await driver.get(`${BASE_URL}/`);
+    let navItems = await driver.findElement(By.className("nav-link"));
+    console.log(navItems);   
+}
