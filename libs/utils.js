@@ -5,7 +5,7 @@ module.exports = function(app) {
 	
 	const SimpleTTS = require("simpletts");
 	const tts = new SimpleTTS();
-	const winston = require('../config/winston');
+	const winston = require('./winston');
 
 	return {
 

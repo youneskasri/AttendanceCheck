@@ -1,6 +1,6 @@
-const Employee = require("../models/employee");
+const Employee = require("../../business/models/employee");
 const { filterEmployeesByKeyword, printEmployees } = Employee;
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { playSoundIfVolumeOn } = require('../../../libs/utils')();
 
 /* @Index */
 exports.allCards = async (req, res, next) => {

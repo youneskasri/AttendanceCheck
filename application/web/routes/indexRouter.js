@@ -2,12 +2,11 @@ const express = require('express'),
 	router = express.Router(), 
 	passport = require("passport");
 
-const scannerService = require("../services/scannerService");
-const dataService = require("../services/dataService");
-const authService = require("../services/authService");
-const configurationService = require("../services/configurationService");
-const { catchErrors } = require("../libs/errors");
-const { isLoggedIn } = authService;
+const scannerController = require("../controllers/scannerController");
+const dataController = require("../controllers/dataController");
+const configurationController = require("../controllers/configurationController");
+const { catchErrors } = require("../../../libs/errors");
+const { isLoggedIn } = require("../controllers/authController");
 
 /* Login & Logout */
 router.get('/login', showLoginPage)
@@ -15,15 +14,15 @@ router.get('/login', showLoginPage)
 	.use('/logout', handleLogout);
 
 router.use(isLoggedIn)
-	.use(configurationService.setVolumeOnByDefault)
-	.post('/volume', configurationService.setVolume)
-	.get('/', catchErrors(scannerService.indexQrScanner))
-	.get('/export/:format', catchErrors(dataService.exportDataToFormat));
+	.use(configurationController.setVolumeOnByDefault)
+	.post('/volume', configurationController.setVolume)
+	.get('/', catchErrors(scannerController.indexQrScanner))
+	.get('/export/:format', catchErrors(dataController.exportDataToFormat));
 
 router /* Protected Routes, Need Login */
-	.get('/logs', isLoggedIn, configurationService.showLogs)
-	.get('/memory', isLoggedIn, configurationService.getMemoryUsage)
-	.get('/memory/graph', isLoggedIn, configurationService.showMemoryUsageGraph);
+	.get('/logs', isLoggedIn, configurationController.showLogs)
+	.get('/memory', isLoggedIn, configurationController.getMemoryUsage)
+	.get('/memory/graph', isLoggedIn, configurationController.showMemoryUsageGraph);
 	
 
 function showLoginPage(req, res, next) { return res.render("login"); }

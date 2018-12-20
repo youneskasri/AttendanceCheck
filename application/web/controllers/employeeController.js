@@ -1,11 +1,11 @@
-const Employee = require("../models/employee");
-const File = require("../models/file");
-const Attendance = require("../models/attendance");
-const winston = require("../config/winston");
+const Employee = require("../../business/models/employee");
+const File =  require("../../business/models/file");
+const Attendance =  require("../../business/models/attendance");
+const winston = require("../../../libs/winston");
 const moment = require("moment");
 
 const { filterEmployeesByKeyword, printEmployees } = Employee;
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const { playSoundIfVolumeOn } = require("../../../libs/utils")();
 
 /* @Index */
 exports.allEmployees = async (req, res, next) => {

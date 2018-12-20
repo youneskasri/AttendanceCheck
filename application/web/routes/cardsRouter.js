@@ -1,11 +1,11 @@
 const express = require('express'),
     router = express.Router();
-    const { isLoggedIn } = require("../services/authService");
-const { catchErrors } = require("../libs/errors");
-const cardService = require("../services/cardService");
+const { isLoggedIn } = require("../controllers/authController");
+const { catchErrors } = require("../../../libs/errors");
+const cardController = require("../controllers/cardController");
 
 router.use(isLoggedIn)
-    .get('/', catchErrors(cardService.allCards))
-    .get('/search', catchErrors(cardService.searchCards));
+    .get('/', catchErrors(cardController.allCards))
+    .get('/search', catchErrors(cardController.searchCards));
     
 module.exports = router;

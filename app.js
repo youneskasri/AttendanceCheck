@@ -1,10 +1,10 @@
 const express = require('express'),
 	createError = require('http-errors'),
 	mongoose = require('mongoose'),
-	User = require("./models/user");
+	User = require("./application/business/models/user");
 
 const colors = require('colors');
-const winston = require("./config/winston");
+const winston = require("./libs/winston");
 
 /* connect database */
 let mongooseOpts = { keepAlive: 120 };
@@ -29,10 +29,11 @@ const { isDevEnvironment,
 	useErrorHandler,
 	startServer } = require("./libs/utils")(app);
 
-/* Favicon and public folder */
+/* Favicon, views and public folders */
 const favicon = require('express-favicon');
 app.use(express.static(__dirname + "/public"));
 app.use(favicon(__dirname + '/public/favicon.png'));
+app.set('views', `${__dirname}/application/views`);
 
 const linkMiddlewaresTo = require("./libs/middlewares");
 linkMiddlewaresTo(app).setUpHandlebars() // View engine

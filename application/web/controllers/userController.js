@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../../business/models/user");
 
 exports.index = async (req, res, next) => {
     let users = await User.findAllWithoutPassword();

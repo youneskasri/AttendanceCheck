@@ -1,6 +1,6 @@
-const Employee = require("../models/employee");
-const Attendance = require("../models/attendance");
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const Employee = require("../../business/models/employee");
+const Attendance = require("../../business/models/attendance");
+const { playSoundIfVolumeOn } = require("../../../libs/utils")();
 
 /* @Index 
 * - Charge les (3) dernièrs passages

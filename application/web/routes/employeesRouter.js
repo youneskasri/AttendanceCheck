@@ -1,16 +1,16 @@
 const express = require('express'),
 	router = express.Router();
-const { isLoggedIn } = require("../services/authService");
-const { catchErrors } = require("../libs/errors");	
-const employeeService = require("../services/employeeService");
+const { isLoggedIn } = require("../controllers/authController");
+const { catchErrors } = require("../../../libs/errors");
+const employeeController = require("../controllers/employeeController");
 
 router.use(isLoggedIn)
-	.get('/', catchErrors(employeeService.allEmployees))
-	.get('/search', catchErrors(employeeService.searchEmployees))
-	.get('/:id/report', catchErrors(employeeService.generateAttendancesReport))
-	.get('/:id/calendar', catchErrors(employeeService.getCalendar))
-	.get('/:id', catchErrors(employeeService.showEmployee))
-	.post('/:id/profileImage', catchErrors(employeeService.setProfileImage))
-	.post('/', catchErrors(employeeService.createEmployee));
+	.get('/', catchErrors(employeeController.allEmployees))
+	.get('/search', catchErrors(employeeController.searchEmployees))
+	.get('/:id/report', catchErrors(employeeController.generateAttendancesReport))
+	.get('/:id/calendar', catchErrors(employeeController.getCalendar))
+	.get('/:id', catchErrors(employeeController.showEmployee))
+	.post('/:id/profileImage', catchErrors(employeeController.setProfileImage))
+	.post('/', catchErrors(employeeController.createEmployee));
 
 module.exports = router;

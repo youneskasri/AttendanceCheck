@@ -1,3 +1,11 @@
+- Need to change obfuscator b/C i changed directory structures :/
+[X] Vérifier All imports 
+** Mochkil avec NodeJS : Quand je change emplacement de fichiers, i need to change their relative path in all require("") **
+** Java is better than Node in such cases **
+
+*Mn afdal dima nkteb les imports l'fo9 dial la page*
+
+
 [] TODO Wrap Mongoose Exception with My I18N Custom Error Messages :
 	- Duplicate key 
 	- email, username, CIN, must be unique for User 

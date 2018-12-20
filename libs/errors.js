@@ -1,4 +1,4 @@
-const winston = require("../config/winston");
+const winston = require("./winston");
 
 const catchErrors = (fn) => (req, res, next) => fn(req, res, next).catch(handleError(req, res, next));
 

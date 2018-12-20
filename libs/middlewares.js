@@ -10,7 +10,7 @@ module.exports = function(app){
 			handlebars.registerHelper('cond', cond);
 			handlebars.registerHelper('dateFormat', dateFormat);
 
-			app.engine('hbs', exphbs);
+			app.engine('hbs', exphbs);			
 			app.set('view engine', 'hbs');
 			return this;
 		},
@@ -63,11 +63,11 @@ module.exports = function(app){
 		},
 
 		setUpRouters: function () { /* Couplage Fort !! Need to Replace it */
-			const indexRouter = require('../web/routes/indexRouter'),
-				usersRouter = require('../web/routes/usersRouter'),
-				employeesRouter = require('../web/routes/employeesRouter'),
-				cardsRouter = require('../web/routes/cardsRouter'),
-				attendancesRouter = require('../web/routes/attendancesRouter');
+			const indexRouter = require('../application/web/routes/indexRouter'),
+				usersRouter = require('../application/web/routes/usersRouter'),
+				employeesRouter = require('../application/web/routes/employeesRouter'),
+				cardsRouter = require('../application/web/routes/cardsRouter'),
+				attendancesRouter = require('../application/web/routes/attendancesRouter');
 			app.use('/', indexRouter)
 				.use('/attendances', attendancesRouter)
 				.use('/users', usersRouter)
@@ -77,7 +77,7 @@ module.exports = function(app){
 		},
 
 		setUpLoggers: function () {
-			const winston = require('../libs/winston');
+			const winston = require('./winston');
 			const morgan = require('morgan');
 			if ( app.get("env") === "development"){
 				app.use(morgan('dev'));

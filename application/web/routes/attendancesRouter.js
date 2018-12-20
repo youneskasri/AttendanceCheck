@@ -1,7 +1,7 @@
 const express = require('express'),
 	router = express.Router();
 const { isLoggedIn } = require("../controllers/authController");
-const { catchErrors } = require("../libs/errors");
+const { catchErrors } = require("../../../libs/errors");
 
 const attendanceController = require("../controllers/attendanceController");
 

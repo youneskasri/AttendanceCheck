@@ -1,7 +1,7 @@
 const fs = require("fs");
 const appRootPath = require("app-root-path");    
-const winston = require("../config/winston");
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const winston = require("../../../libs/winston");
+const { playSoundIfVolumeOn } = require("../../../libs/utils")();
 const moment = require("moment");
 
 exports.setVolumeOnByDefault = (req, res, next) => {

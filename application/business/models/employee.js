@@ -1,4 +1,4 @@
-const winston = require("../../config/winston");
+const winston = require("../../../libs/winston");
 const mongoose = require("mongoose");
 
 let employeeSchema = require("../schemas/employeeSchema");

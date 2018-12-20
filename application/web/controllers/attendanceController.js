@@ -1,9 +1,9 @@
 const moment = require("moment");
-const winston = require("../config/winston");
-const Employee = require("../models/employee");
-const Attendance = require("../models/attendance");
-const File = require("../models/file");
-const { playSoundIfVolumeOn } = require('../libs/utils')();
+const winston = require("../../../libs/winston");
+const Employee = require("../../business/models/employee");
+const Attendance = require("../../business/models/attendance");
+const File = require("../../business/models/file");
+const { playSoundIfVolumeOn } = require('../../../libs/utils')();
 
 /* @Index */
 exports.allAttendances = async (req, res, next) => {

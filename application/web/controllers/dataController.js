@@ -1,5 +1,5 @@
 const moment = require("moment");
-const Employee = require("../models/employee");
+const Employee = require("../../business/models/employee");
 const exportFromJSON = require("export-from-json");
 
 /*

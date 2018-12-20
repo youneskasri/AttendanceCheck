@@ -1,8 +1,8 @@
 const faker = require("faker"),
 	mongoose = require("mongoose"),
-	Employee = require("./models/employee"),
-	Attendance = require("./models/attendance"),
-	File = require("./models/file");
+	Employee = require("../application/business/models/employee"),
+	Attendance = require("../application/business/models/attendance"),
+	File = require("../application/business/models/file");
 
 
 function RandomEmployee(){
