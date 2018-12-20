@@ -3,7 +3,7 @@
 echo "Running Obfuscator script.."
 
 # Create ./target folder if not exists
-[ -d target ] || mkdir target
+[ -d target ] || mkdir _target
 
 #--------------------------------
 # Obfuscate Sources
@@ -12,23 +12,23 @@ echo "Running Obfuscator script.."
 # Obfuscate source directories
 for directory in config libs models routes services
 do
-    javascript-obfuscator $directory --output ./target --target node
+    javascript-obfuscator $directory --output ./_target --target node
 done
 
 # Obfuscate the remaing source files
 for file in app.js credentials.js
 do
-    javascript-obfuscator $file --output ./target/$file --target node
+    javascript-obfuscator $file --output ./_target/$file --target node
 done
 
 
 # Create logs subdirectory in target
-[ -e target/logs ] || mkdir target/logs
+[ -e _target/logs ] || mkdir _target/logs
 
 # Copy non-js folders to target
 for folder in public views
 do
-    cp -r $folder ./target && echo "Copy of $folder done !" 
+    cp -r $folder ./_target && echo "Copy of $folder done !" 
 done
 
 # Minify CSS assets in Target 
@@ -60,6 +60,6 @@ let nbNodeModulesTarget=0
 # If nb of Modules did change, Then Copy again
 if [ $nbNodeModules -ne $nbNodeModulesTarget ]
 then
-    rm -rf ./target/node_modules && echo "Deleted old target/node_modules !"
-    cp -r node_modules ./target && echo "Copy of node_modules done !" 
+    rm -rf ./_target/node_modules && echo "Deleted old target/node_modules !"
+    cp -r node_modules ./_target && echo "Copy of node_modules done !" 
 fi

@@ -1,7 +1,7 @@
-const winston = require("../config/winston");
+const winston = require("../../config/winston");
 const mongoose = require("mongoose");
 
-let employeeSchema = require("./schemas/employeeSchema");
+let employeeSchema = require("../schemas/employeeSchema");
 let Employee = mongoose.model("Employee", employeeSchema);
 
 Employee.findByCIN = (CIN) => {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-let FileSchema = require("./schemas/fileSchema");
+let FileSchema = require("../schemas/fileSchema");
 let File = mongoose.model("File", FileSchema);
 
 File.saveImageFile = (imagePNG) => {

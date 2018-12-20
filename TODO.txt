@@ -1,3 +1,8 @@
+[] TODO Wrap Mongoose Exception with My I18N Custom Error Messages :
+	- Duplicate key 
+	- email, username, CIN, must be unique for User 
+	- CIN must be unique for 
+
 [X] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
 
 [X] Kemel I18N Fr

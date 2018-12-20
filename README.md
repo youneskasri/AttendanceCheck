@@ -1,5 +1,8 @@
 for file in $(ls *.css); do  node-minify --compressor clean-css --input $file --output minified/$file; done;
 
+**module.exports vs exports** module.exports can export {}, string, function VS only {} for exports
+But i prefer exports, more concise, and I group my functions together inside an object.
+
 **is the DB created auto with Mongoose ?** YES
 
 # To Check if User is Connected, and for Role in FrontEnd

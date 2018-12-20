@@ -42,7 +42,7 @@ module.exports = function(app){
 			const passport = require('passport'),
 				flash = require('connect-flash'),
 				//LocalStrategy = require("passport-local"),
-				User = require('../models/user');
+				User = require("../application/business/models/user");
 			
 			app.use(flash())
 				.use(passport.initialize())
@@ -62,12 +62,12 @@ module.exports = function(app){
 			return this;
 		},
 
-		setUpRouters: function () {
-			const indexRouter = require('../routes/indexRouter'),
-				usersRouter = require('../routes/usersRouter'),
-				employeesRouter = require('../routes/employeesRouter'),
-				cardsRouter = require('../routes/cardsRouter'),
-				attendancesRouter = require('../routes/attendancesRouter');
+		setUpRouters: function () { /* Couplage Fort !! Need to Replace it */
+			const indexRouter = require('../web/routes/indexRouter'),
+				usersRouter = require('../web/routes/usersRouter'),
+				employeesRouter = require('../web/routes/employeesRouter'),
+				cardsRouter = require('../web/routes/cardsRouter'),
+				attendancesRouter = require('../web/routes/attendancesRouter');
 			app.use('/', indexRouter)
 				.use('/attendances', attendancesRouter)
 				.use('/users', usersRouter)
@@ -77,7 +77,7 @@ module.exports = function(app){
 		},
 
 		setUpLoggers: function () {
-			const winston = require('../config/winston');
+			const winston = require('../libs/winston');
 			const morgan = require('morgan');
 			if ( app.get("env") === "development"){
 				app.use(morgan('dev'));

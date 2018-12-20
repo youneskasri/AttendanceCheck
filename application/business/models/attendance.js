@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const moment = require("moment");
 
-let attendanceSchema = require("./schemas/attendanceSchema");
+let attendanceSchema = require("../schemas/attendanceSchema");
 let Attendance = mongoose.model("Attendance", attendanceSchema);
 
 Attendance.findAllSortByIdDesc = () => {
