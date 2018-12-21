@@ -45,7 +45,7 @@ linkMiddlewaresTo(app).setUpHandlebars() // View engine
 
 
 if ( isDevEnvironment()){
-	useErrorHandler(); // sends the full error stack to errorPage
+	//useErrorHandler(); // sends the full error stack to errorPage
 	showMemoryUsage();
 }
 
@@ -53,13 +53,17 @@ if ( isDevEnvironment()){
 app.use(function(req, res, next) {
 	next(createError(404));
 }).use(function(err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-	// render the error page
-	res.status(err.status || 500);
-	winston.error(err);
-	res.render('errorPage');
+	if (req.xhr) { // handling AJAX errors 
+		res.send({ error: {stack: err.stack, message: err.message} });
+	} else {
+		// set locals, only providing error in development
+		res.locals.message = err.message;
+		res.locals.error = isDevEnvironment() ? err : {};
+		// render the error page
+		res.status(err.status || 500);
+		winston.error(err);
+		res.render('errorPage');
+	}
 });
 
 // Running the Server
