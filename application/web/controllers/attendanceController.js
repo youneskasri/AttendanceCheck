@@ -64,7 +64,7 @@ function linkEmployeeToAttendance(attendance) {
 exports.createAttendance = async (req, res, next) => {
 	let faceImagePNG = req.body.faceImage;
 	let CIN = req.body.content;
-	
+
 	/* HARD CODED for TESTS */
 	if (CIN.includes('www.')) 
 		CIN = 'AD213583';

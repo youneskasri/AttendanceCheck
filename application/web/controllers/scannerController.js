@@ -15,7 +15,6 @@ exports.indexQrScanner = async (req, res, next) => {
 
     let lastAttendance = await Attendance.findLastAttendance();
     let employee = await findAttendedEmployeeWithImage(lastAttendance);
-    
     playSoundIfVolumeOn(req,"Checking attendance");
     res.render("scanner", { lastAttendances, lastAttendance, employee });
 };

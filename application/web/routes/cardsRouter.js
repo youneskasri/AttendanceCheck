@@ -1,7 +1,7 @@
 const express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    catchErrors = require("express-catch-async");
 const { isLoggedIn } = require("../controllers/authController");
-const { catchErrors } = require("../../../libs/errors");
 const cardController = require("../controllers/cardController");
 
 router.use(isLoggedIn)

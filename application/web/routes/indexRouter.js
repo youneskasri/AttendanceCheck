@@ -1,11 +1,11 @@
 const express = require('express'),
-	router = express.Router(), 
+	router = express.Router(),
+    catchErrors = require("express-catch-async"),
 	passport = require("passport");
 
 const scannerController = require("../controllers/scannerController");
 const dataController = require("../controllers/dataController");
 const configurationController = require("../controllers/configurationController");
-const { catchErrors } = require("../../../libs/errors");
 const { isLoggedIn } = require("../controllers/authController");
 
 /* Login & Logout */
