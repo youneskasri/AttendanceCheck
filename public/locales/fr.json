@@ -19,6 +19,7 @@
     "MUST_BE_SIGNED_IN": "Il faut être authentifié pour accèder à cette ressource",
     "MUST_BE_ADMIN": "Cette ressource est réservée aux administrateurs.",
     "PASSWORD_OR_USERNAME_INCORRECT": "Les identifiants entrés sont erronés.",
+    "REPEAT_PASSWORD": "Entrez à nouveau le mot de passe",
 
     "ERROR_CIN_NOT_FOUND": "Erreur ! Vérifiez que le CIN entré appartient bien à un employé",
     "ERROR_WHILE_SHOWING_ATTENDANCE": "Erreur lors de l'affichage de la présence",
