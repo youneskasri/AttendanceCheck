@@ -1,15 +1,18 @@
 const express = require('express'),
-  router = express.Router();
+	router = express.Router(),
+  catchErrors = require("express-catch-async");
+const { isAdmin, isLoggedIn } = require("../controllers/authController");
 
 const usersController = require("../controllers/userController");
 
-router.get('/users', usersController.index)
-  .get('/users/new', usersController.new)
-	.post('/users', usersController.create)
-  .get('/users/:id/edit', usersController.edit)
-  .get('/users/:id', usersController.show)
-  .patch('/users/:id', usersController.update)
-  .delete('/users/:id', usersController.remove);
+router.use(isLoggedIn)
+  .get('/', catchErrors(usersController.index))
+  .get('/new', catchErrors(usersController.new))
+	.post('/', catchErrors(usersController.create))
+  .get('/:id/edit', catchErrors(usersController.edit))
+  .get('/:id',catchErrors(usersController.show))
+  .patch('/:id', catchErrors(usersController.update))
+  .delete('/:id',catchErrors(usersController.remove));
   
   
 module.exports = router;

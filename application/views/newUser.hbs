@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>New User</title>
+    {{> links}}
+  </head>
+
+  <body class="p-0 table-dark text-light">
+    {{> loadingSpinner}}
+    {{> userNavbar }}
+    {{> errorHandlers}}
+    
+    <div class="container mt-4">
+        <form action="/users" method="POST">
+            <div class="form-group">
+                <label data-i18n="USERNAME">Username *</label>
+                <input class="form-control" type="text" data-i18n="[placeholder]USERNAME" placeholder="username" name="username" required/>         
+            </div>
+            <div class="form-group">
+                <label data-i18n="PASSWORD">Password</label>
+                <input type="password" class="form-control" data-i18n="[placeholder]PASSWORD" />
+            </div>
+            <div class="form-group">
+                <label data-i18n="REPEAT_PASSWORD">Repeat your password</label>
+                <input type="password" class="form-control" data-i18n="[placeholder]REPEAT_PASSWORD" />   
+            </div>
+            <div class="form-group">
+                <label data-i18n="ROLE">Role *</label>
+                <select class="form-control" name="role">
+                    <option value="USER"><span data-i18n="USER">User</span></option>
+                    <option value="ADMIN"><span data-i18n="ADMIN">Admin</span></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-i18n="CIN">CIN *</label>    
+                <input class="form-control" type="text" data-i18n="[placeholder]CIN" placeholder="CIN" name="CIN" required/> 
+            </div>      
+            <div class="form-group">
+                <label data-i18n="EMAIL">Email</label>
+                <input  class="form-control" type="email" data-i18n="[placeholder]EMAIL"  name="email" />
+            </div>
+
+            <button class="btn btn-secondary btn-block mt-4 w-50 mx-auto" data-i18n="SAVE">Save</button>
+        </form>
+    </div>
+
+
+    {{> scripts}}
+  </body>
+</html>

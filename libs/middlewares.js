@@ -1,17 +1,11 @@
+const helpers = require("helpers-younes");
+
 module.exports = function(app){
 	
 	const middlewares = {
-		setUpHandlebars: function () {
-			const exphbs = require("exphbs");
-			const cond = require("handlebars-cond").cond;
-			const dateFormat = require("handlebars-dateformat");
-
-			let handlebars = exphbs.handlebars;
-			handlebars.registerHelper('cond', cond);
-			handlebars.registerHelper('dateFormat', dateFormat);
-
-			app.engine('hbs', exphbs);			
-			app.set('view engine', 'hbs');
+		setUpHandlebars: function (ext = 'hbs') {
+			const exphbs = helpers.setUpHandlebars();
+			app.engine(ext, exphbs).set('view engine', ext);
 			return this;
 		},
 
@@ -38,41 +32,15 @@ module.exports = function(app){
 			return this;
 		},
 
-		setUpPassportAndFlash: function() {
-			const passport = require('passport'),
-				flash = require('connect-flash'),
-				//LocalStrategy = require("passport-local"),
-				User = require("../application/business/models/user");
-			
-			app.use(flash())
-				.use(passport.initialize())
-				.use(passport.session());
-
-			passport.use(User.createStrategy());
-			passport.serializeUser(User.serializeUser());
-			passport.deserializeUser(User.deserializeUser());
-
-			app.use(function(req, res, next){
-				res.locals.currentUser = req.user;
-				res.locals.success = req.flash('success');
-				res.locals.error = req.flash('error');
-				next();
-			});
-
+		setUpPassportAndFlash: function(userModelPath = "../application/business/models/user") {
+			const User = require(userModelPath);
+			helpers.setUpAuthAndFlash(app, User);
 			return this;
 		},
 
-		setUpRouters: function () { /* Couplage Fort !! Need to Replace it */
-			const indexRouter = require('../application/web/routes/indexRouter'),
-				usersRouter = require('../application/web/routes/usersRouter'),
-				employeesRouter = require('../application/web/routes/employeesRouter'),
-				cardsRouter = require('../application/web/routes/cardsRouter'),
-				attendancesRouter = require('../application/web/routes/attendancesRouter');
-			app.use('/', indexRouter)
-				.use('/attendances', attendancesRouter)
-				.use('/users', usersRouter)
-				.use('/cards', cardsRouter)
-				.use('/employees', employeesRouter);
+		setUpRouters: function (routesFolderPath = '../application/web/routes') { 
+			const routers = require(routesFolderPath);
+			Object.keys(routers).forEach(prefix => app.use(prefix, routers[prefix]));
 			return this;
 		},
 
@@ -91,6 +59,7 @@ module.exports = function(app){
 
 	return middlewares;
 }
+
 
 
 function isEncrypted(fileData) {

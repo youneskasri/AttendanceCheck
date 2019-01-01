@@ -34,6 +34,7 @@
     "ERROR_WHILE_PROCESSING": "Erreur lors du traitement",
     "CIN_ALREADY_USED": "Ce CIN est déjà utilisé",
     "SAVED_SUCCESS": "Enregistré avec succès !",
+    "SAVE": "Enregistrer",
 
     "ERROR": "Erreur",
     "SUCCESS": "Succès",

@@ -1,9 +1,20 @@
+# Consigne avant de Runner Tests avec Selenium :
+Ndir Language Français, b/C test suite enregistré avec des xpath mnin kan dakchi en français.
+    **Liste des Tests à Réaliser Manuellement**
+    
+
 for file in $(ls *.css); do  node-minify --compressor clean-css --input $file --output minified/$file; done;
 
 **module.exports vs exports** module.exports can export {}, string, function VS only {} for exports
 But i prefer exports, more concise, and I group my functions together inside an object.
 
 **is the DB created auto with Mongoose ?** YES
+
+**Mochkil avec NodeJS : change directory structure** 
+=> need to change relative path in all require("../..")
+*Java is better than Node in such cases*
+
+**Where to import modules ?** Tjrs en haut de page
 
 # To Check if User is Connected, and for Role in FrontEnd
 {{#if currentUser }} 

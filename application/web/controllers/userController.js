@@ -1,4 +1,7 @@
 const User = require("../../business/models/user");
+const winston = require("../../../libs/winston");
+const moment = require("moment");
+
 
 exports.index = async (req, res, next) => {
     let users = await User.findAllWithoutPassword();
@@ -11,9 +14,9 @@ exports.new = (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { username, password, phone, email }= req.body;
+    let { username, password, role, CIN, firstName, lastName, phone, email }= req.body;
     // TODO Wrap Mongoose Exception with My I18N Custom Error Messages
-    await User.create({ username, password, phone, email }); 
+    await User.create({ username, password, role, phone, email }); 
     res.redirect("/users");
 };
 

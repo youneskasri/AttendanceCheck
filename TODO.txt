@@ -1,9 +1,8 @@
+[] Nsayeb CRUD utilisateurs : En cours List/New/
+[] Validation f Inputs
+
 - Need to change obfuscator b/C i changed directory structures :/
 [X] Vérifier All imports 
-** Mochkil avec NodeJS : Quand je change emplacement de fichiers, i need to change their relative path in all require("") **
-** Java is better than Node in such cases **
-
-*Mn afdal dima nkteb les imports l'fo9 dial la page*
 
 
 [] TODO Wrap Mongoose Exception with My I18N Custom Error Messages :
@@ -14,12 +13,11 @@
 [X] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
 
 [X] Kemel I18N Fr
-[] KEmel i18n ARABIC
+[ْX] KEmel i18n ARABIC
 [] SAyéb I18n ENGLISH
 
 [] Kemel Hadak Crypto
 
-[] Nsayeb CRUD utilisateurs
 [] Delete Employee (pr admin slmnt effective deletion)
 [X] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
 
