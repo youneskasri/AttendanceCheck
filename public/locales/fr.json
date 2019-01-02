@@ -14,6 +14,10 @@
     "EMAIL": "Email",
     "ROLE": "Rôle",
 
+    "USERNAME_ALREADY_USED": "Ce nom d'utilisateur est déjà utilisé !",
+    "EMAIL_ALREADY_USED": "Cet email est déjà utilisé !",
+    "REPEAT_PASSWORD_NOT_MATCH": "Assurez vous que le mot de passe est répété correctement !",
+
     "AUTH_SUCCESS_MESSAGE": "Vous êtes connecté avec succès !",
     "LOGOUT_SUCCESS_MESSAGE": "Vous êtes déconnecté avec succès !",
     "MUST_BE_SIGNED_IN": "Il faut être authentifié pour accèder à cette ressource",
