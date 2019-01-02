@@ -6,6 +6,7 @@ const moment = require("moment");
 
 const { filterEmployeesByKeyword, printEmployees } = Employee;
 const { playSoundIfVolumeOn } = require("../../../libs/utils")();
+const getErrorMessageI18N = require("./errorMessagesI18N");
 
 /* @Index */
 exports.allEmployees = async (req, res, next) => {
@@ -68,21 +69,17 @@ function calculateFilteredAttendancesPagination(criteria, page) {
 /* @Create AJAX */
 exports.createEmployee = async (req, res, next) => {
 
-	let employee = await validateInputsAndSaveEmployee(req.body);
-	winston.info('Saved in DB: '.green + employee._id);
-	res.send({success: true, employee: employee});
+	let { CIN, firstName, lastName, birthDate, phoneNumber } = req.body;
+	// Sanitisation ...
+	let employee = {};
+	try { employee = await Employee.create({ CIN, firstName, lastName, birthDate, phoneNumber })
+	} catch(e) {
+		let message = getErrorMessageI18N(e);
+		return next(new Error(message));
+	}
+	//winston.info('Saved in DB: '.green + employee._id);
+	res.send({success: true, employee });
 };
-
-function validateInputsAndSaveEmployee(employeeForm) {
-	/* TODO Validate Inputs */
-	return Employee.create({
-		CIN: employeeForm.CIN,
-		firstName: employeeForm.firstName,
-		lastName: employeeForm.lastName,
-		birthDate: employeeForm.birthDate,
-		phoneNumber: employeeForm.phoneNumber
-	});
-}
 
 /* @GenerateReport */
 exports.generateAttendancesReport = async (req, res, next) => {

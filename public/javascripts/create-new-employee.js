@@ -31,7 +31,7 @@
         } else {
           let message = dictionary["ERROR_WHILE_PROCESSING"];
           if (data && data.error) message = data.error.message;
-          if (message.includes("E11000")){
+          if (message.includes("CIN")){
             message = dictionary["CIN_ALREADY_USED"];
             $("input[name='CIN']").val('');
           }
