@@ -1,20 +1,17 @@
-[] Nsayeb CRUD utilisateurs : En cours List/New/
+[] Nsayeb CRUD utilisateurs : En cours List/New/Create
 [] Validation f Inputs
+	[X] Unique --> OK
+	[X] Confirm Password 
 
 - Need to change obfuscator b/C i changed directory structures :/
-[X] Vérifier All imports 
 
 
+# Errors #
 [] TODO Wrap Mongoose Exception with My I18N Custom Error Messages :
-	- Duplicate key 
-	- email, username, CIN, must be unique for User 
-	- CIN must be unique for 
+	[X] email, username, CIN, must be unique for User 
+	[X] CIN must be unique for Employee
+[X] Message Erreur throw new Error("EMPLOYEE_NOT_FOUND"), à traiter f l'AJAX
 
-[X] Message Erreur throw new Error("Employee not found"), à traiter f l'AJAX
-
-[X] Kemel I18N Fr
-[ْX] KEmel i18n ARABIC
-[] SAyéb I18n ENGLISH
 
 [] Kemel Hadak Crypto
 

@@ -8,7 +8,7 @@ let userSchema = new mongoose.Schema({
     CIN: { type: String, unique: true },
     role: {
         type: String, 
-        enum: ['ROOT', 'ADMIN', 'SUPERVISOR', 'ADMIN'],
+        enum: ['ROOT', 'ADMIN', 'SUPERVISOR', 'USER'],
         default: 'USER'
     }
 });

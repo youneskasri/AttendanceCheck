@@ -1,7 +1,7 @@
 const User = require("../../business/models/user");
 const winston = require("../../../libs/winston");
 const moment = require("moment");
-
+const getErrorMessageI18N = require("./errorMessagesI18N");
 
 exports.index = async (req, res, next) => {
     let users = await User.findAllWithoutPassword();
@@ -14,11 +14,23 @@ exports.new = (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { username, password, role, CIN, firstName, lastName, phone, email }= req.body;
-    // TODO Wrap Mongoose Exception with My I18N Custom Error Messages
-    await User.create({ username, password, role, phone, email }); 
+    let { username, password, repeatedPassword, role, CIN, email }= req.body;
+    // Sanitizing
+    // TODO
+
+    if (password !== repeatedPassword) {
+        req.flash('error', "REPEAT_PASSWORD_NOT_MATCH");      
+        return res.redirect("back");  
+    }
+    await User.create({ username, password, role, CIN, email })
+    .catch(e => {
+        req.flash('error', getErrorMessageI18N(e));      
+        return res.redirect("back");
+    }); 
     res.redirect("/users");
 };
+
+
 
 /* @Show AJAX */
 exports.show = async (req, res, next) => {

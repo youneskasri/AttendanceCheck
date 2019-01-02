@@ -7,7 +7,7 @@ const usersController = require("../controllers/userController");
 
 router.use(isLoggedIn)
   .get('/', catchErrors(usersController.index))
-  .get('/new', catchErrors(usersController.new))
+  .get('/new', usersController.new)
 	.post('/', catchErrors(usersController.create))
   .get('/:id/edit', catchErrors(usersController.edit))
   .get('/:id',catchErrors(usersController.show))
