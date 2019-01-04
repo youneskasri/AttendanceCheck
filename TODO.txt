@@ -6,6 +6,8 @@
 	[X] List/New/Create
 	[X] Activate/Disable Account
 	[] Auth Only for ACTIVE accounts 
+	[] isAdmin check must include isAuth ?
+	[] !!!! PROBLEME : Hadik Config btn le cacher pr non admin fl front comment faire ??
  	[] DELETE effectove account [only for ROOT] ??
 [] Validation f Inputs
 	[X] Unique --> OK

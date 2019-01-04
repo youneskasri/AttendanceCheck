@@ -22,12 +22,15 @@ exports.create = async (req, res, next) => {
         req.flash('error', "REPEAT_PASSWORD_NOT_MATCH");      
         return res.redirect("back");  
     }
-    await User.create({ username, password, role, CIN, email })
-    .catch(e => {
-        req.flash('error', getErrorMessageI18N(e));      
-        return res.redirect("back");
-    }); 
-    res.redirect("/users");
+
+    User.register({ username, password, role, CIN, email }, password, (err, user) => {
+        if (err) {
+            req.flash('error', getErrorMessageI18N(err));      
+            return res.redirect("back");
+        }
+        console.log(user.username + ' saved !');
+        res.redirect("/users");
+    });     
 };
 
 

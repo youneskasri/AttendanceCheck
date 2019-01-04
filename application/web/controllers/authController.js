@@ -8,7 +8,7 @@ exports.isLoggedIn = function(req, res, next){
 };
   
 exports.isAdmin = function(req, res, next) {
-  if(req.user.isAdmin) {
+  if(['ROOT', 'ADMIN'].includes(req.user.role)) {
     next();
   } else {
     req.flash('error', 'MUST_BE_ADMIN');

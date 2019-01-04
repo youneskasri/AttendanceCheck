@@ -6,7 +6,7 @@ const express = require('express'),
 const scannerController = require("../controllers/scannerController");
 const dataController = require("../controllers/dataController");
 const configurationController = require("../controllers/configurationController");
-const { isLoggedIn } = require("../controllers/authController");
+const { isLoggedIn, isAdmin } = require("../controllers/authController");
 
 /* Login & Logout */
 router.get('/login', showLoginPage)
@@ -20,9 +20,10 @@ router.use(isLoggedIn)
 	.get('/export/:format', catchErrors(dataController.exportDataToFormat));
 
 router /* Protected Routes, Need Login */
-	.get('/logs', isLoggedIn, configurationController.showLogs)
-	.get('/memory', isLoggedIn, configurationController.getMemoryUsage)
-	.get('/memory/graph', isLoggedIn, configurationController.showMemoryUsageGraph);
+	.use(isAdmin)
+	.get('/logs', configurationController.showLogs)
+	.get('/memory', configurationController.getMemoryUsage)
+	.get('/memory/graph', configurationController.showMemoryUsageGraph);
 	
 
 function showLoginPage(req, res, next) { return res.render("login"); }

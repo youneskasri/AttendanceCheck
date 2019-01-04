@@ -27,13 +27,20 @@
     
     <ul class="navbar-nav ml-auto">
       {{#if currentUser}}
-        {{#cond role '===' true}}
+        {{#cond showAdmin '==' "true" }}
+        {{!-- Mochkila had 9adiya, hide selon roles fl front end --}}
           <li class="nav-item">
               <a class="btn btn-warning" href="/logs">
                 <i class="fas fa-cogs"></i> <span data-i18n="CONFIGURATION">Configuration</span>
               </a>
           </li>
-        {{/cond}}
+
+          {{#if showAdmin}}
+            <script>
+              alert("showAdmin")
+            </script>
+          {{/if}}
+        {{/cond }}
         <!-- Volume -->
         <li class="nav-item">
           {{#cond volume '===' 'ON'}}
