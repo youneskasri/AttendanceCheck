@@ -1,4 +1,12 @@
-[] Nsayeb CRUD utilisateurs : En cours List/New/Create
+[] CSS Validation [Front End] for forms
+
+[] 
+
+[] Nsayeb CRUD utilisateurs : 
+	[X] List/New/Create
+	[X] Activate/Disable Account
+	[] Auth Only for ACTIVE accounts 
+ 	[] DELETE effectove account [only for ROOT] ??
 [] Validation f Inputs
 	[X] Unique --> OK
 	[X] Confirm Password 
@@ -15,7 +23,8 @@
 
 [] Kemel Hadak Crypto
 
-[] Delete Employee (pr admin slmnt effective deletion)
+[] Delete Employee [ONLY FOR ROOT]
+
 [X] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
 
 [] Role n PUBLIC ( no auth), USER, ADMIN
@@ -29,10 +38,13 @@ USER can :
 
 
 Roles : 
-- ROOT ( tous les droits: ANA, suppression effective, vider la BD)
+- ROOT ( tous les droits: ANA, suppression effective)
+	Darori Ze3ma ? -- security 
+	vider la BD = Je pense hadchi ndiro b Shell directement o safi?
 - ADMIN ( Gestion utilisateurs + SUPERVISOR)
 x SUPERVISOR ( Gestion Employés, + SIMPLE ) # DANS VERSION 2 InchaAllah
 - SIMPLE ( Pointage présence, Cartes etc... )
+
  
 
 

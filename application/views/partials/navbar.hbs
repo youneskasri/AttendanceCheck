@@ -27,7 +27,7 @@
     
     <ul class="navbar-nav ml-auto">
       {{#if currentUser}}
-        {{#cond isAdmin '===' true}}
+        {{#cond role '===' true}}
           <li class="nav-item">
               <a class="btn btn-warning" href="/logs">
                 <i class="fas fa-cogs"></i> <span data-i18n="CONFIGURATION">Configuration</span>

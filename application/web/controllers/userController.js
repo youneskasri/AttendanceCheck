@@ -49,6 +49,20 @@ exports.update = async (req, res, next) => {
     res.send("updated user");
 };
 
+exports.enableDisable = async (req, res, next) => {
+    const { id } = req.params;
+    const { enable, disable } = req.body;
+
+    if (enable) {
+        await User.enableAccount({ _id : id });
+    } else if (disable) {
+        await User.disableAccount({ _id: id });
+    } else {
+        req.flash("error", "ERROR_WHILE_PROCESSING");
+    }
+    res.redirect("/users");
+};
+
 exports.remove = async (req, res, next) => {
     res.send("removed user");
-}
+};

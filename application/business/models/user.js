@@ -13,5 +13,13 @@ User.findAllWithoutPassword = (criteria = {}) => {
     return User.find(criteria).select("-password").exec();
 }
 
+User.enableAccount = (_id) => {
+    return User.update({ _id }, { active: true });
+};
+
+User.disableAccount = (_id) => {
+    return User.update({ _id}, { active: false });
+};
+
 
 module.exports = User;

@@ -15,7 +15,7 @@
         <div class="float-right">
             <a href="/users/new" class="btn text-dark btn-warning"><i class="fa fa-plus"></i> <span data-i18n="ADD_USER">Add user</span></a>
         </div>
-        <table class="table table-dark table-hover">
+        <table class="table table-dark table-bordered table-hover">
             <thead>
                 <tr>                    
                     <th data-i18n="USERNAME">Username</th>
@@ -23,6 +23,8 @@
                     <th data-i18n="CIN">CIN</th>
                     {{!-- <th data-i18n="PHONE">Tel</th> --}}
                     <th data-i18n="EMAIL">Email</th>
+                    <th data-i18n="STATE">State</th>
+                    <th></th> 
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +34,28 @@
                     <td>{{ role }}</td>
                     <td>{{ CIN }}</td>
                     <td>{{ email }}</td>
+                    <td class="font-weight-bold h4">
+                       {{#if active }} 
+                            <span class="text-success">Enabled</span>
+                        {{else }}
+                            <span class="text-danger">Disabled</span>
+                        {{/if }}
+                    </td>
+                    <td>                        
+                        <form action="/users/{{ _id }}/active" method="POST" class="p-0 m-0">
+                            {{#if active }}
+                                <input type="hidden" name="disable" value="1" />
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-times"> </i>
+                                </button>                            
+                            {{else }}
+                                <input type="hidden" name="enable" value="1" />                                
+                                <button type="submit" class="btn btn-sm btn-light pl-1 pr-2">
+                                    <i class="fas fa-lock-open"></i>
+                                </button>                                                        
+                            {{/if }}
+                        </form>                        
+                    </td>
                 </tr>
                 {{/each}}               
             </tbody>
