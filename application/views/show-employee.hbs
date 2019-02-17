@@ -31,6 +31,8 @@
           </div>
       </div> 
 
+    {{> takePictureModal }}
+    
     {{> scripts}}
   
     <script>
@@ -45,41 +47,11 @@
 <script type="text/javascript" src="/javascripts/show-emp-find-last-attendance.js"></script>  
     
 
-<div class="modal" id="takePictureModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-         <h3>Set a new profile image</h3>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <video id="faceVideo" width="100%" muted>Video stream not available.</video>
-        
-        <button id="savePicture" class="btn btn-dark">Save</button>
-  
 
 
-         <canvas class="d-none" id="todaysPictureCanvas" width="400" height="300" 
-            data-toggle="tooltip" title="Today's picture" data-placement="bottom"></canvas>
-
-          <img src=""  width="200" id="todaysPicture" alt=""/>
-        
-        <!-- Scripts pr : Set New Profile Image -->
-        <script src="/javascripts/facecamera.js"></script>
-        <script src="/javascripts/set-profile-image.js"></script>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
+  <!-- Scripts pr : Set New Profile Image -->
+  <script src="/javascripts/facecamera.js"></script>
+  <script src="/javascripts/set-profile-image.js"></script>
   
   <!-- Script: Show Attendance Modal -->
   <script type="text/javascript" src="/javascripts/show-attendance-modal.js"></script>
@@ -97,7 +69,7 @@ document.querySelector(".pagination").hei
       window.scrollTo(0, document.querySelector(".pagination").scrollHeight+2000);
        window.scrollTo(0, document.querySelector(".pagination").scrollHeight+2000);
     }
-   
+
     });
   </script>
   </body>

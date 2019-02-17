@@ -29,6 +29,10 @@
 
 [X] Ndir User f MongoDB with password & mdp !! SECURITY stand point 
 
+
+[] Traduction :
+- Set a new Profile Image, Save: Kan le script I18N ti ji avant include partial. #Fixed
+
 [] Role n PUBLIC ( no auth), USER, ADMIN
 PUBLIC can :
 	Scanner
