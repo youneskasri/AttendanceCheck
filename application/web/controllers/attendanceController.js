@@ -50,6 +50,7 @@ function linkEmployeeToAttendance(attendance) {
 	return Employee.findByCIN(attendance.CIN)
 	.then(employee => {
 		let attendanceWithEmployeeData = {
+			idEmployee: employee._id,
 			CIN: employee.CIN,
 			firstName: employee.firstName,
 			lastName: employee.lastName,
