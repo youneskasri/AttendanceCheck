@@ -1,3 +1,7 @@
+# Screenshots
+![](https://raw.githubusercontent.com/youneskasri/AttendanceCheck/master/Img.png)
+![](https://raw.githubusercontent.com/youneskasri/AttendanceCheck/master/Img%200.png)
+![](https://raw.githubusercontent.com/youneskasri/AttendanceCheck/master/Img%201.png)
 # Consigne avant de Runner Tests avec Selenium :
 Ndir Language Français, b/C test suite enregistré avec des xpath mnin kan dakchi en français.
     **Liste des Tests à Réaliser Manuellement**
